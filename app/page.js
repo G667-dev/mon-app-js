@@ -53,7 +53,7 @@ let age = today.getFullYear() - birth.getFullYear();
 const monthDiff = today.getMonth() - birth.getMonth();
 if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) age--;
 return age >= 10 && age <= 120 ? age : null;
-} catch { return null; }
+} catch (e) { return null; }
 }
 
 function isProfileComplete(profile) {
@@ -96,7 +96,7 @@ try {
 const d = new Date(dateStr);
 if (isNaN(d.getTime())) return null;
 return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-} catch { return null; }
+} catch (e) { return null; }
 }
 
 function getTodayMeals(meals) {
@@ -124,7 +124,7 @@ const date = new Date(y, m - 1, d);
 const dayNames = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
 const monthNames = ["jan.", "fév.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."];
 return `${dayNames[date.getDay()]} ${d} ${monthNames[date.getMonth()]}`;
-} catch { return dateKey; }
+} catch (e) { return dateKey; }
 }
 
 function formatFullDate() {
@@ -150,7 +150,7 @@ cutoff.setDate(cutoff.getDate() - HISTORY_DAYS);
 cutoff.setHours(0, 0, 0, 0);
 return meals.filter((m) => {
 if (!m || !m.date) return false;
-try { const d = new Date(m.date); return !isNaN(d.getTime()) && d >= cutoff; } catch { return false; }
+try { const d = new Date(m.date); return !isNaN(d.getTime()) && d >= cutoff; } catch (e) { return false; }
 });
 }
 
@@ -193,7 +193,7 @@ return { current, best: Math.max(current, calcBestStreak(sessionDays)) };
 
 function calcBestStreak(daySet) {
 if (daySet.size === 0) return 0;
-const sorted = […daySet].sort();
+const sorted = [...daySet].sort();
 let best = 1, cur = 1;
 for (let i = 1; i < sorted.length; i++) {
 const prev = new Date(sorted[i - 1]);
@@ -237,7 +237,7 @@ return !prs[exerciseId] || tonnage > prs[exerciseId].tonnage;
 
 function getLastWeightForExercise(exerciseId, sessions) {
 if (!Array.isArray(sessions)) return [];
-const sorted = […sessions].sort((a, b) => new Date(b.startedAt) - new Date(a.startedAt));
+const sorted = [...sessions].sort((a, b) => new Date(b.startedAt) - new Date(a.startedAt));
 for (const s of sorted) {
 const ex = (s.exercises || []).find((e) => e.exerciseId === exerciseId);
 if (ex && ex.sets && ex.sets.length > 0) {
@@ -338,7 +338,7 @@ function AppProvider({ children }) {
 const [state, setState] = useState(() => {
 const saved = loadFromStorage();
 if (saved && typeof saved === "object") {
-const merged = { …DEFAULT_STATE, …saved };
+const merged = { ...DEFAULT_STATE, ...saved };
 merged.meals = cleanOldMeals(merged.meals);
 if (!merged.weightLog) merged.weightLog = [];
 if (!merged.bestStreak) merged.bestStreak = 0;
@@ -346,7 +346,7 @@ if (!merged.personalRecords) merged.personalRecords = {};
 if (!merged.dismissedSuggestions) merged.dismissedSuggestions = {};
 return merged;
 }
-return { …DEFAULT_STATE };
+return { ...DEFAULT_STATE };
 });
 const [activeTab, setActiveTab] = useState("home");
 
@@ -354,7 +354,7 @@ useEffect(() => { saveToStorage(state); }, [state]);
 
 const updateState = useCallback((partial) => {
 setState((prev) => {
-const next = typeof partial === "function" ? partial(prev) : { …prev, …partial };
+const next = typeof partial === "function" ? partial(prev) : { ...prev, ...partial };
 return next;
 });
 }, []);
@@ -511,7 +511,7 @@ const MAIN_GROUP_LABELS = { musculation: "Musculation", cardio: "Cardio", crossf
 const MAIN_GROUP_OPTIONS = ["musculation", "cardio", "crossfit"];
 
 function getAllExercises(customExercises) {
-return […EXERCISE_DB, …(Array.isArray(customExercises) ? customExercises : [])];
+return [...EXERCISE_DB, ...(Array.isArray(customExercises) ? customExercises : [])];
 }
 
 function searchExercises(query, allExercises) {
@@ -520,7 +520,7 @@ if (!query || typeof query !== "string") return list;
 const terms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
 if (terms.length === 0) return list;
 return list.filter((ex) => {
-const haystack = [ex.name, …(ex.synonyms || []), ex.muscle_group, ex.type, ex.equipment || ""].join(" ").toLowerCase();
+const haystack = [ex.name, ...(ex.synonyms || []), ex.muscle_group, ex.type, ex.equipment || ""].join(" ").toLowerCase();
 return terms.every((t) => haystack.includes(t));
 });
 }
@@ -537,7 +537,7 @@ const CARDIO_METS = { "car-01": 9.8, "car-02": 4.5, "car-03": 7.5, "car-04": 7.0
 function hmsToSeconds(h, m, s) { return (Number(h) || 0) * 3600 + (Number(m) || 0) * 60 + (Number(s) || 0); }
 function secondsToHMS(t) { const total = Math.max(0, Math.round(Number(t) || 0)); return { h: Math.floor(total / 3600), m: Math.floor((total % 3600) / 60), s: total % 60 }; }
 function autoCalcCardio(cardio) {
-const c = { …cardio };
+const c = { ...cardio };
 const dur = Number(c.durationSecs) || 0;
 const dist = Number(c.distance) || 0;
 if (dur > 0 && dist > 0) { c.speed = (dist / (dur / 3600)).toFixed(1); c.allure = ((dur / 60) / dist).toFixed(1); }
@@ -706,7 +706,7 @@ return (
 </div>
 <div className="nutri-field-wrap">
 <div className="nutri-field-label">Description</div>
-<input className="input input-full" type="text" placeholder="Courte explication…" value={description} onChange={(e) => setDescription(e.target.value)} maxLength={120} />
+<input className="input input-full" type="text" placeholder="Courte explication..." value={description} onChange={(e) => setDescription(e.target.value)} maxLength={120} />
 </div>
 <div className="nutri-field-wrap">
 <div className="nutri-field-label">Synonymes <span style={{ opacity: 0.5, fontSize: 10 }}>(virgules)</span></div>
@@ -762,7 +762,7 @@ return (
 <>
 <div className="train-search-wrap">
 <svg className="train-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" /></svg>
-<input className="train-search-input" type="text" placeholder="Rechercher un exercice…" value={search} onChange={(e) => setSearch(e.target.value)} />
+<input className="train-search-input" type="text" placeholder="Rechercher un exercice..." value={search} onChange={(e) => setSearch(e.target.value)} />
 {search && <button className="train-search-clear" onClick={() => setSearch("")}>✕</button>}
 </div>
 {onCreateExercise && <button className="train-text-link" onClick={onCreateExercise}>+ Créer un exercice</button>}
@@ -819,7 +819,7 @@ activity: state?.userProfile?.activity || "",
 goal: "",
 });
 
-const update = (field, val) => setForm((p) => ({ …p, [field]: val }));
+const update = (field, val) => setForm((p) => ({ ...p, [field]: val }));
 const parseNum = (v) => { const n = Number(v); return Number.isFinite(n) && n > 0 ? n : null; };
 
 const goNext = () => { setAnim("ob-exit"); setTimeout(() => { setStep((s) => s + 1); setAnim("ob-enter"); }, 200); };
@@ -842,8 +842,8 @@ else if (form.goal === "gain") { calTarget = Math.round(tdee + 200); protTarget 
 else { calTarget = Math.round(tdee); protTarget = Math.round(p.weight * 1.8); }
 }
 updateState((prev) => ({
-…prev,
-user: { …prev.user, name: p.name },
+...prev,
+user: { ...prev.user, name: p.name },
 userProfile: p,
 dailyCalorieTarget: calTarget,
 dailyProteinTarget: protTarget,
@@ -876,7 +876,7 @@ return (
         <h2 className="ob-step-title">Qui es-tu ?</h2>
         <div className="ob-fields">
           <div className="nutri-field-wrap"><div className="nutri-field-label">Prénom</div>
-            <input className="input input-full" type="text" placeholder="Ton prénom…" value={form.name} onChange={(e) => update("name", e.target.value)} maxLength={30} autoFocus />
+            <input className="input input-full" type="text" placeholder="Ton prénom..." value={form.name} onChange={(e) => update("name", e.target.value)} maxLength={30} autoFocus />
           </div>
           <div className="nutri-field-wrap"><div className="nutri-field-label">Date de naissance</div>
             <input className="input input-full" type="date" value={form.birthdate} onChange={(e) => update("birthdate", e.target.value)} max={new Date().toISOString().split("T")[0]} />
@@ -1005,13 +1005,13 @@ const [protInput, setProtInput] = useState(protTarget ? String(protTarget) : "")
 const [protSaved, setProtSaved] = useState(false);
 const suggestion = tdee ? Math.round(tdee - 300) : null;
 
-const handleSaveCalTarget = () => { const val = Number(calInput); if (!Number.isFinite(val) || val < 800 || val > 8000) return; updateState((prev) => ({ …prev, dailyCalorieTarget: Math.round(val) })); setEditingCal(false); setCalSaved(true); setTimeout(() => setCalSaved(false), 2000); };
-const handleClearCal = () => { updateState((prev) => ({ …prev, dailyCalorieTarget: null })); setCalInput(""); setEditingCal(false); };
-const handleSaveProtTarget = () => { const val = Number(protInput); if (!Number.isFinite(val) || val < 10 || val > 500) return; updateState((prev) => ({ …prev, dailyProteinTarget: Math.round(val) })); setEditingProt(false); setProtSaved(true); setTimeout(() => setProtSaved(false), 2000); };
-const handleClearProt = () => { updateState((prev) => ({ …prev, dailyProteinTarget: null })); setProtInput(""); setEditingProt(false); };
+const handleSaveCalTarget = () => { const val = Number(calInput); if (!Number.isFinite(val) || val < 800 || val > 8000) return; updateState((prev) => ({ ...prev, dailyCalorieTarget: Math.round(val) })); setEditingCal(false); setCalSaved(true); setTimeout(() => setCalSaved(false), 2000); };
+const handleClearCal = () => { updateState((prev) => ({ ...prev, dailyCalorieTarget: null })); setCalInput(""); setEditingCal(false); };
+const handleSaveProtTarget = () => { const val = Number(protInput); if (!Number.isFinite(val) || val < 10 || val > 500) return; updateState((prev) => ({ ...prev, dailyProteinTarget: Math.round(val) })); setEditingProt(false); setProtSaved(true); setTimeout(() => setProtSaved(false), 2000); };
+const handleClearProt = () => { updateState((prev) => ({ ...prev, dailyProteinTarget: null })); setProtInput(""); setEditingProt(false); };
 
 const dismissSuggestion = (id) => {
-updateState((prev) => ({ …prev, dismissedSuggestions: { …(prev.dismissedSuggestions || {}), [id]: Date.now() } }));
+updateState((prev) => ({ ...prev, dismissedSuggestions: { ...(prev.dismissedSuggestions || {}), [id]: Date.now() } }));
 };
 
 // Weekly activity dots (Mon-Sun)
@@ -1235,7 +1235,7 @@ const [prToast, setPrToast] = useState(null);
 const nav = (v, data = null) => { setViewAnim("page-out"); setTimeout(() => { setView(v); setViewData(data); setViewAnim("page-in"); }, 120); };
 const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(""), 2200); };
 
-const handleCreateExercise = (ex) => { updateState((prev) => ({ …prev, customExercises: […(prev.customExercises || []), ex] })); setShowCreateEx(false); showToast(`${ex.name} créé`); };
+const handleCreateExercise = (ex) => { updateState((prev) => ({ ...prev, customExercises: [...(prev.customExercises || []), ex] })); setShowCreateEx(false); showToast(`${ex.name} créé`); };
 
 useEffect(() => {
 if (!activeSession?.startedAt) return;
@@ -1248,44 +1248,44 @@ useEffect(() => {
 if (!restTimer) return;
 if (restTimer.remaining <= 0) {
 setRestTimer(null);
-try { navigator.vibrate && navigator.vibrate([200, 100, 200]); } catch {}
+try { navigator.vibrate && navigator.vibrate([200, 100, 200]); } catch (e) {}
 return;
 }
-const id = setTimeout(() => setRestTimer((prev) => prev ? { …prev, remaining: prev.remaining - 1 } : null), 1000);
+const id = setTimeout(() => setRestTimer((prev) => prev ? { ...prev, remaining: prev.remaining - 1 } : null), 1000);
 return () => clearTimeout(id);
 }, [restTimer]);
 
 // PROGRAM CRUD
 const startCreate = () => { setProgName(""); setProgExercises([]); setProgError(""); nav("create"); };
-const addProgEx = (ex) => { if (progExercises.some((e) => e.exerciseId === ex.id)) return; setProgExercises((p) => […p, { exerciseId: ex.id, name: ex.name, category: ex.category, sets: ex.category === "cardio" ? 0 : 3, reps: ex.category === "cardio" ? 0 : 10, restTime: 90 }]); };
+const addProgEx = (ex) => { if (progExercises.some((e) => e.exerciseId === ex.id)) return; setProgExercises((p) => [...p, { exerciseId: ex.id, name: ex.name, category: ex.category, sets: ex.category === "cardio" ? 0 : 3, reps: ex.category === "cardio" ? 0 : 10, restTime: 90 }]); };
 const removeProgEx = (exId) => setProgExercises((p) => p.filter((e) => e.exerciseId !== exId));
-const updateProgEx = (exId, field, val) => setProgExercises((p) => p.map((e) => e.exerciseId === exId ? { …e, [field]: val } : e));
+const updateProgEx = (exId, field, val) => setProgExercises((p) => p.map((e) => e.exerciseId === exId ? { ...e, [field]: val } : e));
 
 const saveProgram = () => {
 const n = progName.trim();
 if (!n) { setProgError("Le nom est obligatoire"); return; }
 if (progExercises.length === 0) { setProgError("Ajoute au moins un exercice"); return; }
-updateState((prev) => ({ …prev, programs: […(prev.programs || []), { id: generateId(), name: n, exercises: progExercises }] }));
+updateState((prev) => ({ ...prev, programs: [...(prev.programs || []), { id: generateId(), name: n, exercises: progExercises }] }));
 nav("home"); showToast("Programme créé");
 };
 
-const deleteProgram = (id) => { updateState((prev) => ({ …prev, programs: (prev.programs || []).filter((p) => p.id !== id) })); nav("home"); showToast("Programme supprimé"); };
-const duplicateProgram = (prog) => { updateState((prev) => ({ …prev, programs: […(prev.programs || []), { …prog, id: generateId(), name: prog.name + " (copie)", exercises: prog.exercises.map((e) => ({ …e })) }] })); showToast("Programme dupliqué"); };
+const deleteProgram = (id) => { updateState((prev) => ({ ...prev, programs: (prev.programs || []).filter((p) => p.id !== id) })); nav("home"); showToast("Programme supprimé"); };
+const duplicateProgram = (prog) => { updateState((prev) => ({ ...prev, programs: [...(prev.programs || []), { ...prog, id: generateId(), name: prog.name + " (copie)", exercises: prog.exercises.map((e) => ({ ...e })) }] })); showToast("Programme dupliqué"); };
 
 const updateProgramEx = (progId, exId, field, val) => {
-updateState((prev) => ({ …prev, programs: (prev.programs || []).map((p) => p.id !== progId ? p : { …p, exercises: p.exercises.map((e) => (e.exerciseId || e.id) === exId ? { …e, [field]: val } : e) }) }));
-setViewData((prev) => { if (!prev || prev.id !== progId) return prev; return { …prev, exercises: prev.exercises.map((e) => (e.exerciseId || e.id) === exId ? { …e, [field]: val } : e) }; });
+updateState((prev) => ({ ...prev, programs: (prev.programs || []).map((p) => p.id !== progId ? p : { ...p, exercises: p.exercises.map((e) => (e.exerciseId || e.id) === exId ? { ...e, [field]: val } : e) }) }));
+setViewData((prev) => { if (!prev || prev.id !== progId) return prev; return { ...prev, exercises: prev.exercises.map((e) => (e.exerciseId || e.id) === exId ? { ...e, [field]: val } : e) }; });
 };
 
 const removeProgramEx = (progId, exId) => {
-updateState((prev) => ({ …prev, programs: (prev.programs || []).map((p) => p.id !== progId ? p : { …p, exercises: p.exercises.filter((e) => (e.exerciseId || e.id) !== exId) }) }));
-setViewData((prev) => { if (!prev || prev.id !== progId) return prev; return { …prev, exercises: prev.exercises.filter((e) => (e.exerciseId || e.id) !== exId) }; });
+updateState((prev) => ({ ...prev, programs: (prev.programs || []).map((p) => p.id !== progId ? p : { ...p, exercises: p.exercises.filter((e) => (e.exerciseId || e.id) !== exId) }) }));
+setViewData((prev) => { if (!prev || prev.id !== progId) return prev; return { ...prev, exercises: prev.exercises.filter((e) => (e.exerciseId || e.id) !== exId) }; });
 showToast("Exercice retiré");
 };
 
 // SESSION
 const startFreeSession = () => {
-updateState((prev) => ({ …prev, activeSession: { id: generateId(), type: "free", programId: null, programName: null, startedAt: new Date().toISOString(), exercises: [] } }));
+updateState((prev) => ({ ...prev, activeSession: { id: generateId(), type: "free", programId: null, programName: null, startedAt: new Date().toISOString(), exercises: [] } }));
 nav("session");
 };
 
@@ -1307,7 +1307,7 @@ cardio: isCardio ? { durationSecs: 0, distance: "", speed: "", allure: "", bpm: 
 };
 });
 setRestModeOn(prog.restMode !== false);
-updateState((prev) => ({ …prev, activeSession: { id: generateId(), type: "program", programId: prog.id, programName: prog.name, startedAt: new Date().toISOString(), exercises, originalTemplate: origTemplate } }));
+updateState((prev) => ({ ...prev, activeSession: { id: generateId(), type: "program", programId: prog.id, programName: prog.name, startedAt: new Date().toISOString(), exercises, originalTemplate: origTemplate } }));
 nav("session");
 };
 
@@ -1320,22 +1320,22 @@ id: generateId(), exerciseId: ex.id, name: ex.name, category: ex.category, restT
 sets: isCardio ? [] : [{ reps: 10, weight: lastSets[0]?.weight || "", done: false, lastWeight: lastSets[0]?.weight || null }],
 cardio: isCardio ? { durationSecs: 0, distance: "", speed: "", allure: "", bpm: "" } : null,
 };
-updateState((prev) => ({ …prev, activeSession: { …prev.activeSession, exercises: […(prev.activeSession?.exercises || []), newEx] } }));
+updateState((prev) => ({ ...prev, activeSession: { ...prev.activeSession, exercises: [...(prev.activeSession?.exercises || []), newEx] } }));
 nav("session"); showToast(`${ex.name} ajouté`);
 };
 
 const updateSessionEx = (exSessId, updater) => {
 updateState((prev) => {
 if (!prev.activeSession) return prev;
-return { …prev, activeSession: { …prev.activeSession, exercises: prev.activeSession.exercises.map((e) => e.id === exSessId ? (typeof updater === "function" ? updater(e) : { …e, …updater }) : e) } };
+return { ...prev, activeSession: { ...prev.activeSession, exercises: prev.activeSession.exercises.map((e) => e.id === exSessId ? (typeof updater === "function" ? updater(e) : { ...e, ...updater }) : e) } };
 });
 };
 
-const removeSessionEx = (exSessId) => { updateState((prev) => { if (!prev.activeSession) return prev; return { …prev, activeSession: { …prev.activeSession, exercises: prev.activeSession.exercises.filter((e) => e.id !== exSessId) } }; }); };
+const removeSessionEx = (exSessId) => { updateState((prev) => { if (!prev.activeSession) return prev; return { ...prev, activeSession: { ...prev.activeSession, exercises: prev.activeSession.exercises.filter((e) => e.id !== exSessId) } }; }); };
 
-const addSet = (exSessId) => { updateSessionEx(exSessId, (e) => { const last = e.sets[e.sets.length - 1]; return { …e, sets: […e.sets, { reps: last?.reps || 10, weight: last?.weight || "", done: false }] }; }); };
-const removeSet = (exSessId) => { updateSessionEx(exSessId, (e) => ({ …e, sets: e.sets.length > 1 ? e.sets.slice(0, -1) : e.sets })); };
-const updateSet = (exSessId, si, field, val) => { updateSessionEx(exSessId, (e) => ({ …e, sets: e.sets.map((s, i) => i === si ? { …s, [field]: val } : s) })); };
+const addSet = (exSessId) => { updateSessionEx(exSessId, (e) => { const last = e.sets[e.sets.length - 1]; return { ...e, sets: [...e.sets, { reps: last?.reps || 10, weight: last?.weight || "", done: false }] }; }); };
+const removeSet = (exSessId) => { updateSessionEx(exSessId, (e) => ({ ...e, sets: e.sets.length > 1 ? e.sets.slice(0, -1) : e.sets })); };
+const updateSet = (exSessId, si, field, val) => { updateSessionEx(exSessId, (e) => ({ ...e, sets: e.sets.map((s, i) => i === si ? { ...s, [field]: val } : s) })); };
 
 const toggleSetDone = (exSessId, si) => {
 const curEx = activeSession?.exercises?.find((e) => e.id === exSessId);
@@ -1360,12 +1360,12 @@ setTimeout(() => setPrToast(null), 3000);
 }
 };
 
-const updateCardio = (exSessId, field, val) => { updateSessionEx(exSessId, (e) => { const c = { …(e.cardio || {}), [field]: val }; return { …e, cardio: autoCalcCardio(c) }; }); };
+const updateCardio = (exSessId, field, val) => { updateSessionEx(exSessId, (e) => { const c = { ...(e.cardio || {}), [field]: val }; return { ...e, cardio: autoCalcCardio(c) }; }); };
 const updateCardioDuration = (exSessId, part, val) => {
 updateSessionEx(exSessId, (e) => {
-const c = { …(e.cardio || {}) }; const cur = secondsToHMS(c.durationSecs); const v = Math.max(0, Number(val) || 0);
+const c = { ...(e.cardio || {}) }; const cur = secondsToHMS(c.durationSecs); const v = Math.max(0, Number(val) || 0);
 if (part === "h") cur.h = Math.min(v, 23); if (part === "m") cur.m = Math.min(v, 59); if (part === "s") cur.s = Math.min(v, 59);
-c.durationSecs = hmsToSeconds(cur.h, cur.m, cur.s); return { …e, cardio: autoCalcCardio(c) };
+c.durationSecs = hmsToSeconds(cur.h, cur.m, cur.s); return { ...e, cardio: autoCalcCardio(c) };
 });
 };
 
@@ -1377,7 +1377,7 @@ const endedAt = new Date().toISOString();
 const duration = Math.round((new Date(endedAt).getTime() - new Date(activeSession.startedAt).getTime()) / 60000);
 const calories = calcSessionCalories(activeSession.exercises, profileForCalc);
 const changes = activeSession.type === "program" && activeSession.originalTemplate ? detectProgramChanges(activeSession.originalTemplate, activeSession.exercises) : [];
-const completed = { …activeSession, endedAt, duration, calories }; delete completed.originalTemplate;
+const completed = { ...activeSession, endedAt, duration, calories }; delete completed.originalTemplate;
 setFinishData({ completed, calories, changes }); setRestTimer(null);
 };
 
@@ -1385,9 +1385,9 @@ const confirmFinish = (saveChanges) => {
 if (!finishData) return;
 const { completed, changes } = finishData;
 updateState((prev) => {
-const next = { …prev, sessions: […(prev.sessions || []), completed], activeSession: null };
+const next = { ...prev, sessions: [...(prev.sessions || []), completed], activeSession: null };
 // Update PRs
-const prs = { …(prev.personalRecords || {}) };
+const prs = { ...(prev.personalRecords || {}) };
 (completed.exercises || []).forEach((ex) => {
 if (ex.category === "cardio") return;
 (ex.sets || []).filter((s) => s.done).forEach((s) => {
@@ -1402,29 +1402,29 @@ prs[ex.exerciseId] = { weight: w, reps: r, tonnage: t, date: completed.startedAt
 });
 next.personalRecords = prs;
 // Update streak
-const allSessions = […(prev.sessions || []), completed];
+const allSessions = [...(prev.sessions || []), completed];
 const s = calculateStreak(allSessions);
 next.bestStreak = Math.max(prev.bestStreak || 0, s.current);
 if (saveChanges && changes.length > 0 && completed.programId) {
-next.programs = (prev.programs || []).map((p) => p.id === completed.programId ? { …p, exercises: sessionToTemplate(completed.exercises) } : p);
+next.programs = (prev.programs || []).map((p) => p.id === completed.programId ? { ...p, exercises: sessionToTemplate(completed.exercises) } : p);
 }
 return next;
 });
 setFinishData(null); nav("home"); showToast("Séance terminée !");
 };
 
-const cancelSession = () => { updateState((prev) => ({ …prev, activeSession: null })); setRestTimer(null); setFinishData(null); nav("home"); };
+const cancelSession = () => { updateState((prev) => ({ ...prev, activeSession: null })); setRestTimer(null); setFinishData(null); nav("home"); };
 
 // History editing helpers
 const updateHistSession = (sessionId, updater) => {
-updateState((prev) => ({ …prev, sessions: (prev.sessions || []).map((s) => s.id === sessionId ? (typeof updater === "function" ? updater(s) : { …s, …updater }) : s) }));
-setViewData((prev) => { if (!prev || prev.id !== sessionId) return prev; return typeof updater === "function" ? updater(prev) : { …prev, …updater }; });
+updateState((prev) => ({ ...prev, sessions: (prev.sessions || []).map((s) => s.id === sessionId ? (typeof updater === "function" ? updater(s) : { ...s, ...updater }) : s) }));
+setViewData((prev) => { if (!prev || prev.id !== sessionId) return prev; return typeof updater === "function" ? updater(prev) : { ...prev, ...updater }; });
 };
-const deleteHistSession = (sessionId) => { updateState((prev) => ({ …prev, sessions: (prev.sessions || []).filter((s) => s.id !== sessionId) })); nav("home"); showToast("Séance supprimée"); };
-const removeHistEx = (sessionId, exSessId) => { updateHistSession(sessionId, (s) => ({ …s, exercises: s.exercises.filter((e) => e.id !== exSessId) })); showToast("Exercice retiré"); };
-const addHistSet = (sessionId, exSessId) => { updateHistSession(sessionId, (s) => ({ …s, exercises: s.exercises.map((e) => { if (e.id !== exSessId) return e; const last = e.sets[e.sets.length - 1]; return { …e, sets: […e.sets, { reps: last?.reps || 10, weight: last?.weight || "", done: true }] }; }) })); };
-const removeHistSet = (sessionId, exSessId) => { updateHistSession(sessionId, (s) => ({ …s, exercises: s.exercises.map((e) => { if (e.id !== exSessId || e.sets.length <= 1) return e; return { …e, sets: e.sets.slice(0, -1) }; }) })); };
-const updateHistSet = (sessionId, exSessId, si, field, val) => { updateHistSession(sessionId, (s) => ({ …s, exercises: s.exercises.map((e) => { if (e.id !== exSessId) return e; return { …e, sets: e.sets.map((set, i) => i === si ? { …set, [field]: val } : set) }; }) })); };
+const deleteHistSession = (sessionId) => { updateState((prev) => ({ ...prev, sessions: (prev.sessions || []).filter((s) => s.id !== sessionId) })); nav("home"); showToast("Séance supprimée"); };
+const removeHistEx = (sessionId, exSessId) => { updateHistSession(sessionId, (s) => ({ ...s, exercises: s.exercises.filter((e) => e.id !== exSessId) })); showToast("Exercice retiré"); };
+const addHistSet = (sessionId, exSessId) => { updateHistSession(sessionId, (s) => ({ ...s, exercises: s.exercises.map((e) => { if (e.id !== exSessId) return e; const last = e.sets[e.sets.length - 1]; return { ...e, sets: [...e.sets, { reps: last?.reps || 10, weight: last?.weight || "", done: true }] }; }) })); };
+const removeHistSet = (sessionId, exSessId) => { updateHistSession(sessionId, (s) => ({ ...s, exercises: s.exercises.map((e) => { if (e.id !== exSessId || e.sets.length <= 1) return e; return { ...e, sets: e.sets.slice(0, -1) }; }) })); };
+const updateHistSet = (sessionId, exSessId, si, field, val) => { updateHistSession(sessionId, (s) => ({ ...s, exercises: s.exercises.map((e) => { if (e.id !== exSessId) return e; return { ...e, sets: e.sets.map((set, i) => i === si ? { ...set, [field]: val } : set) }; }) })); };
 
 const toastEl = toast ? <div className="save-toast"><span className="status-dot status-ok" /><span>{toast}</span></div> : null;
 const createExModal = showCreateEx ? <CreateExerciseModal onSave={handleCreateExercise} onClose={() => setShowCreateEx(false)} /> : null;
@@ -1434,7 +1434,7 @@ const prOverlay = prToast ? (
 
 // ── HOME ──
 if (view === "home") {
-const sortedSessions = […sessions].sort((a, b) => new Date(b.startedAt) - new Date(a.startedAt));
+const sortedSessions = [...sessions].sort((a, b) => new Date(b.startedAt) - new Date(a.startedAt));
 return (
 <PageShell title="Training" subtitle="Programmes & sessions">
 {activeSession && <button className="train-banner" onClick={() => nav("session")}><span className="train-banner-dot" /><span className="train-banner-txt">Séance en cours - {formatTime(elapsed)}</span><span className="train-banner-arrow">Reprendre →</span></button>}
@@ -1473,7 +1473,7 @@ const selectedIds = progExercises.map((e) => e.exerciseId);
 return (
 <PageShell title="Nouveau programme" subtitle="Configure tes exercices">
 <button className="train-back" onClick={() => nav("home")}>← Retour</button>
-<div className="card"><div className="card-label">Nom du programme <span className="nutri-required">*</span></div><input className={`input input-full ${progError && !progName.trim() ? "input-error" : ""}`} type="text" placeholder="Ex : Push day, Full body…" value={progName} onChange={(e) => { setProgName(e.target.value); setProgError(""); }} maxLength={40} />{progError && <div className="nutri-error" style={{ marginTop: 6 }}>{progError}</div>}</div>
+<div className="card"><div className="card-label">Nom du programme <span className="nutri-required">*</span></div><input className={`input input-full ${progError && !progName.trim() ? "input-error" : ""}`} type="text" placeholder="Ex : Push day, Full body..." value={progName} onChange={(e) => { setProgName(e.target.value); setProgError(""); }} maxLength={40} />{progError && <div className="nutri-error" style={{ marginTop: 6 }}>{progError}</div>}</div>
 {progExercises.length > 0 && <div className="card"><div className="card-label">Exercices sélectionnés ({progExercises.length})</div><div className="train-prog-sel-list">{progExercises.map((ex) => { const isCardio = ex.category === "cardio"; return (<div key={ex.exerciseId} className="train-prog-sel-item"><div className="train-prog-sel-header"><span className="train-prog-sel-name">{ex.name}</span><button className="nutri-del-btn" onClick={() => removeProgEx(ex.exerciseId)}>×</button></div>{!isCardio ? (<div className="train-prog-sel-config"><div className="train-prog-sel-field"><label>Séries</label><input className="input train-prog-sel-input" type="number" inputMode="numeric" min={1} max={20} value={ex.sets || ""} onChange={(e) => updateProgEx(ex.exerciseId, "sets", Math.max(0, Number(e.target.value) || 0))} /></div><span className="train-prog-sel-x">×</span><div className="train-prog-sel-field"><label>Reps</label><input className="input train-prog-sel-input" type="number" inputMode="numeric" min={1} max={100} value={ex.reps || ""} onChange={(e) => updateProgEx(ex.exerciseId, "reps", Math.max(0, Number(e.target.value) || 0))} /></div></div>) : (<div className="train-prog-sel-note">Durée et distance saisies en séance</div>)}</div>); })}</div></div>}
 <div className="train-section-label">Ajouter des exercices au programme</div>
 <ExerciseCatalog onSelect={addProgEx} selectedIds={selectedIds} disabledIds={[]} allExercises={allExercises} onCreateExercise={() => setShowCreateEx(true)} />
@@ -1672,7 +1672,7 @@ const [showSuggestions, setShowSuggestions] = useState(false);
 const [editingSaved, setEditingSaved] = useState(null);
 const inputRef = useRef(null);
 
-const updateField = (field, val) => { setForm((p) => ({ …p, [field]: val })); setErrors((prev) => { const next = { …prev }; delete next[field]; return next; }); if (field === "name") setShowSuggestions(val.trim().length > 0); };
+const updateField = (field, val) => { setForm((p) => ({ ...p, [field]: val })); setErrors((prev) => { const next = { ...prev }; delete next[field]; return next; }); if (field === "name") setShowSuggestions(val.trim().length > 0); };
 const parseNum = (v) => { const n = Number(v); return Number.isFinite(n) && n >= 0 ? n : null; };
 const validate = () => { const errs = {}; if (!form.name.trim()) errs.name = "Le nom est obligatoire"; const cal = parseNum(form.calories); if (cal === null || cal <= 0) errs.calories = "Les calories sont obligatoires"; setErrors(errs); return Object.keys(errs).length === 0; };
 const showToastMsg = (msg, cal) => { setToast(cal ? `+${cal} kcal · ${msg}` : msg); setTimeout(() => setToast(""), 2500); };
@@ -1702,28 +1702,28 @@ const handleAdd = () => {
 if (!validate()) return;
 const meal = { name: form.name.trim(), calories: Math.round(parseNum(form.calories)), protein: Math.round(parseNum(form.protein) || 0), date: new Date().toISOString() };
 updateState((prev) => {
-const newMeals = cleanOldMeals([…(prev.meals || []), meal]);
+const newMeals = cleanOldMeals([...(prev.meals || []), meal]);
 const currentSaved = Array.isArray(prev.savedMeals) ? prev.savedMeals : [];
 const alreadySaved = currentSaved.some((s) => s.name.toLowerCase() === meal.name.toLowerCase());
-return { …prev, meals: newMeals, savedMeals: alreadySaved ? currentSaved : […currentSaved, { name: meal.name, calories: meal.calories, protein: meal.protein, date: meal.date }] };
+return { ...prev, meals: newMeals, savedMeals: alreadySaved ? currentSaved : [...currentSaved, { name: meal.name, calories: meal.calories, protein: meal.protein, date: meal.date }] };
 });
 setForm(emptyForm); setErrors({}); showToastMsg("Repas ajouté", meal.calories);
 };
 
 const handleQuickAdd = (saved) => {
-updateState((prev) => ({ …prev, meals: cleanOldMeals([…(prev.meals || []), { name: saved.name, calories: saved.calories, protein: saved.protein, date: new Date().toISOString() }]) }));
+updateState((prev) => ({ ...prev, meals: cleanOldMeals([...(prev.meals || []), { name: saved.name, calories: saved.calories, protein: saved.protein, date: new Date().toISOString() }]) }));
 showToastMsg(`${saved.name} ajouté`, saved.calories);
 };
 
-const handleDeleteSaved = (index) => { updateState((prev) => ({ …prev, savedMeals: (prev.savedMeals || []).filter((_, i) => i !== index) })); };
+const handleDeleteSaved = (index) => { updateState((prev) => ({ ...prev, savedMeals: (prev.savedMeals || []).filter((_, i) => i !== index) })); };
 const handleDeleteMeal = (index) => {
 const mealToRemove = todayMeals[index]; if (!mealToRemove) return; let found = false;
-updateState((prev) => ({ …prev, meals: (prev.meals || []).filter((m) => { if (!found && m.date === mealToRemove.date && m.name === mealToRemove.name) { found = true; return false; } return true; }) }));
+updateState((prev) => ({ ...prev, meals: (prev.meals || []).filter((m) => { if (!found && m.date === mealToRemove.date && m.name === mealToRemove.name) { found = true; return false; } return true; }) }));
 showToastMsg("Repas supprimé");
 };
 
 const handleUpdateSaved = (index, updates) => {
-updateState((prev) => ({ …prev, savedMeals: (prev.savedMeals || []).map((m, i) => i === index ? { …m, …updates } : m) }));
+updateState((prev) => ({ ...prev, savedMeals: (prev.savedMeals || []).map((m, i) => i === index ? { ...m, ...updates } : m) }));
 setEditingSaved(null); showToastMsg("Repas mis à jour");
 };
 
@@ -1910,13 +1910,13 @@ data.push({ dateKey: k, label: `${d.getDate()}/${d.getMonth() + 1}`, cal, hasMea
 }
 return data;
 }, [meals]);
-const maxCal = Math.max(…chartData.map((d) => d.cal), calTarget || 0, 1);
+const maxCal = Math.max(...chartData.map((d) => d.cal), calTarget || 0, 1);
 
 // Exercise progression
 const exerciseHistory = useMemo(() => {
 if (!selectedExercise) return [];
 const history = [];
-const sorted = […sessions].sort((a, b) => new Date(a.startedAt) - new Date(b.startedAt));
+const sorted = [...sessions].sort((a, b) => new Date(a.startedAt) - new Date(b.startedAt));
 sorted.forEach((s) => {
 const ex = (s.exercises || []).find((e) => e.exerciseId === selectedExercise);
 if (!ex || ex.category === "cardio") return;
@@ -1926,24 +1926,24 @@ const best = doneSets.reduce((b, st) => {
 const t = (Number(st.weight) || 0) * (Number(st.reps) || 0);
 return t > b.tonnage ? { weight: Number(st.weight), reps: Number(st.reps), tonnage: t } : b;
 }, { weight: 0, reps: 0, tonnage: 0 });
-history.push({ date: s.startedAt, …best });
+history.push({ date: s.startedAt, ...best });
 });
 return history;
 }, [selectedExercise, sessions]);
 
-const bestTonnage = exerciseHistory.length > 0 ? Math.max(…exerciseHistory.map((h) => h.tonnage)) : 0;
+const bestTonnage = exerciseHistory.length > 0 ? Math.max(...exerciseHistory.map((h) => h.tonnage)) : 0;
 
 // Unique exercises from sessions
 const usedExercises = useMemo(() => {
 const ids = new Set();
 sessions.forEach((s) => (s.exercises || []).forEach((e) => { if (e.category !== "cardio") ids.add(e.exerciseId); }));
-return […ids].map((id) => { const ex = allExercises.find((e) => e.id === id); return ex ? { id: ex.id, name: ex.name, muscle_group: ex.muscle_group } : null; }).filter(Boolean);
+return [...ids].map((id) => { const ex = allExercises.find((e) => e.id === id); return ex ? { id: ex.id, name: ex.name, muscle_group: ex.muscle_group } : null; }).filter(Boolean);
 }, [sessions, allExercises]);
 
 const handleAddWeight = () => {
 const w = Number(newWeight);
 if (!Number.isFinite(w) || w < 20 || w > 350) return;
-updateState((prev) => ({ …prev, weightLog: […(prev.weightLog || []), { date: new Date().toISOString(), weight: w }] }));
+updateState((prev) => ({ ...prev, weightLog: [...(prev.weightLog || []), { date: new Date().toISOString(), weight: w }] }));
 setNewWeight(""); setToast("Poids enregistré"); setTimeout(() => setToast(""), 2000);
 };
 
@@ -2056,7 +2056,7 @@ const streak = calculateStreak(sessions);
 
 const [form, setForm] = useState({ name: saved.name || "", birthdate: saved.birthdate || "", sex: saved.sex || "", height: saved.height || "", weight: saved.weight || "", activity: saved.activity || "" });
 const [saveMsg, setSaveMsg] = useState("");
-const update = (field, raw) => { setForm((prev) => ({ …prev, [field]: raw })); setSaveMsg(""); };
+const update = (field, raw) => { setForm((prev) => ({ ...prev, [field]: raw })); setSaveMsg(""); };
 const parseNum = (v) => { const n = Number(v); return Number.isFinite(n) && n > 0 ? n : null; };
 const age = calculateAge(form.birthdate);
 const profileForCalc = { name: form.name, birthdate: form.birthdate, sex: form.sex, height: parseNum(form.height), weight: parseNum(form.weight), activity: form.activity };
@@ -2066,7 +2066,7 @@ const tdee = complete ? calculateTDEE(profileForCalc) : null;
 
 const handleSave = () => {
 const toSave = { name: form.name.trim(), birthdate: form.birthdate, sex: form.sex, height: parseNum(form.height) || "", weight: parseNum(form.weight) || "", activity: form.activity };
-updateState((prev) => ({ …prev, user: { …prev.user, name: toSave.name }, userProfile: toSave }));
+updateState((prev) => ({ ...prev, user: { ...prev.user, name: toSave.name }, userProfile: toSave }));
 setSaveMsg("Profil enregistré"); setTimeout(() => setSaveMsg(""), 2500);
 };
 
@@ -2077,14 +2077,14 @@ Object.entries(prs).forEach(([exId, pr]) => {
 const ex = allExercises.find((e) => e.id === exId);
 const group = ex?.muscle_group || "autre";
 if (!groups[group]) groups[group] = [];
-groups[group].push({ …pr, exerciseId: exId, exerciseName: pr.exerciseName || ex?.name || exId });
+groups[group].push({ ...pr, exerciseId: exId, exerciseName: pr.exerciseName || ex?.name || exId });
 });
 return groups;
 }, [prs, allExercises]);
 
 return (
 <PageShell title="Profil" subtitle="Données & métabolisme">
-<div className="card"><div className="card-label">Prénom</div><input className="input input-full" type="text" placeholder="Ton prénom…" value={form.name} onChange={(e) => update("name", e.target.value)} maxLength={30} /></div>
+<div className="card"><div className="card-label">Prénom</div><input className="input input-full" type="text" placeholder="Ton prénom..." value={form.name} onChange={(e) => update("name", e.target.value)} maxLength={30} /></div>
 <div className="card"><div className="profile-row-2"><div className="profile-field"><div className="card-label">Date de naissance</div><input className="input input-full" type="date" value={form.birthdate} onChange={(e) => update("birthdate", e.target.value)} max={new Date().toISOString().split("T")[0]} />{age !== null && <div className="age-badge">{age} ans</div>}</div><div className="profile-field"><div className="card-label">Sexe</div><select className="input input-full select" value={form.sex} onChange={(e) => update("sex", e.target.value)}><option value="">-</option><option value="male">Homme</option><option value="female">Femme</option></select></div></div></div>
 <div className="card"><div className="profile-row-2"><div className="profile-field"><div className="card-label">Taille (cm)</div><input className="input input-full" type="number" placeholder="175" value={form.height} onChange={(e) => update("height", e.target.value)} min={80} max={260} inputMode="numeric" /></div><div className="profile-field"><div className="card-label">Poids (kg)</div><input className="input input-full" type="number" placeholder="75" value={form.weight} onChange={(e) => update("weight", e.target.value)} min={20} max={350} inputMode="numeric" /></div></div></div>
 <div className="card"><div className="card-label">Niveau d'activité quotidienne</div><p className="card-text" style={{ marginBottom: 10, fontSize: 12, opacity: 0.5 }}>Hors entraînements</p><select className="input input-full select" value={form.activity} onChange={(e) => update("activity", e.target.value)}><option value="">- Sélectionner -</option>{Object.entries(ACTIVITY_LABELS).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></div>
