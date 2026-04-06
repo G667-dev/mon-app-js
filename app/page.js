@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, createContext, useContext, useRef, us
 import React from “react”;
 
 // ─────────────────────────────────────────────
-// UTILS — localStorage (safe)
+// UTILS – localStorage (safe)
 // ─────────────────────────────────────────────
 const STORAGE_KEY = “test_app_data”;
 
@@ -27,7 +27,7 @@ console.warn(”[TEST] localStorage write error:”, e);
 }
 
 // ─────────────────────────────────────────────
-// UTILS — metabolism.js
+// UTILS – metabolism.js
 // ─────────────────────────────────────────────
 const ACTIVITY_MULTIPLIERS = {
 sedentary: 1.2,
@@ -84,7 +84,7 @@ return bmr * (ACTIVITY_MULTIPLIERS[profile.activity] || 1.2);
 }
 
 // ─────────────────────────────────────────────
-// UTILS — dates
+// UTILS – dates
 // ─────────────────────────────────────────────
 function getTodayKey() {
 const d = new Date();
@@ -167,7 +167,7 @@ return Object.values(groups).sort((a, b) => (a.dateKey > b.dateKey ? -1 : 1));
 }
 
 // ─────────────────────────────────────────────
-// UTILS — Streaks & PRs
+// UTILS – Streaks & PRs
 // ─────────────────────────────────────────────
 function calculateStreak(sessions) {
 if (!Array.isArray(sessions) || sessions.length === 0) return { current: 0, best: 0 };
@@ -248,7 +248,7 @@ return [];
 }
 
 // ─────────────────────────────────────────────
-// UTILS — Suggestions
+// UTILS – Suggestions
 // ─────────────────────────────────────────────
 function generateSuggestions(state) {
 const suggestions = [];
@@ -306,7 +306,7 @@ return suggestions.slice(0, 2);
 }
 
 // ─────────────────────────────────────────────
-// CONTEXT — Global State
+// CONTEXT – Global State
 // ─────────────────────────────────────────────
 const AppContext = createContext(null);
 
@@ -530,7 +530,7 @@ return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 }
 
 // ─────────────────────────────────────────────
-// UTILS — Cardio & Calories
+// UTILS – Cardio & Calories
 // ─────────────────────────────────────────────
 const CARDIO_METS = { “car-01”: 9.8, “car-02”: 4.5, “car-03”: 7.5, “car-04”: 7.0, “car-05”: 10.0, “car-06”: 9.0 };
 
@@ -692,7 +692,7 @@ return (
 <div className="nutri-field-wrap">
 <div className="nutri-field-label">Groupe musculaire <span className="nutri-required">*</span></div>
 <select className={`input input-full select ${error && isMuscu && !muscleGroup ? "input-error" : ""}`} value={muscleGroup} onChange={(e) => { setMuscleGroup(e.target.value); setError(””); }}>
-<option value="">— Choisir —</option>
+<option value="">– Choisir –</option>
 {MUSCU_GROUPS.map((mg) => <option key={mg} value={mg}>{MUSCLE_GROUP_LABELS[mg]}</option>)}
 </select>
 </div>
@@ -700,7 +700,7 @@ return (
 <div className="nutri-field-wrap">
 <div className="nutri-field-label">Équipement</div>
 <select className=“input input-full select” value={equipment} onChange={(e) => setEquipment(e.target.value)}>
-<option value="">— Optionnel —</option>
+<option value="">– Optionnel –</option>
 {EQUIPMENT_OPTIONS.filter(Boolean).map((eq) => <option key={eq} value={eq}>{eq}</option>)}
 </select>
 </div>
@@ -771,7 +771,7 @@ return (
 {MAIN_GROUP_OPTIONS.map((g) => <button key={g} className={`train-tab ${tab === g ? "train-tab-on train-tab-" + g : ""}`} onClick={() => setTab(g)}>{MAIN_GROUP_LABELS[g]}</button>)}
 </div>
 )}
-{isSearching && <div className="train-search-count">{filtered.length} résultat{filtered.length > 1 ? “s” : “”}{filtered.length === 0 && “ — essaie un autre mot”}</div>}
+{isSearching && <div className="train-search-count">{filtered.length} résultat{filtered.length > 1 ? “s” : “”}{filtered.length === 0 && “ – essaie un autre mot”}</div>}
 {!isSearching && tab === “musculation” && MUSCU_GROUPS.map((mg) => {
 if (!grouped[mg]?.length) return null;
 return <div key={mg} className="train-group-section"><div className="train-group-label">{MUSCLE_GROUP_LABELS[mg]}</div>{grouped[mg].map(renderExRow)}</div>;
@@ -788,7 +788,7 @@ return <div key={mg} className="train-group-section"><span className={`train-cat
 }
 
 // ─────────────────────────────────────────────
-// HOME PAGE — with Onboarding + Dashboard
+// HOME PAGE – with Onboarding + Dashboard
 // ─────────────────────────────────────────────
 function HomePage() {
 const { state, updateState, setActiveTab } = useAppContext();
@@ -860,7 +860,7 @@ return (
 
 ```
   <div className={`ob-step ${anim}`}>
-    {/* Step 0 — Welcome */}
+    {/* Step 0 – Welcome */}
     {step === 0 && (
       <div className="ob-welcome">
         <div className="ob-brand">HYTRX</div>
@@ -870,7 +870,7 @@ return (
       </div>
     )}
 
-    {/* Step 1 — Identity */}
+    {/* Step 1 – Identity */}
     {step === 1 && (
       <div className="ob-form">
         <h2 className="ob-step-title">Qui es-tu ?</h2>
@@ -896,7 +896,7 @@ return (
       </div>
     )}
 
-    {/* Step 2 — Measurements */}
+    {/* Step 2 – Measurements */}
     {step === 2 && (
       <div className="ob-form">
         <h2 className="ob-step-title">Ton physique</h2>
@@ -911,7 +911,7 @@ return (
           </div>
           <div className="nutri-field-wrap"><div className="nutri-field-label">Niveau d'activité quotidienne</div>
             <select className="input input-full select" value={form.activity} onChange={(e) => update("activity", e.target.value)}>
-              <option value="">— Sélectionner —</option>
+              <option value="">– Sélectionner –</option>
               {Object.entries(ACTIVITY_LABELS).map(([key, label]) => <option key={key} value={key}>{label}</option>)}
             </select>
           </div>
@@ -923,7 +923,7 @@ return (
       </div>
     )}
 
-    {/* Step 3 — Goal */}
+    {/* Step 3 – Goal */}
     {step === 3 && (
       <div className="ob-form">
         <h2 className="ob-step-title">Ton objectif</h2>
@@ -1083,7 +1083,7 @@ return (
   )}
 
   {/* ══════════════════════════════════════
-      HERO — Remaining Today (WOW moment)
+      HERO – Remaining Today (WOW moment)
       ══════════════════════════════════════ */}
   {(remainingCal !== null || remainingProt !== null) && !editingCal && !editingProt && (
     <div className={`dash-hero-card ${remainingCal !== null && remainingCal < 0 ? "dash-hero-card-over" : ""}`}>
@@ -1143,7 +1143,7 @@ return (
     </div>
   )}
 
-  {/* ── Single Sticky CTA — context-aware ── */}
+  {/* ── Single Sticky CTA – context-aware ── */}
   {!activeSession && !editingCal && !editingProt && (
     <div className="sticky-cta">
       {todayMeals.length === 0 ? (
@@ -1154,7 +1154,7 @@ return (
     </div>
   )}
 
-  {/* ── Objectives — compact, single column ── */}
+  {/* ── Objectives – compact, single column ── */}
   <div className="dash-section-label">Objectifs quotidiens</div>
   {!editingCal && !editingProt && (
     <div className="dash-obj-stack">
@@ -1191,7 +1191,7 @@ return (
     </div>
   )}
 
-  {/* ── TDEE — subtle footer ── */}
+  {/* ── TDEE – subtle footer ── */}
   {tdee && bmr && (
     <div className="dash-tdee-compact">
       TDEE {Math.round(tdee)} kcal · BMR {Math.round(bmr)} kcal
@@ -1429,7 +1429,7 @@ const updateHistSet = (sessionId, exSessId, si, field, val) => { updateHistSessi
 const toastEl = toast ? <div className="save-toast"><span className="status-dot status-ok" /><span>{toast}</span></div> : null;
 const createExModal = showCreateEx ? <CreateExerciseModal onSave={handleCreateExercise} onClose={() => setShowCreateEx(false)} /> : null;
 const prOverlay = prToast ? (
-<div className="pr-overlay"><div className="pr-popup"><div className="pr-trophy">🏆</div><div className="pr-text">NOUVEAU RECORD</div><div className="pr-detail">{prToast.name} — {prToast.weight}kg × {prToast.reps} reps</div></div></div>
+<div className="pr-overlay"><div className="pr-popup"><div className="pr-trophy">🏆</div><div className="pr-text">NOUVEAU RECORD</div><div className="pr-detail">{prToast.name} – {prToast.weight}kg × {prToast.reps} reps</div></div></div>
 ) : null;
 
 // ── HOME ──
@@ -1437,7 +1437,7 @@ if (view === “home”) {
 const sortedSessions = […sessions].sort((a, b) => new Date(b.startedAt) - new Date(a.startedAt));
 return (
 <PageShell title="Training" subtitle="Programmes & sessions">
-{activeSession && <button className=“train-banner” onClick={() => nav(“session”)}><span className="train-banner-dot" /><span className="train-banner-txt">Séance en cours — {formatTime(elapsed)}</span><span className="train-banner-arrow">Reprendre →</span></button>}
+{activeSession && <button className=“train-banner” onClick={() => nav(“session”)}><span className="train-banner-dot" /><span className="train-banner-txt">Séance en cours – {formatTime(elapsed)}</span><span className="train-banner-arrow">Reprendre →</span></button>}
 
 ```
     {programs.length > 0 && (<><div className="train-section-label">Mes programmes</div><div className="train-prog-list">{programs.map((p) => (<button key={p.id} className="card train-prog-card" onClick={() => nav("detail", p)}><div className="train-prog-card-info"><span className="train-prog-card-name">{p.name}</span><span className="train-prog-card-meta">{p.exercises?.length || 0} exercice{(p.exercises?.length || 0) > 1 ? "s" : ""}</span></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>))}</div></>)}
@@ -1576,12 +1576,12 @@ return done > 0 ? (
 })()}
 {ex.category !== “cardio” ? (<>
 <div className="train-sets-head"><span className="train-sets-col-num">Série</span><span className="train-sets-col">Poids (kg)</span><span className="train-sets-col">Reps</span><span className="train-sets-col-chk" /></div>
-{ex.sets.map((set, si) => (<div key={si} className={`train-set-row ${set.done ? "train-set-done" : ""}`}><span className="train-set-num">{si + 1}</span><div className="train-set-input-wrap"><input className=“train-set-input” type=“number” inputMode=“decimal” placeholder=”—” value={set.weight} onChange={(e) => updateSet(ex.id, si, “weight”, e.target.value)} />{set.lastWeight && !set.weight && <span className="train-set-hint">{set.lastWeight}kg</span>}</div><input className=“train-set-input” type=“number” inputMode=“numeric” placeholder=”—” value={set.reps} onChange={(e) => updateSet(ex.id, si, “reps”, e.target.value)} /><button className={`train-set-chk ${set.done ? "train-set-chk-on" : ""}`} onClick={() => toggleSetDone(ex.id, si)}>✓</button></div>))}
+{ex.sets.map((set, si) => (<div key={si} className={`train-set-row ${set.done ? "train-set-done" : ""}`}><span className="train-set-num">{si + 1}</span><div className="train-set-input-wrap"><input className=“train-set-input” type=“number” inputMode=“decimal” placeholder=”–” value={set.weight} onChange={(e) => updateSet(ex.id, si, “weight”, e.target.value)} />{set.lastWeight && !set.weight && <span className="train-set-hint">{set.lastWeight}kg</span>}</div><input className=“train-set-input” type=“number” inputMode=“numeric” placeholder=”–” value={set.reps} onChange={(e) => updateSet(ex.id, si, “reps”, e.target.value)} /><button className={`train-set-chk ${set.done ? "train-set-chk-on" : ""}`} onClick={() => toggleSetDone(ex.id, si)}>✓</button></div>))}
 <div className="train-set-btns"><button className=“train-set-btn” onClick={() => addSet(ex.id)}>+ Série</button>{ex.sets.length > 1 && <button className=“train-set-btn” onClick={() => removeSet(ex.id)}>− Série</button>}</div>
 </>) : (() => { const dur = secondsToHMS(ex.cardio?.durationSecs); return (
 <div className="train-cardio-section">
 <div className="train-cardio-field"><label className="train-cardio-label">Durée</label><div className="train-hms-row"><input className=“input train-hms-input” type=“number” inputMode=“numeric” placeholder=“h” min={0} max={23} value={dur.h || “”} onChange={(e) => updateCardioDuration(ex.id, “h”, e.target.value)} /><span className="train-hms-sep">:</span><input className=“input train-hms-input” type=“number” inputMode=“numeric” placeholder=“m” min={0} max={59} value={dur.m || “”} onChange={(e) => updateCardioDuration(ex.id, “m”, e.target.value)} /><span className="train-hms-sep">:</span><input className=“input train-hms-input” type=“number” inputMode=“numeric” placeholder=“s” min={0} max={59} value={dur.s || “”} onChange={(e) => updateCardioDuration(ex.id, “s”, e.target.value)} /></div></div>
-<div className="train-cardio-grid"><div className="train-cardio-field"><label className="train-cardio-label">Distance (km)</label><input className=“input input-full” type=“number” inputMode=“decimal” placeholder=”—” value={ex.cardio?.distance || “”} onChange={(e) => updateCardio(ex.id, “distance”, e.target.value)} /></div><div className="train-cardio-field"><label className="train-cardio-label">BPM</label><input className=“input input-full” type=“number” inputMode=“numeric” placeholder=”—” value={ex.cardio?.bpm || “”} onChange={(e) => updateCardio(ex.id, “bpm”, e.target.value)} /></div></div>
+<div className="train-cardio-grid"><div className="train-cardio-field"><label className="train-cardio-label">Distance (km)</label><input className=“input input-full” type=“number” inputMode=“decimal” placeholder=”–” value={ex.cardio?.distance || “”} onChange={(e) => updateCardio(ex.id, “distance”, e.target.value)} /></div><div className="train-cardio-field"><label className="train-cardio-label">BPM</label><input className=“input input-full” type=“number” inputMode=“numeric” placeholder=”–” value={ex.cardio?.bpm || “”} onChange={(e) => updateCardio(ex.id, “bpm”, e.target.value)} /></div></div>
 <div className="train-cardio-grid"><div className="train-cardio-field"><label className="train-cardio-label">Vitesse (km/h)</label><input className=“input input-full train-cardio-auto” type=“number” inputMode=“decimal” placeholder=“auto” value={ex.cardio?.speed || “”} onChange={(e) => updateCardio(ex.id, “speed”, e.target.value)} /></div><div className="train-cardio-field"><label className="train-cardio-label">Allure (min/km)</label><input className=“input input-full train-cardio-auto” type=“number” inputMode=“decimal” placeholder=“auto” value={ex.cardio?.allure || “”} onChange={(e) => updateCardio(ex.id, “allure”, e.target.value)} /></div></div>
 </div>); })()}
 </div>
@@ -1626,7 +1626,7 @@ return (
 <div className="train-sess-ex-head"><div><span className="train-sess-ex-name">{ex.name}</span><span className={`train-cat-dot-sm train-cat-${ex.category}`} /></div><button className=“nutri-del-btn” onClick={() => removeHistEx(s.id, ex.id)} title=“Retirer”>×</button></div>
 {ex.category !== “cardio” ? (<>
 <div className="train-sets-head"><span className="train-sets-col-num">Série</span><span className="train-sets-col">Poids (kg)</span><span className="train-sets-col">Reps</span><span className="train-sets-col-chk" /></div>
-{(ex.sets || []).map((set, si) => (<div key={si} className={`train-set-row ${set.done ? "train-set-done" : ""}`}><span className="train-set-num">{si + 1}</span><input className=“train-set-input” type=“number” inputMode=“decimal” placeholder=”—” value={set.weight} onChange={(e) => updateHistSet(s.id, ex.id, si, “weight”, e.target.value)} /><input className=“train-set-input” type=“number” inputMode=“numeric” placeholder=”—” value={set.reps} onChange={(e) => updateHistSet(s.id, ex.id, si, “reps”, e.target.value)} /><span className={`train-set-chk ${set.done ? "train-set-chk-on" : ""}`} style={{ cursor: “default” }}>{set.done ? “✓” : “”}</span></div>))}
+{(ex.sets || []).map((set, si) => (<div key={si} className={`train-set-row ${set.done ? "train-set-done" : ""}`}><span className="train-set-num">{si + 1}</span><input className=“train-set-input” type=“number” inputMode=“decimal” placeholder=”–” value={set.weight} onChange={(e) => updateHistSet(s.id, ex.id, si, “weight”, e.target.value)} /><input className=“train-set-input” type=“number” inputMode=“numeric” placeholder=”–” value={set.reps} onChange={(e) => updateHistSet(s.id, ex.id, si, “reps”, e.target.value)} /><span className={`train-set-chk ${set.done ? "train-set-chk-on" : ""}`} style={{ cursor: “default” }}>{set.done ? “✓” : “”}</span></div>))}
 <div className="train-set-btns"><button className=“train-set-btn” onClick={() => addHistSet(s.id, ex.id)}>+ Série</button>{(ex.sets?.length || 0) > 1 && <button className=“train-set-btn” onClick={() => removeHistSet(s.id, ex.id)}>− Série</button>}</div>
 </>) : (
 <div className="train-review-cardio">
@@ -1649,7 +1649,7 @@ return <PageShell title="Entraînement"><button className=“train-back” onCli
 }
 
 // ─────────────────────────────────────────────
-// NUTRITION PAGE — with autocomplete & quick log
+// NUTRITION PAGE – with autocomplete & quick log
 // ─────────────────────────────────────────────
 function NutritionPage() {
 const { state, updateState } = useAppContext();
@@ -1733,7 +1733,7 @@ const historyGroups = groupMealsByDate(pastMeals);
 
 return (
 <PageShell title="Nutrition" subtitle="Suivi alimentaire">
-{/* Summary — visual progress rings */}
+{/* Summary – visual progress rings */}
 <div className="card nutri-summary">
 <div className="nutri-rings-row">
 {/* Calories ring */}
@@ -1775,7 +1775,7 @@ className=“nutri-ring-progress” />
         <span className="nutri-ring-label">prot</span>
       </div>
 
-      {/* Remaining — key number */}
+      {/* Remaining – key number */}
       {calTarget && (
         <div className="nutri-remaining-block">
           <span className={`nutri-remaining-val ${calTarget - consumedCal + burnedCal >= 0 ? "" : "nutri-over"}`}>{calTarget - consumedCal + burnedCal}</span>
@@ -1790,7 +1790,7 @@ className=“nutri-ring-progress” />
   {frequentMeals.length > 0 && (
     <div className="nutri-frequent">
       <div className="card-label">Repas fréquents</div>
-      <div className="nutri-chips">{frequentMeals.map((m, i) => <button key={i} className="nutri-chip" onClick={() => handleQuickAdd(m)}>{m.name} — {m.calories} kcal</button>)}</div>
+      <div className="nutri-chips">{frequentMeals.map((m, i) => <button key={i} className="nutri-chip" onClick={() => handleQuickAdd(m)}>{m.name} – {m.calories} kcal</button>)}</div>
     </div>
   )}
 
@@ -1807,7 +1807,7 @@ className=“nutri-ring-progress” />
       </div>
       <div className="profile-row-2">
         <div className="nutri-field-wrap"><div className="nutri-field-label">Calories <span className="nutri-required">*</span></div><input className={`input input-full ${errors.calories ? "input-error" : ""}`} type="number" placeholder="450" value={form.calories} onChange={(e) => updateField("calories", e.target.value)} min={0} max={9999} inputMode="numeric" />{errors.calories && <div className="nutri-error">{errors.calories}</div>}</div>
-        <div className="nutri-field-wrap"><div className="nutri-field-label">Protéines (g)</div><input className="input input-full" type="number" placeholder="—" value={form.protein} onChange={(e) => updateField("protein", e.target.value)} min={0} max={999} inputMode="numeric" /></div>
+        <div className="nutri-field-wrap"><div className="nutri-field-label">Protéines (g)</div><input className="input input-full" type="number" placeholder="–" value={form.protein} onChange={(e) => updateField("protein", e.target.value)} min={0} max={999} inputMode="numeric" /></div>
       </div>
       <button className="btn-primary" onClick={handleAdd}>Ajouter</button>
     </div>
@@ -1817,7 +1817,7 @@ className=“nutri-ring-progress” />
   {/* Today */}
   <NutriSection title="Repas du jour" count={todayMeals.length} defaultOpen={true}>
     {todayMeals.length === 0 ? <p className="card-text" style={{ opacity: 0.5 }}>Aucun repas aujourd'hui</p> : (
-      <div className="nutri-list">{todayMeals.map((m, i) => (<div key={i} className="nutri-item"><div className="nutri-item-info"><span className="nutri-item-name">{m.name || "—"}</span><span className="nutri-item-meta">{m.calories} kcal{m.protein ? ` · ${m.protein}g prot` : ""}{m.date && <span className="nutri-item-time">{" · "}{new Date(m.date).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}</span>}</span></div><button className="nutri-del-btn" onClick={() => handleDeleteMeal(i)} title="Supprimer">×</button></div>))}</div>
+      <div className="nutri-list">{todayMeals.map((m, i) => (<div key={i} className="nutri-item"><div className="nutri-item-info"><span className="nutri-item-name">{m.name || "–"}</span><span className="nutri-item-meta">{m.calories} kcal{m.protein ? ` · ${m.protein}g prot` : ""}{m.date && <span className="nutri-item-time">{" · "}{new Date(m.date).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}</span>}</span></div><button className="nutri-del-btn" onClick={() => handleDeleteMeal(i)} title="Supprimer">×</button></div>))}</div>
     )}
   </NutriSection>
 
@@ -1831,7 +1831,7 @@ className=“nutri-ring-progress” />
           <div style={{ display: "flex", gap: 8 }}><button className="btn-save" onClick={() => handleUpdateSaved(i, { name: m._name || m.name, calories: Number(m._cal) || m.calories, protein: Number(m._prot) || m.protein })}>OK</button><button className="dash-cancel-btn" onClick={() => setEditingSaved(null)}>Annuler</button></div>
         </div>
       ) : (
-        <div key={i} className="nutri-item"><div className="nutri-item-info" onClick={() => setEditingSaved(i)} style={{ cursor: "pointer" }}><span className="nutri-item-name">{m.name || "—"}</span><span className="nutri-item-meta">{m.calories} kcal{m.protein ? ` · ${m.protein}g prot` : ""}</span></div><div className="nutri-item-actions"><button className="nutri-quick-btn" onClick={() => handleQuickAdd(m)} title="Ajouter au jour">+</button><button className="nutri-del-btn" onClick={() => handleDeleteSaved(i)} title="Supprimer">×</button></div></div>
+        <div key={i} className="nutri-item"><div className="nutri-item-info" onClick={() => setEditingSaved(i)} style={{ cursor: "pointer" }}><span className="nutri-item-name">{m.name || "–"}</span><span className="nutri-item-meta">{m.calories} kcal{m.protein ? ` · ${m.protein}g prot` : ""}</span></div><div className="nutri-item-actions"><button className="nutri-quick-btn" onClick={() => handleQuickAdd(m)} title="Ajouter au jour">+</button><button className="nutri-del-btn" onClick={() => handleDeleteSaved(i)} title="Supprimer">×</button></div></div>
       ))}</div>
     )}
   </NutriSection>
@@ -1840,7 +1840,7 @@ className=“nutri-ring-progress” />
   <NutriSection title="Historique" count={historyGroups.length > 0 ? pastMeals.length : null} defaultOpen={false}>
     {historyGroups.length === 0 ? <p className="card-text" style={{ opacity: 0.5 }}>Les repas des 30 derniers jours apparaîtront ici</p> : (
       <div className="hist-groups">{historyGroups.map((group) => { const dayCal = group.meals.reduce((s, m) => s + (Number(m.calories) || 0), 0); const dayProt = group.meals.reduce((s, m) => s + (Number(m.protein) || 0), 0); return (
-        <div key={group.dateKey} className="hist-day"><div className="hist-day-header"><span className="hist-day-label">{group.label}</span><span className="hist-day-totals">{dayCal} kcal{dayProt > 0 ? ` · ${dayProt}g` : ""}</span></div><div className="hist-day-meals">{group.meals.map((m, j) => <div key={j} className="hist-meal"><span className="hist-meal-name">{m.name || "—"}</span><span className="hist-meal-meta">{m.calories} kcal{m.protein ? ` · ${m.protein}g` : ""}</span></div>)}</div></div>
+        <div key={group.dateKey} className="hist-day"><div className="hist-day-header"><span className="hist-day-label">{group.label}</span><span className="hist-day-totals">{dayCal} kcal{dayProt > 0 ? ` · ${dayProt}g` : ""}</span></div><div className="hist-day-meals">{group.meals.map((m, j) => <div key={j} className="hist-meal"><span className="hist-meal-name">{m.name || "–"}</span><span className="hist-meal-meta">{m.calories} kcal{m.protein ? ` · ${m.protein}g` : ""}</span></div>)}</div></div>
       ); })}</div>
     )}
   </NutriSection>
@@ -1856,7 +1856,7 @@ className=“nutri-ring-progress” />
 }
 
 // ─────────────────────────────────────────────
-// TRACKING PAGE — complete
+// TRACKING PAGE – complete
 // ─────────────────────────────────────────────
 function TrackingPage() {
 const { state, updateState } = useAppContext();
@@ -1949,7 +1949,7 @@ setNewWeight(””); setToast(“Poids enregistré”); setTimeout(() => setToa
 
 return (
 <PageShell title="Stats" subtitle="Analyse de performance">
-{/* Week Summary — visual stats */}
+{/* Week Summary – visual stats */}
 <NutriSection title="Semaine en cours" defaultOpen={true}>
 <div className="track-week-grid">
 <div className="track-stat-mini">
@@ -1997,7 +1997,7 @@ return (
   <NutriSection title="Progression exercices" defaultOpen={false}>
     {usedExercises.length === 0 ? <p className="card-text" style={{ opacity: 0.5 }}>Termine des séances pour voir ta progression</p> : (<>
       <select className="input input-full select" value={selectedExercise} onChange={(e) => setSelectedExercise(e.target.value)}>
-        <option value="">— Choisir un exercice —</option>
+        <option value="">– Choisir un exercice –</option>
         {MUSCU_GROUPS.map((mg) => { const exs = usedExercises.filter((e) => e.muscle_group === mg); if (exs.length === 0) return null; return <optgroup key={mg} label={MUSCLE_GROUP_LABELS[mg]}>{exs.map((e) => <option key={e.id} value={e.id}>{e.name}</option>)}</optgroup>; })}
       </select>
       {exerciseHistory.length > 0 && (
@@ -2085,9 +2085,9 @@ return groups;
 return (
 <PageShell title="Profil" subtitle="Données & métabolisme">
 <div className="card"><div className="card-label">Prénom</div><input className=“input input-full” type=“text” placeholder=“Ton prénom…” value={form.name} onChange={(e) => update(“name”, e.target.value)} maxLength={30} /></div>
-<div className="card"><div className="profile-row-2"><div className="profile-field"><div className="card-label">Date de naissance</div><input className=“input input-full” type=“date” value={form.birthdate} onChange={(e) => update(“birthdate”, e.target.value)} max={new Date().toISOString().split(“T”)[0]} />{age !== null && <div className="age-badge">{age} ans</div>}</div><div className="profile-field"><div className="card-label">Sexe</div><select className=“input input-full select” value={form.sex} onChange={(e) => update(“sex”, e.target.value)}><option value="">—</option><option value="male">Homme</option><option value="female">Femme</option></select></div></div></div>
+<div className="card"><div className="profile-row-2"><div className="profile-field"><div className="card-label">Date de naissance</div><input className=“input input-full” type=“date” value={form.birthdate} onChange={(e) => update(“birthdate”, e.target.value)} max={new Date().toISOString().split(“T”)[0]} />{age !== null && <div className="age-badge">{age} ans</div>}</div><div className="profile-field"><div className="card-label">Sexe</div><select className=“input input-full select” value={form.sex} onChange={(e) => update(“sex”, e.target.value)}><option value="">–</option><option value="male">Homme</option><option value="female">Femme</option></select></div></div></div>
 <div className="card"><div className="profile-row-2"><div className="profile-field"><div className="card-label">Taille (cm)</div><input className=“input input-full” type=“number” placeholder=“175” value={form.height} onChange={(e) => update(“height”, e.target.value)} min={80} max={260} inputMode=“numeric” /></div><div className="profile-field"><div className="card-label">Poids (kg)</div><input className=“input input-full” type=“number” placeholder=“75” value={form.weight} onChange={(e) => update(“weight”, e.target.value)} min={20} max={350} inputMode=“numeric” /></div></div></div>
-<div className="card"><div className="card-label">Niveau d’activité quotidienne</div><p className=“card-text” style={{ marginBottom: 10, fontSize: 12, opacity: 0.5 }}>Hors entraînements</p><select className=“input input-full select” value={form.activity} onChange={(e) => update(“activity”, e.target.value)}><option value="">— Sélectionner —</option>{Object.entries(ACTIVITY_LABELS).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></div>
+<div className="card"><div className="card-label">Niveau d’activité quotidienne</div><p className=“card-text” style={{ marginBottom: 10, fontSize: 12, opacity: 0.5 }}>Hors entraînements</p><select className=“input input-full select” value={form.activity} onChange={(e) => update(“activity”, e.target.value)}><option value="">– Sélectionner –</option>{Object.entries(ACTIVITY_LABELS).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></div>
 <button className="btn-primary" onClick={handleSave}>Enregistrer</button>
 {saveMsg && <div className="save-toast"><span className="status-dot status-ok" /><span>{saveMsg}</span></div>}
 
@@ -2114,7 +2114,7 @@ return (
           {prsByGroup[g].map((pr) => (
             <div key={pr.exerciseId} className="track-ex-row">
               <span className="track-ex-date">{pr.exerciseName}</span>
-              <span className="track-ex-perf">{pr.weight}kg × {pr.reps} — {formatDateLabel(getDateKey(pr.date))}</span>
+              <span className="track-ex-perf">{pr.weight}kg × {pr.reps} – {formatDateLabel(getDateKey(pr.date))}</span>
             </div>
           ))}
         </div>
@@ -2129,7 +2129,7 @@ return (
 }
 
 // ─────────────────────────────────────────────
-// TRACK PAGE — unified Training + Nutrition
+// TRACK PAGE – unified Training + Nutrition
 // ─────────────────────────────────────────────
 function TrackPage() {
 const [segment, setSegment] = useState(“training”);
@@ -2233,7 +2233,7 @@ return (
 }
 
 // ─────────────────────────────────────────────
-// GLOBAL CSS (prompt 7 — new palette + polish)
+// GLOBAL CSS (prompt 7 – new palette + polish)
 // ─────────────────────────────────────────────
 const GLOBAL_CSS = `
 @import url(‘https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap’);
@@ -2279,7 +2279,7 @@ html, body { background: var(–bg-root); color: var(–text-primary); font-fami
 .page-subtitle { font-size: 13px; color: var(–text-muted); margin-top: 2px; letter-spacing: 0.3px; }
 .page-content { display: flex; flex-direction: column; gap: 24px; }
 
-/* Cards — premium layering */
+/* Cards – premium layering */
 .card { background: var(–bg-card); border: 1px solid var(–border); border-radius: var(–radius); padding: 24px; }
 .card-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(–text-caption); margin-bottom: 10px; }
 .card-text { font-size: 14px; color: var(–text-secondary); line-height: 1.6; }
@@ -2287,7 +2287,7 @@ html, body { background: var(–bg-root); color: var(–text-primary); font-fami
 .status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 .status-ok { background: var(–ok); box-shadow: 0 0 8px rgba(74, 222, 128, 0.3); }
 
-/* Inputs — borderless, background contrast */
+/* Inputs – borderless, background contrast */
 .input-row { display: flex; gap: 10px; }
 .input { flex: 1; padding: 14px 16px; background: rgba(255,255,255,0.04); border: 1px solid transparent; border-radius: var(–radius-sm); color: var(–text-primary); font-family: var(–font); font-size: 16px; outline: none; transition: all 0.2s; }
 .input::placeholder { color: var(–text-muted); }
@@ -2309,7 +2309,7 @@ html, body { background: var(–bg-root); color: var(–text-primary); font-fami
 @keyframes toastIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Bottom Nav — 4-tab product navigation */
+/* Bottom Nav – 4-tab product navigation */
 .bottom-nav {
 position: fixed;
 bottom: 0; left: 0; right: 0;
@@ -2409,7 +2409,7 @@ input[type=number] { -moz-appearance: textfield; }
 .ob-preview-row { display: flex; justify-content: space-between; font-size: 14px; color: var(–text-secondary); }
 .ob-preview-val { color: var(–accent); font-weight: 600; font-family: var(–mono); }
 
-/* Dashboard — HYTRX identity */
+/* Dashboard – HYTRX identity */
 .dash-hero-greeting { padding: 32px 4px 0; }
 .dash-brand-mark { font-size: 11px; font-weight: 600; font-family: var(–mono); letter-spacing: 4px; color: var(–accent); opacity: 0.5; margin-bottom: 8px; }
 .dash-greeting { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; color: #fff; }
@@ -2425,7 +2425,7 @@ input[type=number] { -moz-appearance: textfield; }
 .dash-week-dot-today { outline: 2px solid rgba(255,255,255,0.12); outline-offset: 2px; }
 .dash-week-dot-future { opacity: 0.3; }
 
-/* Streak — compact pill */
+/* Streak – compact pill */
 .dash-streak { display: inline-flex; align-items: center; gap: 2px; padding: 5px 12px; background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.1); border-radius: var(–radius-xs); font-size: 14px; font-weight: 700; color: var(–accent); font-family: var(–mono); letter-spacing: -0.5px; flex-shrink: 0; }
 .dash-streak-fire { animation: fireGlow 2s ease-in-out infinite; }
 @keyframes fireGlow { 0%,100% { box-shadow: 0 0 4px rgba(74,222,128,0.15); } 50% { box-shadow: 0 0 14px rgba(74,222,128,0.35); } }
@@ -2441,7 +2441,7 @@ input[type=number] { -moz-appearance: textfield; }
 .dash-suggestion-text { flex: 1; font-size: 14px; color: var(–text-secondary); line-height: 1.4; }
 .dash-suggestion-dismiss { background: none; border: none; color: var(–text-muted); font-size: 16px; cursor: pointer; padding: 6px; }
 
-/* Hero card — dominant, 30-40% screen presence */
+/* Hero card – dominant, 30-40% screen presence */
 .dash-hero-card {
 position: relative;
 overflow: hidden;
@@ -2467,7 +2467,7 @@ pointer-events: none;
 background: radial-gradient(ellipse at center, rgba(255, 82, 82, 0.06) 0%, transparent 55%);
 }
 
-/* Circular progress ring — larger, bolder */
+/* Circular progress ring – larger, bolder */
 .dash-hero-ring-wrap {
 position: relative;
 width: 200px;
@@ -2527,7 +2527,7 @@ text-transform: uppercase;
 }
 .dash-hero-sep { opacity: 0.25; }
 
-/* Protein progress bar — thicker, more visible */
+/* Protein progress bar – thicker, more visible */
 .dash-hero-prot {
 position: relative;
 padding-top: 24px;
@@ -2577,7 +2577,7 @@ font-size: 12px;
 color: var(–text-caption);
 }
 
-/* Quick actions — demoted, not dominant */
+/* Quick actions – demoted, not dominant */
 .dash-actions { display: flex; flex-direction: column; gap: 6px; }
 .dash-action-btn { display: flex; align-items: center; gap: 14px; width: 100%; padding: 16px 20px; background: var(–bg-card); border: 1px solid var(–border); border-radius: var(–radius); cursor: pointer; font-family: var(–font); transition: all 0.2s ease; text-align: left; min-height: 52px; }
 .dash-action-btn:active { transform: scale(0.98); background: var(–bg-card-hover); }
@@ -2585,7 +2585,7 @@ color: var(–text-caption);
 .dash-action-label { flex: 1; font-size: 15px; font-weight: 500; color: var(–text-secondary); }
 .dash-action-arrow { color: var(–text-caption); flex-shrink: 0; }
 
-/* Section labels — metadata tier */
+/* Section labels – metadata tier */
 .dash-section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(–text-caption); padding: 4px 4px 0; }
 .dash-obj-stack { display: flex; flex-direction: column; background: var(–bg-card); border: 1px solid var(–border); border-radius: var(–radius); overflow: hidden; }
 .dash-obj-row { display: flex; align-items: center; padding: 16px 20px; gap: 12px; cursor: pointer; transition: background 0.2s ease; border-bottom: 1px solid var(–border); }
@@ -2608,7 +2608,7 @@ color: var(–text-caption);
 .dash-clear-btn:active { background: rgba(255, 80, 80, 0.08); color: var(–danger); border-color: rgba(255, 80, 80, 0.2); }
 .dash-tdee-compact { text-align: center; font-size: 12px; color: var(–text-muted); font-family: var(–mono); padding: 4px 0 8px; letter-spacing: -0.3px; opacity: 0.6; }
 
-/* Metabolism — elevated surface */
+/* Metabolism – elevated surface */
 .metabolism-card { background: var(–bg-surface); border-color: rgba(74, 222, 128, 0.08); }
 .metab-grid { display: flex; align-items: stretch; gap: 0; margin-top: 8px; }
 .metab-item { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 14px 8px; }
@@ -2617,7 +2617,7 @@ color: var(–text-caption);
 .metab-label { font-size: 10px; color: var(–text-caption); text-align: center; margin-top: 6px; font-family: var(–mono); letter-spacing: 0.5px; }
 .metab-divider { width: 1px; background: var(–border); align-self: stretch; margin: 8px 0; }
 
-/* Collapsible — surface layer for depth */
+/* Collapsible – surface layer for depth */
 .collapse-card { padding: 0; overflow: hidden; background: var(–bg-surface); }
 .collapse-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 18px 20px; background: none; border: none; cursor: pointer; color: var(–text-secondary); font-family: var(–font); text-align: left; gap: 10px; }
 .collapse-toggle:active { background: var(–bg-card-hover); }
@@ -2627,7 +2627,7 @@ color: var(–text-caption);
 .collapse-chevron-open { transform: rotate(180deg); }
 .collapse-body { padding: 0 20px 20px; animation: slideUp 0.2s ease; }
 
-/* Nutrition — progress rings summary */
+/* Nutrition – progress rings summary */
 .nutri-summary { padding: 24px 20px; background: var(–bg-surface); }
 .nutri-rings-row { display: flex; align-items: center; justify-content: center; gap: 16px; }
 .nutri-ring-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
@@ -2766,7 +2766,7 @@ color: var(–text-caption);
 .train-stepper-val { width: 40px; text-align: center; background: transparent; border: none; border-left: 1px solid var(–border); border-right: 1px solid var(–border); color: var(–text-primary); font-family: var(–mono); font-size: 15px; font-weight: 600; padding: 6px 0; outline: none; }
 .train-detail-actions { display: flex; gap: 10px; }
 
-/* Session — surface layer header */
+/* Session – surface layer header */
 .train-session-header { text-align: center; padding: 28px 16px 20px; background: var(–bg-surface); }
 .train-session-time { font-size: 48px; font-weight: 700; font-family: var(–mono); letter-spacing: -2px; line-height: 1; color: #fff; }
 .train-session-progress { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; }
@@ -2864,7 +2864,7 @@ color: var(–text-caption);
 .train-hist-row-name { font-size: 14px; font-weight: 500; color: var(–text-primary); display: block; }
 .train-hist-row-meta { font-size: 12px; color: var(–text-muted); margin-top: 1px; display: block; }
 
-/* Review — surface header */
+/* Review – surface header */
 .train-review-header { display: flex; align-items: center; justify-content: center; gap: 0; padding: 20px; background: var(–bg-surface); }
 .train-review-stat { flex: 1; display: flex; flex-direction: column; align-items: center; }
 .train-review-stat-val { font-size: 26px; font-weight: 700; font-family: var(–mono); color: #fff; line-height: 1.2; letter-spacing: -0.5px; }
@@ -2882,7 +2882,7 @@ color: var(–text-caption);
 .pr-text { font-size: 22px; font-weight: 700; color: #FFD700; letter-spacing: 2px; text-shadow: 0 0 20px rgba(255,215,0,0.5); }
 .pr-detail { font-size: 14px; color: var(–text-secondary); margin-top: 4px; }
 
-/* Tracking — consistent metric pattern */
+/* Tracking – consistent metric pattern */
 .track-week-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .track-stat-mini { display: flex; flex-direction: column; align-items: center; padding: 20px 14px; background: var(–bg-surface); border: none; border-radius: var(–radius); position: relative; overflow: hidden; }
 .track-stat-mini::before { content: ‘’; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 32px; height: 2px; background: var(–accent); border-radius: 0 0 2px 2px; opacity: 0.5; }
@@ -2923,7 +2923,7 @@ color: var(–text-caption);
 .track-weight-diff { font-size: 12px; font-weight: 600; font-family: var(–mono); }
 
 /* ══════════════════════════════════════
-TRACK PAGE — segment control
+TRACK PAGE – segment control
 ══════════════════════════════════════ */
 .track-page-wrap { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
 .segment-bar {
@@ -2979,10 +2979,10 @@ border-radius: 11px;
 ::-webkit-scrollbar-thumb { background: var(–border-light); border-radius: 4px; }
 
 /* ══════════════════════════════════════
-HYTRX SIGNATURE — visual language
+HYTRX SIGNATURE – visual language
 ══════════════════════════════════════ */
 
-/* Accent line — signature top indicator on elevated elements */
+/* Accent line – signature top indicator on elevated elements */
 .card::before { content: none; }
 .card-accent::before {
 content: ‘’;
@@ -2995,25 +2995,25 @@ opacity: 0.4;
 }
 .card-accent { position: relative; }
 
-/* Data readout — mono numbers everywhere */
+/* Data readout – mono numbers everywhere */
 .data-val { font-family: var(–mono); font-weight: 600; letter-spacing: -0.5px; color: #fff; }
 .data-accent { color: var(–accent); }
 .data-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(–text-caption); font-family: var(–mono); }
 
-/* Section divider — subtle accent line */
+/* Section divider – subtle accent line */
 .section-divider { height: 1px; background: linear-gradient(to right, var(–accent), transparent); opacity: 0.1; margin: 4px 0; }
 
-/* Card label — HYTRX style: mono, uppercase, tracked */
+/* Card label – HYTRX style: mono, uppercase, tracked */
 .card-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(–text-caption); margin-bottom: 12px; font-family: var(–mono); }
 
-/* Section labels — same pattern */
+/* Section labels – same pattern */
 .dash-section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(–text-caption); padding: 4px 4px 0; font-family: var(–mono); }
 .train-section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(–text-caption); padding: 8px 4px 2px; font-family: var(–mono); }
 .collapse-title { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(–text-caption); display: flex; align-items: center; gap: 8px; font-family: var(–mono); }
 .train-group-label { font-size: 10px; font-weight: 600; color: var(–text-muted); padding: 10px 4px 4px; text-transform: uppercase; letter-spacing: 1px; font-family: var(–mono); }
 
 /* ══════════════════════════════════════
-STICKY CTA BAR — dominant, unmissable
+STICKY CTA BAR – dominant, unmissable
 ══════════════════════════════════════ */
 .sticky-cta {
 position: fixed;
@@ -3105,7 +3105,7 @@ from { opacity: 1; transform: translateY(0); }
 to { opacity: 0; transform: translateY(-4px); }
 }
 
-/* Page shell entrance — every screen fades in */
+/* Page shell entrance – every screen fades in */
 .page-shell { animation: shellEnter 0.2s ease both; }
 @keyframes shellEnter {
 from { opacity: 0; }
@@ -3135,7 +3135,7 @@ to { opacity: 1; }
 .train-set-input { transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.15s ease; }
 .train-set-input:focus { box-shadow: 0 0 0 3px rgba(74,222,128,0.06); }
 
-/* Set done — satisfaction pulse */
+/* Set done – satisfaction pulse */
 .train-set-done { animation: setDonePulse 0.3s ease; }
 @keyframes setDonePulse {
 0% { background: transparent; }
@@ -3151,17 +3151,17 @@ to { opacity: 1; }
 100% { transform: scale(1); }
 }
 
-/* Nav indicator — animate position with layout */
+/* Nav indicator – animate position with layout */
 .nav-indicator { transition: width 0.2s ease; animation: indicatorIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
 @keyframes indicatorIn {
 from { transform: translateX(-50%) scaleX(0); opacity: 0; }
 to { transform: translateX(-50%) scaleX(1); opacity: 1; }
 }
 
-/* Nav button — spring on press */
+/* Nav button – spring on press */
 .nav-btn { transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
 
-/* Toast — spring entrance from bottom */
+/* Toast – spring entrance from bottom */
 .save-toast { animation: toastSpring 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
 @keyframes toastSpring {
 0% { opacity: 0; transform: translateY(12px) scale(0.95); }
@@ -3186,21 +3186,21 @@ to { opacity: 1; transform: translateY(0); }
 /* History row tap */
 .train-hist-row { transition: background 0.15s ease; }
 
-/* Popup overlay — fade backdrop */
+/* Popup overlay – fade backdrop */
 .train-popup-overlay { animation: overlayIn 0.2s ease; }
 @keyframes overlayIn {
 from { opacity: 0; }
 to { opacity: 1; }
 }
 
-/* Popup slide — spring from bottom */
+/* Popup slide – spring from bottom */
 @keyframes popupSlide {
 0% { opacity: 0; transform: translateY(40px) scale(0.97); }
 60% { opacity: 1; transform: translateY(-4px) scale(1.005); }
 100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* PR overlay — enhanced */
+/* PR overlay – enhanced */
 @keyframes prFade {
 0% { opacity: 0; backdrop-filter: blur(0); }
 8% { opacity: 1; backdrop-filter: blur(4px); }
@@ -3228,7 +3228,7 @@ to { opacity: 1; transform: translateY(0); }
 .sticky-cta-main:active { box-shadow: 0 2px 10px rgba(74, 222, 128, 0.15); }
 .sticky-cta-secondary { transition: transform 0.15s ease, background 0.15s; will-change: transform; }
 
-/* Hero card — entrance animations */
+/* Hero card – entrance animations */
 .dash-hero-number { transition: color 0.3s ease; animation: heroNumberIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both; }
 @keyframes heroNumberIn {
 from { opacity: 0; transform: scale(0.85); }
@@ -3256,7 +3256,7 @@ from { stroke-dasharray: 0 339.3; }
 .ob-sex-btn { transition: transform 0.15s ease, border-color 0.2s, background 0.2s, color 0.2s; will-change: transform; }
 .ob-sex-btn:active { transform: scale(0.97); }
 
-/* Progress bar fill — smooth on change */
+/* Progress bar fill – smooth on change */
 .dash-hero-fill { transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
 .dash-progress-fill { transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
 `;
