@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, createContext, useContext, useRef, us
 import React from "react";
 
 // ─────────────────────────────────────────────
-// UTILS – localStorage (safe)
+// UTILS - localStorage (safe)
 // ─────────────────────────────────────────────
 const STORAGE_KEY = "test_app_data";
 
@@ -27,7 +27,7 @@ console.warn("[TEST] localStorage write error:", e);
 }
 
 // ─────────────────────────────────────────────
-// UTILS – metabolism.js
+// UTILS - metabolism.js
 // ─────────────────────────────────────────────
 const ACTIVITY_MULTIPLIERS = {
 sedentary: 1.2,
@@ -51,7 +51,7 @@ if (isNaN(birth.getTime())) return null;
 const today = new Date();
 let age = today.getFullYear() - birth.getFullYear();
 const monthDiff = today.getMonth() - birth.getMonth();
-if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) age–;
+if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) age-;
 return age >= 10 && age <= 120 ? age : null;
 } catch { return null; }
 }
@@ -84,7 +84,7 @@ return bmr * (ACTIVITY_MULTIPLIERS[profile.activity] || 1.2);
 }
 
 // ─────────────────────────────────────────────
-// UTILS – dates
+// UTILS - dates
 // ─────────────────────────────────────────────
 function getTodayKey() {
 const d = new Date();
@@ -167,7 +167,7 @@ return Object.values(groups).sort((a, b) => (a.dateKey > b.dateKey ? -1 : 1));
 }
 
 // ─────────────────────────────────────────────
-// UTILS – Streaks & PRs
+// UTILS - Streaks & PRs
 // ─────────────────────────────────────────────
 function calculateStreak(sessions) {
 if (!Array.isArray(sessions) || sessions.length === 0) return { current: 0, best: 0 };
@@ -248,7 +248,7 @@ return [];
 }
 
 // ─────────────────────────────────────────────
-// UTILS – Suggestions
+// UTILS - Suggestions
 // ─────────────────────────────────────────────
 function generateSuggestions(state) {
 const suggestions = [];
@@ -306,7 +306,7 @@ return suggestions.slice(0, 2);
 }
 
 // ─────────────────────────────────────────────
-// CONTEXT – Global State
+// CONTEXT - Global State
 // ─────────────────────────────────────────────
 const AppContext = createContext(null);
 
@@ -530,7 +530,7 @@ return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 }
 
 // ─────────────────────────────────────────────
-// UTILS – Cardio & Calories
+// UTILS - Cardio & Calories
 // ─────────────────────────────────────────────
 const CARDIO_METS = { "car-01": 9.8, "car-02": 4.5, "car-03": 7.5, "car-04": 7.0, "car-05": 10.0, "car-06": 9.0 };
 
@@ -692,7 +692,7 @@ return (
 <div className="nutri-field-wrap">
 <div className="nutri-field-label">Groupe musculaire <span className="nutri-required">*</span></div>
 <select className={`input input-full select ${error && isMuscu && !muscleGroup ? "input-error" : ""}`} value={muscleGroup} onChange={(e) => { setMuscleGroup(e.target.value); setError(""); }}>
-<option value="">– Choisir –</option>
+<option value="">- Choisir -</option>
 {MUSCU_GROUPS.map((mg) => <option key={mg} value={mg}>{MUSCLE_GROUP_LABELS[mg]}</option>)}
 </select>
 </div>
@@ -700,7 +700,7 @@ return (
 <div className="nutri-field-wrap">
 <div className="nutri-field-label">Équipement</div>
 <select className="input input-full select" value={equipment} onChange={(e) => setEquipment(e.target.value)}>
-<option value="">– Optionnel –</option>
+<option value="">- Optionnel -</option>
 {EQUIPMENT_OPTIONS.filter(Boolean).map((eq) => <option key={eq} value={eq}>{eq}</option>)}
 </select>
 </div>
@@ -771,7 +771,7 @@ return (
 {MAIN_GROUP_OPTIONS.map((g) => <button key={g} className={`train-tab ${tab === g ? "train-tab-on train-tab-" + g : ""}`} onClick={() => setTab(g)}>{MAIN_GROUP_LABELS[g]}</button>)}
 </div>
 )}
-{isSearching && <div className="train-search-count">{filtered.length} résultat{filtered.length > 1 ? "s" : ""}{filtered.length === 0 && " – essaie un autre mot"}</div>}
+{isSearching && <div className="train-search-count">{filtered.length} résultat{filtered.length > 1 ? "s" : ""}{filtered.length === 0 && " - essaie un autre mot"}</div>}
 {!isSearching && tab === "musculation" && MUSCU_GROUPS.map((mg) => {
 if (!grouped[mg]?.length) return null;
 return <div key={mg} className="train-group-section"><div className="train-group-label">{MUSCLE_GROUP_LABELS[mg]}</div>{grouped[mg].map(renderExRow)}</div>;
@@ -788,7 +788,7 @@ return <div key={mg} className="train-group-section"><span className={`train-cat
 }
 
 // ─────────────────────────────────────────────
-// HOME PAGE – with Onboarding + Dashboard
+// HOME PAGE - with Onboarding + Dashboard
 // ─────────────────────────────────────────────
 function HomePage() {
 const { state, updateState, setActiveTab } = useAppContext();
@@ -860,7 +860,7 @@ return (
 
 ```
   <div className={`ob-step ${anim}`}>
-    {/* Step 0 – Welcome */}
+    {/* Step 0 - Welcome */}
     {step === 0 && (
       <div className="ob-welcome">
         <div className="ob-brand">HYTRX</div>
@@ -870,7 +870,7 @@ return (
       </div>
     )}
 
-    {/* Step 1 – Identity */}
+    {/* Step 1 - Identity */}
     {step === 1 && (
       <div className="ob-form">
         <h2 className="ob-step-title">Qui es-tu ?</h2>
@@ -896,7 +896,7 @@ return (
       </div>
     )}
 
-    {/* Step 2 – Measurements */}
+    {/* Step 2 - Measurements */}
     {step === 2 && (
       <div className="ob-form">
         <h2 className="ob-step-title">Ton physique</h2>
@@ -911,7 +911,7 @@ return (
           </div>
           <div className="nutri-field-wrap"><div className="nutri-field-label">Niveau d'activité quotidienne</div>
             <select className="input input-full select" value={form.activity} onChange={(e) => update("activity", e.target.value)}>
-              <option value="">– Sélectionner –</option>
+              <option value="">- Sélectionner -</option>
               {Object.entries(ACTIVITY_LABELS).map(([key, label]) => <option key={key} value={key}>{label}</option>)}
             </select>
           </div>
@@ -923,7 +923,7 @@ return (
       </div>
     )}
 
-    {/* Step 3 – Goal */}
+    {/* Step 3 - Goal */}
     {step === 3 && (
       <div className="ob-form">
         <h2 className="ob-step-title">Ton objectif</h2>
@@ -1083,7 +1083,7 @@ return (
   )}
 
   {/* ══════════════════════════════════════
-      HERO – Remaining Today (WOW moment)
+      HERO - Remaining Today (WOW moment)
       ══════════════════════════════════════ */}
   {(remainingCal !== null || remainingProt !== null) && !editingCal && !editingProt && (
     <div className={`dash-hero-card ${remainingCal !== null && remainingCal < 0 ? "dash-hero-card-over" : ""}`}>
@@ -1143,7 +1143,7 @@ return (
     </div>
   )}
 
-  {/* ── Single Sticky CTA – context-aware ── */}
+  {/* ── Single Sticky CTA - context-aware ── */}
   {!activeSession && !editingCal && !editingProt && (
     <div className="sticky-cta">
       {todayMeals.length === 0 ? (
@@ -1154,7 +1154,7 @@ return (
     </div>
   )}
 
-  {/* ── Objectives – compact, single column ── */}
+  {/* ── Objectives - compact, single column ── */}
   <div className="dash-section-label">Objectifs quotidiens</div>
   {!editingCal && !editingProt && (
     <div className="dash-obj-stack">
@@ -1191,7 +1191,7 @@ return (
     </div>
   )}
 
-  {/* ── TDEE – subtle footer ── */}
+  {/* ── TDEE - subtle footer ── */}
   {tdee && bmr && (
     <div className="dash-tdee-compact">
       TDEE {Math.round(tdee)} kcal · BMR {Math.round(bmr)} kcal
@@ -1429,7 +1429,7 @@ const updateHistSet = (sessionId, exSessId, si, field, val) => { updateHistSessi
 const toastEl = toast ? <div className="save-toast"><span className="status-dot status-ok" /><span>{toast}</span></div> : null;
 const createExModal = showCreateEx ? <CreateExerciseModal onSave={handleCreateExercise} onClose={() => setShowCreateEx(false)} /> : null;
 const prOverlay = prToast ? (
-<div className="pr-overlay"><div className="pr-popup"><div className="pr-trophy">🏆</div><div className="pr-text">NOUVEAU RECORD</div><div className="pr-detail">{prToast.name} – {prToast.weight}kg × {prToast.reps} reps</div></div></div>
+<div className="pr-overlay"><div className="pr-popup"><div className="pr-trophy">🏆</div><div className="pr-text">NOUVEAU RECORD</div><div className="pr-detail">{prToast.name} - {prToast.weight}kg × {prToast.reps} reps</div></div></div>
 ) : null;
 
 // ── HOME ──
@@ -1437,7 +1437,7 @@ if (view === "home") {
 const sortedSessions = […sessions].sort((a, b) => new Date(b.startedAt) - new Date(a.startedAt));
 return (
 <PageShell title="Training" subtitle="Programmes & sessions">
-{activeSession && <button className="train-banner" onClick={() => nav("session")}><span className="train-banner-dot" /><span className="train-banner-txt">Séance en cours – {formatTime(elapsed)}</span><span className="train-banner-arrow">Reprendre →</span></button>}
+{activeSession && <button className="train-banner" onClick={() => nav("session")}><span className="train-banner-dot" /><span className="train-banner-txt">Séance en cours - {formatTime(elapsed)}</span><span className="train-banner-arrow">Reprendre →</span></button>}
 
 ```
     {programs.length > 0 && (<><div className="train-section-label">Mes programmes</div><div className="train-prog-list">{programs.map((p) => (<button key={p.id} className="card train-prog-card" onClick={() => nav("detail", p)}><div className="train-prog-card-info"><span className="train-prog-card-name">{p.name}</span><span className="train-prog-card-meta">{p.exercises?.length || 0} exercice{(p.exercises?.length || 0) > 1 ? "s" : ""}</span></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>))}</div></>)}
@@ -1576,12 +1576,12 @@ return done > 0 ? (
 })()}
 {ex.category !== "cardio" ? (<>
 <div className="train-sets-head"><span className="train-sets-col-num">Série</span><span className="train-sets-col">Poids (kg)</span><span className="train-sets-col">Reps</span><span className="train-sets-col-chk" /></div>
-{ex.sets.map((set, si) => (<div key={si} className={`train-set-row ${set.done ? "train-set-done" : ""}`}><span className="train-set-num">{si + 1}</span><div className="train-set-input-wrap"><input className="train-set-input" type="number" inputMode="decimal" placeholder="–" value={set.weight} onChange={(e) => updateSet(ex.id, si, "weight", e.target.value)} />{set.lastWeight && !set.weight && <span className="train-set-hint">{set.lastWeight}kg</span>}</div><input className="train-set-input" type="number" inputMode="numeric" placeholder="–" value={set.reps} onChange={(e) => updateSet(ex.id, si, "reps", e.target.value)} /><button className={`train-set-chk ${set.done ? "train-set-chk-on" : ""}`} onClick={() => toggleSetDone(ex.id, si)}>✓</button></div>))}
+{ex.sets.map((set, si) => (<div key={si} className={`train-set-row ${set.done ? "train-set-done" : ""}`}><span className="train-set-num">{si + 1}</span><div className="train-set-input-wrap"><input className="train-set-input" type="number" inputMode="decimal" placeholder="-" value={set.weight} onChange={(e) => updateSet(ex.id, si, "weight", e.target.value)} />{set.lastWeight && !set.weight && <span className="train-set-hint">{set.lastWeight}kg</span>}</div><input className="train-set-input" type="number" inputMode="numeric" placeholder="-" value={set.reps} onChange={(e) => updateSet(ex.id, si, "reps", e.target.value)} /><button className={`train-set-chk ${set.done ? "train-set-chk-on" : ""}`} onClick={() => toggleSetDone(ex.id, si)}>✓</button></div>))}
 <div className="train-set-btns"><button className="train-set-btn" onClick={() => addSet(ex.id)}>+ Série</button>{ex.sets.length > 1 && <button className="train-set-btn" onClick={() => removeSet(ex.id)}>− Série</button>}</div>
 </>) : (() => { const dur = secondsToHMS(ex.cardio?.durationSecs); return (
 <div className="train-cardio-section">
 <div className="train-cardio-field"><label className="train-cardio-label">Durée</label><div className="train-hms-row"><input className="input train-hms-input" type="number" inputMode="numeric" placeholder="h" min={0} max={23} value={dur.h || ""} onChange={(e) => updateCardioDuration(ex.id, "h", e.target.value)} /><span className="train-hms-sep">:</span><input className="input train-hms-input" type="number" inputMode="numeric" placeholder="m" min={0} max={59} value={dur.m || ""} onChange={(e) => updateCardioDuration(ex.id, "m", e.target.value)} /><span className="train-hms-sep">:</span><input className="input train-hms-input" type="number" inputMode="numeric" placeholder="s" min={0} max={59} value={dur.s || ""} onChange={(e) => updateCardioDuration(ex.id, "s", e.target.value)} /></div></div>
-<div className="train-cardio-grid"><div className="train-cardio-field"><label className="train-cardio-label">Distance (km)</label><input className="input input-full" type="number" inputMode="decimal" placeholder="–" value={ex.cardio?.distance || ""} onChange={(e) => updateCardio(ex.id, "distance", e.target.value)} /></div><div className="train-cardio-field"><label className="train-cardio-label">BPM</label><input className="input input-full" type="number" inputMode="numeric" placeholder="–" value={ex.cardio?.bpm || ""} onChange={(e) => updateCardio(ex.id, "bpm", e.target.value)} /></div></div>
+<div className="train-cardio-grid"><div className="train-cardio-field"><label className="train-cardio-label">Distance (km)</label><input className="input input-full" type="number" inputMode="decimal" placeholder="-" value={ex.cardio?.distance || ""} onChange={(e) => updateCardio(ex.id, "distance", e.target.value)} /></div><div className="train-cardio-field"><label className="train-cardio-label">BPM</label><input className="input input-full" type="number" inputMode="numeric" placeholder="-" value={ex.cardio?.bpm || ""} onChange={(e) => updateCardio(ex.id, "bpm", e.target.value)} /></div></div>
 <div className="train-cardio-grid"><div className="train-cardio-field"><label className="train-cardio-label">Vitesse (km/h)</label><input className="input input-full train-cardio-auto" type="number" inputMode="decimal" placeholder="auto" value={ex.cardio?.speed || ""} onChange={(e) => updateCardio(ex.id, "speed", e.target.value)} /></div><div className="train-cardio-field"><label className="train-cardio-label">Allure (min/km)</label><input className="input input-full train-cardio-auto" type="number" inputMode="decimal" placeholder="auto" value={ex.cardio?.allure || ""} onChange={(e) => updateCardio(ex.id, "allure", e.target.value)} /></div></div>
 </div>); })()}
 </div>
@@ -1619,14 +1619,14 @@ return (
 <div className="train-review-stat"><span className="train-review-stat-val">{s.duration || 0}</span><span className="train-review-stat-label">min</span></div><div className="train-review-divider" />
 <div className="train-review-stat"><span className="train-review-stat-val">{s.exercises?.length || 0}</span><span className="train-review-stat-label">exercices</span></div><div className="train-review-divider" />
 <div className="train-review-stat"><span className="train-review-stat-val">{s.exercises?.reduce((t, e) => t + (e.sets?.length || 0), 0) || 0}</span><span className="train-review-stat-label">séries</span></div>
-{s.calories?.total > 0 && <><div className="train-review-divider" /><div className="train-review-stat"><span className="train-review-stat-val" style={{ color: "var(–ok)" }}>{s.calories.total}</span><span className="train-review-stat-label">kcal</span></div></>}
+{s.calories?.total > 0 && <><div className="train-review-divider" /><div className="train-review-stat"><span className="train-review-stat-val" style={{ color: "var(-ok)" }}>{s.calories.total}</span><span className="train-review-stat-label">kcal</span></div></>}
 </div>
 {(s.exercises || []).map((ex) => (
 <div key={ex.id} className="card train-sess-ex">
 <div className="train-sess-ex-head"><div><span className="train-sess-ex-name">{ex.name}</span><span className={`train-cat-dot-sm train-cat-${ex.category}`} /></div><button className="nutri-del-btn" onClick={() => removeHistEx(s.id, ex.id)} title="Retirer">×</button></div>
 {ex.category !== "cardio" ? (<>
 <div className="train-sets-head"><span className="train-sets-col-num">Série</span><span className="train-sets-col">Poids (kg)</span><span className="train-sets-col">Reps</span><span className="train-sets-col-chk" /></div>
-{(ex.sets || []).map((set, si) => (<div key={si} className={`train-set-row ${set.done ? "train-set-done" : ""}`}><span className="train-set-num">{si + 1}</span><input className="train-set-input" type="number" inputMode="decimal" placeholder="–" value={set.weight} onChange={(e) => updateHistSet(s.id, ex.id, si, "weight", e.target.value)} /><input className="train-set-input" type="number" inputMode="numeric" placeholder="–" value={set.reps} onChange={(e) => updateHistSet(s.id, ex.id, si, "reps", e.target.value)} /><span className={`train-set-chk ${set.done ? "train-set-chk-on" : ""}`} style={{ cursor: "default" }}>{set.done ? "✓" : ""}</span></div>))}
+{(ex.sets || []).map((set, si) => (<div key={si} className={`train-set-row ${set.done ? "train-set-done" : ""}`}><span className="train-set-num">{si + 1}</span><input className="train-set-input" type="number" inputMode="decimal" placeholder="-" value={set.weight} onChange={(e) => updateHistSet(s.id, ex.id, si, "weight", e.target.value)} /><input className="train-set-input" type="number" inputMode="numeric" placeholder="-" value={set.reps} onChange={(e) => updateHistSet(s.id, ex.id, si, "reps", e.target.value)} /><span className={`train-set-chk ${set.done ? "train-set-chk-on" : ""}`} style={{ cursor: "default" }}>{set.done ? "✓" : ""}</span></div>))}
 <div className="train-set-btns"><button className="train-set-btn" onClick={() => addHistSet(s.id, ex.id)}>+ Série</button>{(ex.sets?.length || 0) > 1 && <button className="train-set-btn" onClick={() => removeHistSet(s.id, ex.id)}>− Série</button>}</div>
 </>) : (
 <div className="train-review-cardio">
@@ -1649,7 +1649,7 @@ return <PageShell title="Entraînement"><button className="train-back" onClick={
 }
 
 // ─────────────────────────────────────────────
-// NUTRITION PAGE – with autocomplete & quick log
+// NUTRITION PAGE - with autocomplete & quick log
 // ─────────────────────────────────────────────
 function NutritionPage() {
 const { state, updateState } = useAppContext();
@@ -1733,7 +1733,7 @@ const historyGroups = groupMealsByDate(pastMeals);
 
 return (
 <PageShell title="Nutrition" subtitle="Suivi alimentaire">
-{/* Summary – visual progress rings */}
+{/* Summary - visual progress rings */}
 <div className="card nutri-summary">
 <div className="nutri-rings-row">
 {/* Calories ring */}
@@ -1742,7 +1742,7 @@ return (
 <svg className="nutri-ring-svg" viewBox="0 0 80 80">
 <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="5" />
 <circle cx="40" cy="40" r="34" fill="none"
-stroke={calProgress > 100 ? "var(–danger)" : "var(–accent)"}
+stroke={calProgress > 100 ? "var(-danger)" : "var(-accent)"}
 strokeWidth="5" strokeLinecap="round"
 strokeDasharray={`${Math.min(calProgress, 100) * 2.136} 213.6`}
 transform="rotate(-90 40 40)"
@@ -1775,7 +1775,7 @@ className="nutri-ring-progress" />
         <span className="nutri-ring-label">prot</span>
       </div>
 
-      {/* Remaining – key number */}
+      {/* Remaining - key number */}
       {calTarget && (
         <div className="nutri-remaining-block">
           <span className={`nutri-remaining-val ${calTarget - consumedCal + burnedCal >= 0 ? "" : "nutri-over"}`}>{calTarget - consumedCal + burnedCal}</span>
@@ -1790,7 +1790,7 @@ className="nutri-ring-progress" />
   {frequentMeals.length > 0 && (
     <div className="nutri-frequent">
       <div className="card-label">Repas fréquents</div>
-      <div className="nutri-chips">{frequentMeals.map((m, i) => <button key={i} className="nutri-chip" onClick={() => handleQuickAdd(m)}>{m.name} – {m.calories} kcal</button>)}</div>
+      <div className="nutri-chips">{frequentMeals.map((m, i) => <button key={i} className="nutri-chip" onClick={() => handleQuickAdd(m)}>{m.name} - {m.calories} kcal</button>)}</div>
     </div>
   )}
 
@@ -1807,7 +1807,7 @@ className="nutri-ring-progress" />
       </div>
       <div className="profile-row-2">
         <div className="nutri-field-wrap"><div className="nutri-field-label">Calories <span className="nutri-required">*</span></div><input className={`input input-full ${errors.calories ? "input-error" : ""}`} type="number" placeholder="450" value={form.calories} onChange={(e) => updateField("calories", e.target.value)} min={0} max={9999} inputMode="numeric" />{errors.calories && <div className="nutri-error">{errors.calories}</div>}</div>
-        <div className="nutri-field-wrap"><div className="nutri-field-label">Protéines (g)</div><input className="input input-full" type="number" placeholder="–" value={form.protein} onChange={(e) => updateField("protein", e.target.value)} min={0} max={999} inputMode="numeric" /></div>
+        <div className="nutri-field-wrap"><div className="nutri-field-label">Protéines (g)</div><input className="input input-full" type="number" placeholder="-" value={form.protein} onChange={(e) => updateField("protein", e.target.value)} min={0} max={999} inputMode="numeric" /></div>
       </div>
       <button className="btn-primary" onClick={handleAdd}>Ajouter</button>
     </div>
@@ -1817,7 +1817,7 @@ className="nutri-ring-progress" />
   {/* Today */}
   <NutriSection title="Repas du jour" count={todayMeals.length} defaultOpen={true}>
     {todayMeals.length === 0 ? <p className="card-text" style={{ opacity: 0.5 }}>Aucun repas aujourd'hui</p> : (
-      <div className="nutri-list">{todayMeals.map((m, i) => (<div key={i} className="nutri-item"><div className="nutri-item-info"><span className="nutri-item-name">{m.name || "–"}</span><span className="nutri-item-meta">{m.calories} kcal{m.protein ? ` · ${m.protein}g prot` : ""}{m.date && <span className="nutri-item-time">{" · "}{new Date(m.date).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}</span>}</span></div><button className="nutri-del-btn" onClick={() => handleDeleteMeal(i)} title="Supprimer">×</button></div>))}</div>
+      <div className="nutri-list">{todayMeals.map((m, i) => (<div key={i} className="nutri-item"><div className="nutri-item-info"><span className="nutri-item-name">{m.name || "-"}</span><span className="nutri-item-meta">{m.calories} kcal{m.protein ? ` · ${m.protein}g prot` : ""}{m.date && <span className="nutri-item-time">{" · "}{new Date(m.date).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}</span>}</span></div><button className="nutri-del-btn" onClick={() => handleDeleteMeal(i)} title="Supprimer">×</button></div>))}</div>
     )}
   </NutriSection>
 
@@ -1831,7 +1831,7 @@ className="nutri-ring-progress" />
           <div style={{ display: "flex", gap: 8 }}><button className="btn-save" onClick={() => handleUpdateSaved(i, { name: m._name || m.name, calories: Number(m._cal) || m.calories, protein: Number(m._prot) || m.protein })}>OK</button><button className="dash-cancel-btn" onClick={() => setEditingSaved(null)}>Annuler</button></div>
         </div>
       ) : (
-        <div key={i} className="nutri-item"><div className="nutri-item-info" onClick={() => setEditingSaved(i)} style={{ cursor: "pointer" }}><span className="nutri-item-name">{m.name || "–"}</span><span className="nutri-item-meta">{m.calories} kcal{m.protein ? ` · ${m.protein}g prot` : ""}</span></div><div className="nutri-item-actions"><button className="nutri-quick-btn" onClick={() => handleQuickAdd(m)} title="Ajouter au jour">+</button><button className="nutri-del-btn" onClick={() => handleDeleteSaved(i)} title="Supprimer">×</button></div></div>
+        <div key={i} className="nutri-item"><div className="nutri-item-info" onClick={() => setEditingSaved(i)} style={{ cursor: "pointer" }}><span className="nutri-item-name">{m.name || "-"}</span><span className="nutri-item-meta">{m.calories} kcal{m.protein ? ` · ${m.protein}g prot` : ""}</span></div><div className="nutri-item-actions"><button className="nutri-quick-btn" onClick={() => handleQuickAdd(m)} title="Ajouter au jour">+</button><button className="nutri-del-btn" onClick={() => handleDeleteSaved(i)} title="Supprimer">×</button></div></div>
       ))}</div>
     )}
   </NutriSection>
@@ -1840,7 +1840,7 @@ className="nutri-ring-progress" />
   <NutriSection title="Historique" count={historyGroups.length > 0 ? pastMeals.length : null} defaultOpen={false}>
     {historyGroups.length === 0 ? <p className="card-text" style={{ opacity: 0.5 }}>Les repas des 30 derniers jours apparaîtront ici</p> : (
       <div className="hist-groups">{historyGroups.map((group) => { const dayCal = group.meals.reduce((s, m) => s + (Number(m.calories) || 0), 0); const dayProt = group.meals.reduce((s, m) => s + (Number(m.protein) || 0), 0); return (
-        <div key={group.dateKey} className="hist-day"><div className="hist-day-header"><span className="hist-day-label">{group.label}</span><span className="hist-day-totals">{dayCal} kcal{dayProt > 0 ? ` · ${dayProt}g` : ""}</span></div><div className="hist-day-meals">{group.meals.map((m, j) => <div key={j} className="hist-meal"><span className="hist-meal-name">{m.name || "–"}</span><span className="hist-meal-meta">{m.calories} kcal{m.protein ? ` · ${m.protein}g` : ""}</span></div>)}</div></div>
+        <div key={group.dateKey} className="hist-day"><div className="hist-day-header"><span className="hist-day-label">{group.label}</span><span className="hist-day-totals">{dayCal} kcal{dayProt > 0 ? ` · ${dayProt}g` : ""}</span></div><div className="hist-day-meals">{group.meals.map((m, j) => <div key={j} className="hist-meal"><span className="hist-meal-name">{m.name || "-"}</span><span className="hist-meal-meta">{m.calories} kcal{m.protein ? ` · ${m.protein}g` : ""}</span></div>)}</div></div>
       ); })}</div>
     )}
   </NutriSection>
@@ -1856,7 +1856,7 @@ className="nutri-ring-progress" />
 }
 
 // ─────────────────────────────────────────────
-// TRACKING PAGE – complete
+// TRACKING PAGE - complete
 // ─────────────────────────────────────────────
 function TrackingPage() {
 const { state, updateState } = useAppContext();
@@ -1901,7 +1901,7 @@ const pctChange = (cur, prev) => prev > 0 ? Math.round(((cur - prev) / prev) * 1
 // 30-day calories chart
 const chartData = useMemo(() => {
 const data = [];
-for (let i = 29; i >= 0; i–) {
+for (let i = 29; i >= 0; i-) {
 const d = new Date(); d.setDate(d.getDate() - i);
 const k = getDateKey(d.toISOString());
 const dayMeals = meals.filter((m) => getDateKey(m.date) === k);
@@ -1949,7 +1949,7 @@ setNewWeight(""); setToast("Poids enregistré"); setTimeout(() => setToast(""), 
 
 return (
 <PageShell title="Stats" subtitle="Analyse de performance">
-{/* Week Summary – visual stats */}
+{/* Week Summary - visual stats */}
 <NutriSection title="Semaine en cours" defaultOpen={true}>
 <div className="track-week-grid">
 <div className="track-stat-mini">
@@ -1997,7 +1997,7 @@ return (
   <NutriSection title="Progression exercices" defaultOpen={false}>
     {usedExercises.length === 0 ? <p className="card-text" style={{ opacity: 0.5 }}>Termine des séances pour voir ta progression</p> : (<>
       <select className="input input-full select" value={selectedExercise} onChange={(e) => setSelectedExercise(e.target.value)}>
-        <option value="">– Choisir un exercice –</option>
+        <option value="">- Choisir un exercice -</option>
         {MUSCU_GROUPS.map((mg) => { const exs = usedExercises.filter((e) => e.muscle_group === mg); if (exs.length === 0) return null; return <optgroup key={mg} label={MUSCLE_GROUP_LABELS[mg]}>{exs.map((e) => <option key={e.id} value={e.id}>{e.name}</option>)}</optgroup>; })}
       </select>
       {exerciseHistory.length > 0 && (
@@ -2085,9 +2085,9 @@ return groups;
 return (
 <PageShell title="Profil" subtitle="Données & métabolisme">
 <div className="card"><div className="card-label">Prénom</div><input className="input input-full" type="text" placeholder="Ton prénom…" value={form.name} onChange={(e) => update("name", e.target.value)} maxLength={30} /></div>
-<div className="card"><div className="profile-row-2"><div className="profile-field"><div className="card-label">Date de naissance</div><input className="input input-full" type="date" value={form.birthdate} onChange={(e) => update("birthdate", e.target.value)} max={new Date().toISOString().split("T")[0]} />{age !== null && <div className="age-badge">{age} ans</div>}</div><div className="profile-field"><div className="card-label">Sexe</div><select className="input input-full select" value={form.sex} onChange={(e) => update("sex", e.target.value)}><option value="">–</option><option value="male">Homme</option><option value="female">Femme</option></select></div></div></div>
+<div className="card"><div className="profile-row-2"><div className="profile-field"><div className="card-label">Date de naissance</div><input className="input input-full" type="date" value={form.birthdate} onChange={(e) => update("birthdate", e.target.value)} max={new Date().toISOString().split("T")[0]} />{age !== null && <div className="age-badge">{age} ans</div>}</div><div className="profile-field"><div className="card-label">Sexe</div><select className="input input-full select" value={form.sex} onChange={(e) => update("sex", e.target.value)}><option value="">-</option><option value="male">Homme</option><option value="female">Femme</option></select></div></div></div>
 <div className="card"><div className="profile-row-2"><div className="profile-field"><div className="card-label">Taille (cm)</div><input className="input input-full" type="number" placeholder="175" value={form.height} onChange={(e) => update("height", e.target.value)} min={80} max={260} inputMode="numeric" /></div><div className="profile-field"><div className="card-label">Poids (kg)</div><input className="input input-full" type="number" placeholder="75" value={form.weight} onChange={(e) => update("weight", e.target.value)} min={20} max={350} inputMode="numeric" /></div></div></div>
-<div className="card"><div className="card-label">Niveau d'activité quotidienne</div><p className="card-text" style={{ marginBottom: 10, fontSize: 12, opacity: 0.5 }}>Hors entraînements</p><select className="input input-full select" value={form.activity} onChange={(e) => update("activity", e.target.value)}><option value="">– Sélectionner –</option>{Object.entries(ACTIVITY_LABELS).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></div>
+<div className="card"><div className="card-label">Niveau d'activité quotidienne</div><p className="card-text" style={{ marginBottom: 10, fontSize: 12, opacity: 0.5 }}>Hors entraînements</p><select className="input input-full select" value={form.activity} onChange={(e) => update("activity", e.target.value)}><option value="">- Sélectionner -</option>{Object.entries(ACTIVITY_LABELS).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></div>
 <button className="btn-primary" onClick={handleSave}>Enregistrer</button>
 {saveMsg && <div className="save-toast"><span className="status-dot status-ok" /><span>{saveMsg}</span></div>}
 
@@ -2114,7 +2114,7 @@ return (
           {prsByGroup[g].map((pr) => (
             <div key={pr.exerciseId} className="track-ex-row">
               <span className="track-ex-date">{pr.exerciseName}</span>
-              <span className="track-ex-perf">{pr.weight}kg × {pr.reps} – {formatDateLabel(getDateKey(pr.date))}</span>
+              <span className="track-ex-perf">{pr.weight}kg × {pr.reps} - {formatDateLabel(getDateKey(pr.date))}</span>
             </div>
           ))}
         </div>
@@ -2129,7 +2129,7 @@ return (
 }
 
 // ─────────────────────────────────────────────
-// TRACK PAGE – unified Training + Nutrition
+// TRACK PAGE - unified Training + Nutrition
 // ─────────────────────────────────────────────
 function TrackPage() {
 const [segment, setSegment] = useState("training");
@@ -2233,7 +2233,7 @@ return (
 }
 
 // ─────────────────────────────────────────────
-// GLOBAL CSS (prompt 7 – new palette + polish)
+// GLOBAL CSS (prompt 7 - new palette + polish)
 // ─────────────────────────────────────────────
 const GLOBAL_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -2241,81 +2241,81 @@ const GLOBAL_CSS = `
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 :root {
-–bg-root: #0B0B0C;
-–bg-surface: #121214;
-–bg-card: #18181B;
-–bg-card-hover: #1f1f23;
-–bg-elevated: #222226;
-–bg-nav: #0B0B0C;
-–border: rgba(255,255,255,0.06);
-–border-light: rgba(255,255,255,0.04);
-–text-primary: #f0f0f2;
-–text-secondary: #A1A1AA;
-–text-muted: #4a4a52;
-–text-caption: #3d3d44;
-–accent: #4ADE80;
-–accent-dim: rgba(74, 222, 128, 0.10);
-–accent-glow: rgba(74, 222, 128, 0.15);
-–ok: #4ADE80;
-–danger: #FF5252;
-–warn: #ffa726;
-–radius: 16px;
-–radius-sm: 10px;
-–radius-xs: 6px;
-–font: 'Outfit', -apple-system, sans-serif;
-–mono: 'JetBrains Mono', monospace;
-–nav-height: 72px;
-–safe-bottom: env(safe-area-inset-bottom, 0px);
+-bg-root: #0B0B0C;
+-bg-surface: #121214;
+-bg-card: #18181B;
+-bg-card-hover: #1f1f23;
+-bg-elevated: #222226;
+-bg-nav: #0B0B0C;
+-border: rgba(255,255,255,0.06);
+-border-light: rgba(255,255,255,0.04);
+-text-primary: #f0f0f2;
+-text-secondary: #A1A1AA;
+-text-muted: #4a4a52;
+-text-caption: #3d3d44;
+-accent: #4ADE80;
+-accent-dim: rgba(74, 222, 128, 0.10);
+-accent-glow: rgba(74, 222, 128, 0.15);
+-ok: #4ADE80;
+-danger: #FF5252;
+-warn: #ffa726;
+-radius: 16px;
+-radius-sm: 10px;
+-radius-xs: 6px;
+-font: 'Outfit', -apple-system, sans-serif;
+-mono: 'JetBrains Mono', monospace;
+-nav-height: 72px;
+-safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-html, body { background: var(–bg-root); color: var(–text-primary); font-family: var(–font); font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow: hidden; height: 100%; }
+html, body { background: var(-bg-root); color: var(-text-primary); font-family: var(-font); font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow: hidden; height: 100%; }
 .app-root { display: flex; flex-direction: column; height: 100vh; height: 100dvh; opacity: 0; transition: opacity 0.4s ease; }
 .app-mounted { opacity: 1; }
 
 /* Page Shell */
-.page-shell { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0 16px calc(var(–nav-height) + var(–safe-bottom) + 100px); }
+.page-shell { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0 16px calc(var(-nav-height) + var(-safe-bottom) + 100px); }
 .page-header { padding: 28px 0 28px; }
 .page-title { font-size: 28px; font-weight: 800; letter-spacing: -0.8px; color: #fff; }
-.page-subtitle { font-size: 13px; color: var(–text-muted); margin-top: 2px; letter-spacing: 0.3px; }
+.page-subtitle { font-size: 13px; color: var(-text-muted); margin-top: 2px; letter-spacing: 0.3px; }
 .page-content { display: flex; flex-direction: column; gap: 24px; }
 
-/* Cards – premium layering */
-.card { background: var(–bg-card); border: 1px solid var(–border); border-radius: var(–radius); padding: 24px; }
-.card-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(–text-caption); margin-bottom: 10px; }
-.card-text { font-size: 14px; color: var(–text-secondary); line-height: 1.6; }
+/* Cards - premium layering */
+.card { background: var(-bg-card); border: 1px solid var(-border); border-radius: var(-radius); padding: 24px; }
+.card-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(-text-caption); margin-bottom: 10px; }
+.card-text { font-size: 14px; color: var(-text-secondary); line-height: 1.6; }
 .card-row { display: flex; align-items: center; gap: 10px; }
 .status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-.status-ok { background: var(–ok); box-shadow: 0 0 8px rgba(74, 222, 128, 0.3); }
+.status-ok { background: var(-ok); box-shadow: 0 0 8px rgba(74, 222, 128, 0.3); }
 
-/* Inputs – borderless, background contrast */
+/* Inputs - borderless, background contrast */
 .input-row { display: flex; gap: 10px; }
-.input { flex: 1; padding: 14px 16px; background: rgba(255,255,255,0.04); border: 1px solid transparent; border-radius: var(–radius-sm); color: var(–text-primary); font-family: var(–font); font-size: 16px; outline: none; transition: all 0.2s; }
-.input::placeholder { color: var(–text-muted); }
-.input:focus { border-color: var(–accent); background: rgba(74,222,128,0.04); }
+.input { flex: 1; padding: 14px 16px; background: rgba(255,255,255,0.04); border: 1px solid transparent; border-radius: var(-radius-sm); color: var(-text-primary); font-family: var(-font); font-size: 16px; outline: none; transition: all 0.2s; }
+.input::placeholder { color: var(-text-muted); }
+.input:focus { border-color: var(-accent); background: rgba(74,222,128,0.04); }
 .input-full { width: 100%; }
-.input-error { border-color: var(–danger) !important; }
+.input-error { border-color: var(-danger) !important; }
 .select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2355555c' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
-.select option { background: var(–bg-card); color: var(–text-primary); }
+.select option { background: var(-bg-card); color: var(-text-primary); }
 .profile-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .profile-field { display: flex; flex-direction: column; }
-.age-badge { margin-top: 6px; padding: 4px 10px; background: var(–accent-dim); color: var(–accent); border-radius: var(–radius-xs); font-size: 12px; font-weight: 600; width: fit-content; animation: toastIn 0.3s ease; }
-.btn-primary { width: 100%; padding: 14px 20px; background: var(–accent); color: #fff; border: none; border-radius: var(–radius); font-family: var(–font); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; letter-spacing: 0.3px; min-height: 48px; }
+.age-badge { margin-top: 6px; padding: 4px 10px; background: var(-accent-dim); color: var(-accent); border-radius: var(-radius-xs); font-size: 12px; font-weight: 600; width: fit-content; animation: toastIn 0.3s ease; }
+.btn-primary { width: 100%; padding: 14px 20px; background: var(-accent); color: #fff; border: none; border-radius: var(-radius); font-family: var(-font); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; letter-spacing: 0.3px; min-height: 48px; }
 .btn-primary:active { transform: scale(0.97); opacity: 0.85; }
 .btn-primary:disabled { opacity: 0.4; cursor: default; }
-.btn-save { padding: 12px 20px; background: var(–accent-dim); color: var(–accent); border: 1px solid rgba(74, 222, 128, 0.2); border-radius: var(–radius-sm); font-family: var(–font); font-size: 14px; font-weight: 500; cursor: pointer; }
+.btn-save { padding: 12px 20px; background: var(-accent-dim); color: var(-accent); border: 1px solid rgba(74, 222, 128, 0.2); border-radius: var(-radius-sm); font-family: var(-font); font-size: 14px; font-weight: 500; cursor: pointer; }
 .btn-save:active { transform: scale(0.96); }
-.save-toast { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 16px; background: rgba(74, 222, 128, 0.06); border: 1px solid rgba(74, 222, 128, 0.12); border-radius: var(–radius-sm); font-size: 14px; font-weight: 600; color: var(–accent); font-family: var(–mono); animation: toastReward 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.save-toast { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 16px; background: rgba(74, 222, 128, 0.06); border: 1px solid rgba(74, 222, 128, 0.12); border-radius: var(-radius-sm); font-size: 14px; font-weight: 600; color: var(-accent); font-family: var(-mono); animation: toastReward 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
 @keyframes toastReward { 0% { opacity: 0; transform: translateY(8px) scale(0.95); } 50% { transform: translateY(-2px) scale(1.02); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes toastIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Bottom Nav – 4-tab product navigation */
+/* Bottom Nav - 4-tab product navigation */
 .bottom-nav {
 position: fixed;
 bottom: 0; left: 0; right: 0;
-height: calc(var(–nav-height) + var(–safe-bottom));
-padding-bottom: var(–safe-bottom);
-background: var(–bg-surface);
+height: calc(var(-nav-height) + var(-safe-bottom));
+padding-bottom: var(-safe-bottom);
+background: var(-bg-surface);
 border-top: 1px solid rgba(255,255,255,0.06);
 display: flex;
 align-items: center;
@@ -2324,7 +2324,7 @@ z-index: 100;
 backdrop-filter: blur(24px);
 -webkit-backdrop-filter: blur(24px);
 }
-.bottom-nav::before { content: ''; position: absolute; top: -28px; left: 0; right: 0; height: 28px; background: linear-gradient(to top, var(–bg-surface), transparent); pointer-events: none; }
+.bottom-nav::before { content: ''; position: absolute; top: -28px; left: 0; right: 0; height: 28px; background: linear-gradient(to top, var(-bg-surface), transparent); pointer-events: none; }
 .nav-btn {
 display: flex;
 flex-direction: column;
@@ -2373,9 +2373,9 @@ input[type=number] { -moz-appearance: textfield; }
 
 /* Onboarding */
 .ob-progress { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 20px 0; }
-.ob-dot { width: 10px; height: 10px; border-radius: 50%; background: var(–border); transition: all 0.3s; }
-.ob-dot-active { background: var(–accent); }
-.ob-dot-current { transform: scale(1.3); box-shadow: 0 0 12px var(–accent-glow); }
+.ob-dot { width: 10px; height: 10px; border-radius: 50%; background: var(-border); transition: all 0.3s; }
+.ob-dot-active { background: var(-accent); }
+.ob-dot-current { transform: scale(1.3); box-shadow: 0 0 12px var(-accent-glow); }
 .ob-step { animation-duration: 0.3s; animation-fill-mode: both; }
 .ob-enter { animation-name: obSlideIn; }
 .ob-exit { animation-name: obSlideOut; }
@@ -2386,66 +2386,66 @@ input[type=number] { -moz-appearance: textfield; }
 @keyframes obSlideInBack { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes obSlideOutBack { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(30px); } }
 .ob-welcome { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 60px 20px 40px; }
-.ob-brand { font-size: 32px; font-weight: 800; font-family: var(–mono); letter-spacing: 8px; color: var(–accent); margin-bottom: 24px; text-shadow: 0 0 40px rgba(74,222,128,0.2); }
+.ob-brand { font-size: 32px; font-weight: 800; font-family: var(-mono); letter-spacing: 8px; color: var(-accent); margin-bottom: 24px; text-shadow: 0 0 40px rgba(74,222,128,0.2); }
 .ob-title { font-size: 24px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 12px; color: #fff; }
-.ob-subtitle { font-size: 14px; color: var(–text-secondary); line-height: 1.6; max-width: 280px; margin-bottom: 40px; }
+.ob-subtitle { font-size: 14px; color: var(-text-secondary); line-height: 1.6; max-width: 280px; margin-bottom: 40px; }
 .ob-btn { min-height: 52px; }
 .ob-form { display: flex; flex-direction: column; gap: 16px; padding: 20px 0; }
 .ob-step-title { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 4px; }
 .ob-fields { display: flex; flex-direction: column; gap: 12px; }
 .ob-sex-row { display: flex; gap: 8px; }
-.ob-sex-btn { flex: 1; padding: 14px; background: var(–bg-card); border: 2px solid var(–border); border-radius: var(–radius); color: var(–text-secondary); font-family: var(–font); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-align: center; }
-.ob-sex-active { border-color: var(–accent); color: var(–accent); background: var(–accent-dim); }
+.ob-sex-btn { flex: 1; padding: 14px; background: var(-bg-card); border: 2px solid var(-border); border-radius: var(-radius); color: var(-text-secondary); font-family: var(-font); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-align: center; }
+.ob-sex-active { border-color: var(-accent); color: var(-accent); background: var(-accent-dim); }
 .ob-nav { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
-.ob-back { background: none; border: none; color: var(–text-muted); font-family: var(–font); font-size: 14px; cursor: pointer; padding: 8px 0; white-space: nowrap; }
+.ob-back { background: none; border: none; color: var(-text-muted); font-family: var(-font); font-size: 14px; cursor: pointer; padding: 8px 0; white-space: nowrap; }
 .ob-goals { display: flex; flex-direction: column; gap: 10px; }
-.ob-goal-card { display: flex; flex-direction: column; align-items: center; padding: 20px; background: var(–bg-card); border: 2px solid var(–border); border-radius: var(–radius); cursor: pointer; font-family: var(–font); transition: all 0.2s; text-align: center; min-height: 44px; }
+.ob-goal-card { display: flex; flex-direction: column; align-items: center; padding: 20px; background: var(-bg-card); border: 2px solid var(-border); border-radius: var(-radius); cursor: pointer; font-family: var(-font); transition: all 0.2s; text-align: center; min-height: 44px; }
 .ob-goal-card:active { transform: scale(0.98); }
-.ob-goal-active { border-color: var(–accent); background: var(–accent-dim); }
+.ob-goal-active { border-color: var(-accent); background: var(-accent-dim); }
 .ob-goal-icon { font-size: 28px; margin-bottom: 6px; }
-.ob-goal-label { font-size: 16px; font-weight: 600; color: var(–text-primary); }
-.ob-goal-desc { font-size: 12px; color: var(–text-muted); margin-top: 2px; }
-.ob-preview { margin-top: 12px; padding: 14px; background: var(–accent-dim); border: 1px solid rgba(74,222,128,0.2); border-radius: var(–radius-sm); display: flex; flex-direction: column; gap: 6px; }
-.ob-preview-row { display: flex; justify-content: space-between; font-size: 14px; color: var(–text-secondary); }
-.ob-preview-val { color: var(–accent); font-weight: 600; font-family: var(–mono); }
+.ob-goal-label { font-size: 16px; font-weight: 600; color: var(-text-primary); }
+.ob-goal-desc { font-size: 12px; color: var(-text-muted); margin-top: 2px; }
+.ob-preview { margin-top: 12px; padding: 14px; background: var(-accent-dim); border: 1px solid rgba(74,222,128,0.2); border-radius: var(-radius-sm); display: flex; flex-direction: column; gap: 6px; }
+.ob-preview-row { display: flex; justify-content: space-between; font-size: 14px; color: var(-text-secondary); }
+.ob-preview-val { color: var(-accent); font-weight: 600; font-family: var(-mono); }
 
-/* Dashboard – HYTRX identity */
+/* Dashboard - HYTRX identity */
 .dash-hero-greeting { padding: 32px 4px 0; }
-.dash-brand-mark { font-size: 11px; font-weight: 600; font-family: var(–mono); letter-spacing: 4px; color: var(–accent); opacity: 0.5; margin-bottom: 8px; }
+.dash-brand-mark { font-size: 11px; font-weight: 600; font-family: var(-mono); letter-spacing: 4px; color: var(-accent); opacity: 0.5; margin-bottom: 8px; }
 .dash-greeting { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; color: #fff; }
-.dash-date { font-size: 11px; color: var(–text-caption); margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; font-family: var(–mono); font-weight: 500; }
+.dash-date { font-size: 11px; color: var(-text-caption); margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; font-family: var(-mono); font-weight: 500; }
 
 /* Weekly activity dots */
 .dash-week-row { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; gap: 12px; }
 .dash-week-dots { display: flex; gap: 4px; flex: 1; }
 .dash-week-dot-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
-.dash-week-dot-label { font-size: 9px; font-family: var(–mono); font-weight: 600; color: var(–text-caption); letter-spacing: 0.5px; }
+.dash-week-dot-label { font-size: 9px; font-family: var(-mono); font-weight: 600; color: var(-text-caption); letter-spacing: 0.5px; }
 .dash-week-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.06); transition: all 0.3s ease; }
-.dash-week-dot-active { background: var(–accent); box-shadow: 0 0 6px rgba(74, 222, 128, 0.3); }
+.dash-week-dot-active { background: var(-accent); box-shadow: 0 0 6px rgba(74, 222, 128, 0.3); }
 .dash-week-dot-today { outline: 2px solid rgba(255,255,255,0.12); outline-offset: 2px; }
 .dash-week-dot-future { opacity: 0.3; }
 
-/* Streak – compact pill */
-.dash-streak { display: inline-flex; align-items: center; gap: 2px; padding: 5px 12px; background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.1); border-radius: var(–radius-xs); font-size: 14px; font-weight: 700; color: var(–accent); font-family: var(–mono); letter-spacing: -0.5px; flex-shrink: 0; }
+/* Streak - compact pill */
+.dash-streak { display: inline-flex; align-items: center; gap: 2px; padding: 5px 12px; background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.1); border-radius: var(-radius-xs); font-size: 14px; font-weight: 700; color: var(-accent); font-family: var(-mono); letter-spacing: -0.5px; flex-shrink: 0; }
 .dash-streak-fire { animation: fireGlow 2s ease-in-out infinite; }
 @keyframes fireGlow { 0%,100% { box-shadow: 0 0 4px rgba(74,222,128,0.15); } 50% { box-shadow: 0 0 14px rgba(74,222,128,0.35); } }
 
 /* Today wins counter */
 .dash-hero-wins { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 20px; }
-.dash-hero-wins-count { font-size: 16px; font-weight: 700; font-family: var(–mono); color: var(–accent); animation: winsBump 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.dash-hero-wins-count { font-size: 16px; font-weight: 700; font-family: var(-mono); color: var(-accent); animation: winsBump 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
 @keyframes winsBump { 0% { transform: scale(0.8); opacity: 0; } 50% { transform: scale(1.15); } 100% { transform: scale(1); opacity: 1; } }
-.dash-hero-wins-label { font-size: 10px; font-family: var(–mono); color: var(–text-caption); text-transform: uppercase; letter-spacing: 1px; }
+.dash-hero-wins-label { font-size: 10px; font-family: var(-mono); color: var(-text-caption); text-transform: uppercase; letter-spacing: 1px; }
 .dash-suggestions { display: flex; flex-direction: column; gap: 8px; }
-.dash-suggestion-card { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: rgba(74,222,128,0.04); border: 1px solid rgba(74,222,128,0.12); border-radius: var(–radius); }
+.dash-suggestion-card { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: rgba(74,222,128,0.04); border: 1px solid rgba(74,222,128,0.12); border-radius: var(-radius); }
 .dash-suggestion-icon { font-size: 20px; flex-shrink: 0; }
-.dash-suggestion-text { flex: 1; font-size: 14px; color: var(–text-secondary); line-height: 1.4; }
-.dash-suggestion-dismiss { background: none; border: none; color: var(–text-muted); font-size: 16px; cursor: pointer; padding: 6px; }
+.dash-suggestion-text { flex: 1; font-size: 14px; color: var(-text-secondary); line-height: 1.4; }
+.dash-suggestion-dismiss { background: none; border: none; color: var(-text-muted); font-size: 16px; cursor: pointer; padding: 6px; }
 
-/* Hero card – dominant, 30-40% screen presence */
+/* Hero card - dominant, 30-40% screen presence */
 .dash-hero-card {
 position: relative;
 overflow: hidden;
-background: var(–bg-card);
+background: var(-bg-card);
 border: 1px solid rgba(74, 222, 128, 0.1);
 border-radius: 28px;
 padding: 36px 28px 32px;
@@ -2467,7 +2467,7 @@ pointer-events: none;
 background: radial-gradient(ellipse at center, rgba(255, 82, 82, 0.06) 0%, transparent 55%);
 }
 
-/* Circular progress ring – larger, bolder */
+/* Circular progress ring - larger, bolder */
 .dash-hero-ring-wrap {
 position: relative;
 width: 200px;
@@ -2490,24 +2490,24 @@ justify-content: center;
 .dash-hero-number {
 font-size: 52px;
 font-weight: 700;
-font-family: var(–mono);
+font-family: var(-mono);
 letter-spacing: -3px;
 line-height: 1;
-color: var(–accent);
+color: var(-accent);
 text-shadow: 0 0 40px rgba(74, 222, 128, 0.15);
 }
 .dash-hero-over {
-color: var(–danger);
+color: var(-danger);
 text-shadow: 0 0 40px rgba(255, 82, 82, 0.15);
 }
 .dash-hero-unit {
 font-size: 10px;
 font-weight: 600;
-color: var(–text-muted);
+color: var(-text-muted);
 margin-top: 6px;
 letter-spacing: 2px;
 text-transform: uppercase;
-font-family: var(–mono);
+font-family: var(-mono);
 }
 
 .dash-hero-breakdown {
@@ -2518,16 +2518,16 @@ justify-content: center;
 gap: 8px;
 flex-wrap: wrap;
 font-size: 11px;
-color: var(–text-caption);
+color: var(-text-caption);
 letter-spacing: 0.8px;
 margin-bottom: 24px;
-font-family: var(–mono);
+font-family: var(-mono);
 font-weight: 500;
 text-transform: uppercase;
 }
 .dash-hero-sep { opacity: 0.25; }
 
-/* Protein progress bar – thicker, more visible */
+/* Protein progress bar - thicker, more visible */
 .dash-hero-prot {
 position: relative;
 padding-top: 24px;
@@ -2542,12 +2542,12 @@ margin-bottom: 10px;
 .dash-hero-prot-label {
 font-size: 13px;
 font-weight: 600;
-color: var(–text-secondary);
+color: var(-text-secondary);
 }
 .dash-hero-prot-sub {
 font-size: 12px;
-font-family: var(–mono);
-color: var(–text-caption);
+font-family: var(-mono);
+color: var(-text-caption);
 }
 .dash-hero-prot-bar {
 width: 100%;
@@ -2559,14 +2559,14 @@ margin-bottom: 10px;
 }
 .dash-hero-prot-fill {
 height: 100%;
-background: var(–accent);
+background: var(-accent);
 border-radius: 3px;
 transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.dash-hero-prot-fill-over { background: var(–danger); }
+.dash-hero-prot-fill-over { background: var(-danger); }
 .dash-hero-prot-val {
 font-size: 13px;
-color: var(–text-muted);
+color: var(-text-muted);
 text-align: center;
 display: block;
 }
@@ -2574,223 +2574,223 @@ display: block;
 position: relative;
 margin-top: 20px;
 font-size: 12px;
-color: var(–text-caption);
+color: var(-text-caption);
 }
 
-/* Quick actions – demoted, not dominant */
+/* Quick actions - demoted, not dominant */
 .dash-actions { display: flex; flex-direction: column; gap: 6px; }
-.dash-action-btn { display: flex; align-items: center; gap: 14px; width: 100%; padding: 16px 20px; background: var(–bg-card); border: 1px solid var(–border); border-radius: var(–radius); cursor: pointer; font-family: var(–font); transition: all 0.2s ease; text-align: left; min-height: 52px; }
-.dash-action-btn:active { transform: scale(0.98); background: var(–bg-card-hover); }
+.dash-action-btn { display: flex; align-items: center; gap: 14px; width: 100%; padding: 16px 20px; background: var(-bg-card); border: 1px solid var(-border); border-radius: var(-radius); cursor: pointer; font-family: var(-font); transition: all 0.2s ease; text-align: left; min-height: 52px; }
+.dash-action-btn:active { transform: scale(0.98); background: var(-bg-card-hover); }
 .dash-action-icon { font-size: 20px; flex-shrink: 0; }
-.dash-action-label { flex: 1; font-size: 15px; font-weight: 500; color: var(–text-secondary); }
-.dash-action-arrow { color: var(–text-caption); flex-shrink: 0; }
+.dash-action-label { flex: 1; font-size: 15px; font-weight: 500; color: var(-text-secondary); }
+.dash-action-arrow { color: var(-text-caption); flex-shrink: 0; }
 
-/* Section labels – metadata tier */
-.dash-section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(–text-caption); padding: 4px 4px 0; }
-.dash-obj-stack { display: flex; flex-direction: column; background: var(–bg-card); border: 1px solid var(–border); border-radius: var(–radius); overflow: hidden; }
-.dash-obj-row { display: flex; align-items: center; padding: 16px 20px; gap: 12px; cursor: pointer; transition: background 0.2s ease; border-bottom: 1px solid var(–border); }
+/* Section labels - metadata tier */
+.dash-section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(-text-caption); padding: 4px 4px 0; }
+.dash-obj-stack { display: flex; flex-direction: column; background: var(-bg-card); border: 1px solid var(-border); border-radius: var(-radius); overflow: hidden; }
+.dash-obj-row { display: flex; align-items: center; padding: 16px 20px; gap: 12px; cursor: pointer; transition: background 0.2s ease; border-bottom: 1px solid var(-border); }
 .dash-obj-row:last-child { border-bottom: none; }
-.dash-obj-row:active { background: var(–bg-card-hover); }
-.dash-obj-row-label { font-size: 15px; font-weight: 500; color: var(–text-secondary); flex: 1; }
-.dash-obj-row-val { font-size: 13px; font-family: var(–mono); color: var(–text-caption); }
+.dash-obj-row:active { background: var(-bg-card-hover); }
+.dash-obj-row-label { font-size: 15px; font-weight: 500; color: var(-text-secondary); flex: 1; }
+.dash-obj-row-val { font-size: 13px; font-family: var(-mono); color: var(-text-caption); }
 
-.dash-metric-sub { margin-top: 8px; font-size: 12px; color: var(–text-muted); }
+.dash-metric-sub { margin-top: 8px; font-size: 12px; color: var(-text-muted); }
 .dash-progress-bar-wrap { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
 .dash-progress-bar { flex: 1; height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
-.dash-progress-fill { height: 100%; background: var(–accent); border-radius: 2px; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-.dash-progress-over { background: var(–danger); }
-.dash-progress-pct { font-size: 11px; color: var(–text-muted); font-family: var(–mono); min-width: 32px; text-align: right; }
+.dash-progress-fill { height: 100%; background: var(-accent); border-radius: 2px; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.dash-progress-over { background: var(-danger); }
+.dash-progress-pct { font-size: 11px; color: var(-text-muted); font-family: var(-mono); min-width: 32px; text-align: right; }
 .dash-inline-form { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; animation: slideUp 0.25s ease; }
-.dash-suggestion-hint { font-size: 12px; color: var(–ok); background: rgba(74, 222, 128, 0.08); border: 1px solid rgba(74, 222, 128, 0.12); border-radius: var(–radius-sm); padding: 10px 12px; }
+.dash-suggestion-hint { font-size: 12px; color: var(-ok); background: rgba(74, 222, 128, 0.08); border: 1px solid rgba(74, 222, 128, 0.12); border-radius: var(-radius-sm); padding: 10px 12px; }
 .dash-form-actions { display: flex; gap: 8px; }
-.dash-cancel-btn, .dash-clear-btn { flex: 1; padding: 12px 10px; background: none; border: 1px solid var(–border); border-radius: var(–radius-sm); color: var(–text-muted); font-family: var(–font); font-size: 14px; cursor: pointer; transition: all 0.15s; min-height: 48px; }
-.dash-cancel-btn:active { background: var(–bg-card-hover); }
-.dash-clear-btn:active { background: rgba(255, 80, 80, 0.08); color: var(–danger); border-color: rgba(255, 80, 80, 0.2); }
-.dash-tdee-compact { text-align: center; font-size: 12px; color: var(–text-muted); font-family: var(–mono); padding: 4px 0 8px; letter-spacing: -0.3px; opacity: 0.6; }
+.dash-cancel-btn, .dash-clear-btn { flex: 1; padding: 12px 10px; background: none; border: 1px solid var(-border); border-radius: var(-radius-sm); color: var(-text-muted); font-family: var(-font); font-size: 14px; cursor: pointer; transition: all 0.15s; min-height: 48px; }
+.dash-cancel-btn:active { background: var(-bg-card-hover); }
+.dash-clear-btn:active { background: rgba(255, 80, 80, 0.08); color: var(-danger); border-color: rgba(255, 80, 80, 0.2); }
+.dash-tdee-compact { text-align: center; font-size: 12px; color: var(-text-muted); font-family: var(-mono); padding: 4px 0 8px; letter-spacing: -0.3px; opacity: 0.6; }
 
-/* Metabolism – elevated surface */
-.metabolism-card { background: var(–bg-surface); border-color: rgba(74, 222, 128, 0.08); }
+/* Metabolism - elevated surface */
+.metabolism-card { background: var(-bg-surface); border-color: rgba(74, 222, 128, 0.08); }
 .metab-grid { display: flex; align-items: stretch; gap: 0; margin-top: 8px; }
 .metab-item { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 14px 8px; }
-.metab-value { font-size: 30px; font-weight: 700; color: #fff; font-family: var(–mono); letter-spacing: -1px; line-height: 1.1; }
-.metab-unit { font-size: 10px; color: var(–accent); font-weight: 600; margin-top: 3px; font-family: var(–mono); letter-spacing: 1px; text-transform: uppercase; }
-.metab-label { font-size: 10px; color: var(–text-caption); text-align: center; margin-top: 6px; font-family: var(–mono); letter-spacing: 0.5px; }
-.metab-divider { width: 1px; background: var(–border); align-self: stretch; margin: 8px 0; }
+.metab-value { font-size: 30px; font-weight: 700; color: #fff; font-family: var(-mono); letter-spacing: -1px; line-height: 1.1; }
+.metab-unit { font-size: 10px; color: var(-accent); font-weight: 600; margin-top: 3px; font-family: var(-mono); letter-spacing: 1px; text-transform: uppercase; }
+.metab-label { font-size: 10px; color: var(-text-caption); text-align: center; margin-top: 6px; font-family: var(-mono); letter-spacing: 0.5px; }
+.metab-divider { width: 1px; background: var(-border); align-self: stretch; margin: 8px 0; }
 
-/* Collapsible – surface layer for depth */
-.collapse-card { padding: 0; overflow: hidden; background: var(–bg-surface); }
-.collapse-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 18px 20px; background: none; border: none; cursor: pointer; color: var(–text-secondary); font-family: var(–font); text-align: left; gap: 10px; }
-.collapse-toggle:active { background: var(–bg-card-hover); }
-.collapse-title { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(–text-caption); display: flex; align-items: center; gap: 8px; }
-.collapse-count { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px; background: var(–accent-dim); color: var(–accent); border-radius: var(–radius-sm); font-size: 11px; font-weight: 600; font-family: var(–mono); letter-spacing: 0; text-transform: none; }
-.collapse-chevron { color: var(–text-muted); transition: transform 0.25s ease; flex-shrink: 0; }
+/* Collapsible - surface layer for depth */
+.collapse-card { padding: 0; overflow: hidden; background: var(-bg-surface); }
+.collapse-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 18px 20px; background: none; border: none; cursor: pointer; color: var(-text-secondary); font-family: var(-font); text-align: left; gap: 10px; }
+.collapse-toggle:active { background: var(-bg-card-hover); }
+.collapse-title { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(-text-caption); display: flex; align-items: center; gap: 8px; }
+.collapse-count { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px; background: var(-accent-dim); color: var(-accent); border-radius: var(-radius-sm); font-size: 11px; font-weight: 600; font-family: var(-mono); letter-spacing: 0; text-transform: none; }
+.collapse-chevron { color: var(-text-muted); transition: transform 0.25s ease; flex-shrink: 0; }
 .collapse-chevron-open { transform: rotate(180deg); }
 .collapse-body { padding: 0 20px 20px; animation: slideUp 0.2s ease; }
 
-/* Nutrition – progress rings summary */
-.nutri-summary { padding: 24px 20px; background: var(–bg-surface); }
+/* Nutrition - progress rings summary */
+.nutri-summary { padding: 24px 20px; background: var(-bg-surface); }
 .nutri-rings-row { display: flex; align-items: center; justify-content: center; gap: 16px; }
 .nutri-ring-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .nutri-ring-wrap { position: relative; width: 72px; height: 72px; }
 .nutri-ring-svg { width: 100%; height: 100%; }
 .nutri-ring-progress { transition: stroke-dasharray 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
 .nutri-ring-inner { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
-.nutri-ring-val { font-size: 15px; font-weight: 700; font-family: var(–mono); color: #fff; letter-spacing: -0.5px; }
-.nutri-ring-label { font-size: 10px; font-weight: 600; color: var(–text-caption); text-transform: uppercase; letter-spacing: 1px; font-family: var(–mono); }
+.nutri-ring-val { font-size: 15px; font-weight: 700; font-family: var(-mono); color: #fff; letter-spacing: -0.5px; }
+.nutri-ring-label { font-size: 10px; font-weight: 600; color: var(-text-caption); text-transform: uppercase; letter-spacing: 1px; font-family: var(-mono); }
 .nutri-remaining-block { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding-left: 8px; }
-.nutri-remaining-val { font-size: 32px; font-weight: 700; font-family: var(–mono); color: var(–accent); letter-spacing: -2px; line-height: 1; }
-.nutri-remaining-val.nutri-over { color: var(–danger); }
-.nutri-remaining-unit { font-size: 11px; color: var(–text-muted); margin-top: 4px; }
-.nutri-remaining-burned { font-size: 11px; color: var(–accent); margin-top: 2px; font-weight: 500; }
-.nutri-ok { color: var(–ok); }
-.nutri-over { color: var(–danger); }
+.nutri-remaining-val { font-size: 32px; font-weight: 700; font-family: var(-mono); color: var(-accent); letter-spacing: -2px; line-height: 1; }
+.nutri-remaining-val.nutri-over { color: var(-danger); }
+.nutri-remaining-unit { font-size: 11px; color: var(-text-muted); margin-top: 4px; }
+.nutri-remaining-burned { font-size: 11px; color: var(-accent); margin-top: 2px; font-weight: 500; }
+.nutri-ok { color: var(-ok); }
+.nutri-over { color: var(-danger); }
 .nutri-form { display: flex; flex-direction: column; gap: 14px; }
 .nutri-list { display: flex; flex-direction: column; gap: 8px; }
-.nutri-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: rgba(255,255,255,0.03); border: none; border-radius: var(–radius-sm); gap: 10px; }
+.nutri-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: rgba(255,255,255,0.03); border: none; border-radius: var(-radius-sm); gap: 10px; }
 .nutri-item-info { display: flex; flex-direction: column; min-width: 0; flex: 1; gap: 2px; }
-.nutri-item-name { font-size: 15px; font-weight: 500; color: var(–text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.nutri-item-meta { font-size: 13px; color: var(–text-secondary); }
+.nutri-item-name { font-size: 15px; font-weight: 500; color: var(-text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nutri-item-meta { font-size: 13px; color: var(-text-secondary); }
 .nutri-item-time { opacity: 0.6; }
 .nutri-item-actions { display: flex; gap: 6px; flex-shrink: 0; }
-.nutri-quick-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: rgba(74, 222, 128, 0.08); color: var(–ok); border: none; border-radius: var(–radius-sm); font-size: 18px; font-weight: 600; cursor: pointer; }
+.nutri-quick-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: rgba(74, 222, 128, 0.08); color: var(-ok); border: none; border-radius: var(-radius-sm); font-size: 18px; font-weight: 600; cursor: pointer; }
 .nutri-quick-btn:active { transform: scale(0.9); }
-.nutri-del-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: none; color: var(–text-muted); border: none; border-radius: var(–radius-sm); font-size: 16px; cursor: pointer; }
-.nutri-del-btn:active { background: rgba(255, 80, 80, 0.08); color: var(–danger); }
+.nutri-del-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: none; color: var(-text-muted); border: none; border-radius: var(-radius-sm); font-size: 16px; cursor: pointer; }
+.nutri-del-btn:active { background: rgba(255, 80, 80, 0.08); color: var(-danger); }
 .nutri-field-wrap { display: flex; flex-direction: column; gap: 4px; }
-.nutri-field-label { font-size: 13px; font-weight: 500; color: var(–text-secondary); }
-.nutri-required { color: var(–accent); font-weight: 600; }
-.nutri-error { font-size: 12px; color: var(–danger); margin-top: 2px; animation: slideUp 0.2s ease; }
-.nutri-autocomplete { position: absolute; top: 100%; left: 0; right: 0; z-index: 50; background: var(–bg-card); border: 1px solid var(–border-light); border-radius: var(–radius-sm); margin-top: 4px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.4); animation: slideUp 0.15s ease; }
-.nutri-autocomplete-item { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 12px 14px; background: none; border: none; border-bottom: 1px solid var(–border); cursor: pointer; font-family: var(–font); color: var(–text-primary); font-size: 14px; min-height: 44px; }
+.nutri-field-label { font-size: 13px; font-weight: 500; color: var(-text-secondary); }
+.nutri-required { color: var(-accent); font-weight: 600; }
+.nutri-error { font-size: 12px; color: var(-danger); margin-top: 2px; animation: slideUp 0.2s ease; }
+.nutri-autocomplete { position: absolute; top: 100%; left: 0; right: 0; z-index: 50; background: var(-bg-card); border: 1px solid var(-border-light); border-radius: var(-radius-sm); margin-top: 4px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.4); animation: slideUp 0.15s ease; }
+.nutri-autocomplete-item { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 12px 14px; background: none; border: none; border-bottom: 1px solid var(-border); cursor: pointer; font-family: var(-font); color: var(-text-primary); font-size: 14px; min-height: 44px; }
 .nutri-autocomplete-item:last-child { border-bottom: none; }
-.nutri-autocomplete-item:active { background: var(–bg-card-hover); }
+.nutri-autocomplete-item:active { background: var(-bg-card-hover); }
 .nutri-autocomplete-name { font-weight: 500; }
-.nutri-autocomplete-meta { font-size: 12px; color: var(–text-muted); font-family: var(–mono); }
+.nutri-autocomplete-meta { font-size: 12px; color: var(-text-muted); font-family: var(-mono); }
 .nutri-frequent { margin-bottom: 4px; }
 .nutri-chips { display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 6px 0 2px; }
 .nutri-chips::-webkit-scrollbar { display: none; }
-.nutri-chip { flex-shrink: 0; padding: 10px 16px; min-height: 44px; background: var(–bg-card); border: 1px solid var(–border); border-radius: 24px; color: var(–text-secondary); font-family: var(–font); font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; transition: all 0.2s ease; display: flex; align-items: center; }
-.nutri-chip:active { transform: scale(0.95); background: var(–accent-dim); border-color: var(–accent); color: var(–accent); }
+.nutri-chip { flex-shrink: 0; padding: 10px 16px; min-height: 44px; background: var(-bg-card); border: 1px solid var(-border); border-radius: 24px; color: var(-text-secondary); font-family: var(-font); font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; transition: all 0.2s ease; display: flex; align-items: center; }
+.nutri-chip:active { transform: scale(0.95); background: var(-accent-dim); border-color: var(-accent); color: var(-accent); }
 
 /* History */
 .hist-groups { display: flex; flex-direction: column; gap: 14px; }
 .hist-day { display: flex; flex-direction: column; gap: 6px; }
-.hist-day-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(–border); }
-.hist-day-label { font-size: 14px; font-weight: 600; color: var(–text-primary); }
-.hist-day-totals { font-size: 12px; font-family: var(–mono); color: var(–text-muted); }
+.hist-day-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(-border); }
+.hist-day-label { font-size: 14px; font-weight: 600; color: var(-text-primary); }
+.hist-day-totals { font-size: 12px; font-family: var(-mono); color: var(-text-muted); }
 .hist-day-meals { display: flex; flex-direction: column; gap: 6px; }
-.hist-meal { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: rgba(255,255,255,0.02); border: none; border-radius: var(–radius-sm); gap: 10px; }
-.hist-meal-name { font-size: 14px; color: var(–text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1; }
-.hist-meal-meta { font-size: 12px; font-family: var(–mono); color: var(–text-muted); flex-shrink: 0; }
+.hist-meal { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: rgba(255,255,255,0.02); border: none; border-radius: var(-radius-sm); gap: 10px; }
+.hist-meal-name { font-size: 14px; color: var(-text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1; }
+.hist-meal-meta { font-size: 12px; font-family: var(-mono); color: var(-text-muted); flex-shrink: 0; }
 
 /* Training */
 .train-main-btn { display: flex; align-items: center; justify-content: center; gap: 8px; }
-.train-secondary-btn { display: flex; align-items: center; justify-content: center; gap: 7px; width: 100%; padding: 14px 16px; min-height: 52px; background: rgba(255,255,255,0.03); border: none; border-radius: var(–radius); color: var(–text-secondary); font-family: var(–font); font-size: 14px; font-weight: 500; cursor: pointer; }
+.train-secondary-btn { display: flex; align-items: center; justify-content: center; gap: 7px; width: 100%; padding: 14px 16px; min-height: 52px; background: rgba(255,255,255,0.03); border: none; border-radius: var(-radius); color: var(-text-secondary); font-family: var(-font); font-size: 14px; font-weight: 500; cursor: pointer; }
 .train-secondary-btn:active { transform: scale(0.97); background: rgba(255,255,255,0.06); }
-.train-back { display: inline-flex; align-items: center; background: none; border: none; color: var(–accent); font-family: var(–font); font-size: 14px; font-weight: 500; cursor: pointer; padding: 4px 0; margin-bottom: 4px; }
-.train-section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(–text-caption); padding: 8px 0 2px; }
+.train-back { display: inline-flex; align-items: center; background: none; border: none; color: var(-accent); font-family: var(-font); font-size: 14px; font-weight: 500; cursor: pointer; padding: 4px 0; margin-bottom: 4px; }
+.train-section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(-text-caption); padding: 8px 0 2px; }
 .train-empty { display: flex; flex-direction: column; align-items: center; padding: 32px 20px; }
-.train-banner { display: flex; align-items: center; gap: 10px; width: 100%; padding: 16px 18px; background: rgba(74, 222, 128, 0.06); border: none; border-radius: var(–radius); cursor: pointer; font-family: var(–font); }
+.train-banner { display: flex; align-items: center; gap: 10px; width: 100%; padding: 16px 18px; background: rgba(74, 222, 128, 0.06); border: none; border-radius: var(-radius); cursor: pointer; font-family: var(-font); }
 .train-banner:active { transform: scale(0.98); }
-.train-banner-dot { width: 8px; height: 8px; background: var(–ok); border-radius: 50%; box-shadow: 0 0 8px rgba(74, 222, 128, 0.5); animation: pulse 2s infinite; }
+.train-banner-dot { width: 8px; height: 8px; background: var(-ok); border-radius: 50%; box-shadow: 0 0 8px rgba(74, 222, 128, 0.5); animation: pulse 2s infinite; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-.train-banner-txt { flex: 1; font-size: 14px; font-weight: 500; color: var(–ok); }
-.train-banner-arrow { font-size: 13px; color: var(–ok); opacity: 0.7; }
+.train-banner-txt { flex: 1; font-size: 14px; font-weight: 500; color: var(-ok); }
+.train-banner-arrow { font-size: 13px; color: var(-ok); opacity: 0.7; }
 .train-prog-list { display: flex; flex-direction: column; gap: 8px; }
-.train-prog-card { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; text-align: left; width: 100%; font-family: var(–font); }
+.train-prog-card { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; text-align: left; width: 100%; font-family: var(-font); }
 .train-prog-card-info { display: flex; flex-direction: column; min-width: 0; flex: 1; }
 .train-prog-card-name { font-size: 16px; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.train-prog-card-meta { font-size: 13px; color: var(–text-muted); margin-top: 3px; }
-.train-tabs { display: flex; gap: 4px; border: none; border-radius: var(–radius); overflow: hidden; background: rgba(255,255,255,0.02); padding: 4px; }
-.train-tab { flex: 1; padding: 10px 8px; background: transparent; border: none; border-right: none; color: var(–text-muted); font-family: var(–font); font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; border-radius: var(–radius-sm); transition: all 0.15s; }
+.train-prog-card-meta { font-size: 13px; color: var(-text-muted); margin-top: 3px; }
+.train-tabs { display: flex; gap: 4px; border: none; border-radius: var(-radius); overflow: hidden; background: rgba(255,255,255,0.02); padding: 4px; }
+.train-tab { flex: 1; padding: 10px 8px; background: transparent; border: none; border-right: none; color: var(-text-muted); font-family: var(-font); font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; border-radius: var(-radius-sm); transition: all 0.15s; }
 .train-tab-on { color: #fff; }
-.train-tab-musculation { background: rgba(74,222,128,0.2); color: var(–accent); }
-.train-tab-cardio { background: rgba(74, 222, 128, 0.2); color: var(–ok); }
-.train-tab-crossfit { background: rgba(255, 167, 38, 0.2); color: var(–warn); }
-.train-cat-badge { display: inline-block; padding: 4px 10px; border-radius: var(–radius-sm); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; width: fit-content; }
-.train-cat-musculation { background: rgba(74,222,128,0.12); color: var(–accent); }
-.train-cat-cardio { background: rgba(74, 222, 128, 0.12); color: var(–ok); }
-.train-cat-crossfit { background: rgba(255, 167, 38, 0.12); color: var(–warn); }
+.train-tab-musculation { background: rgba(74,222,128,0.2); color: var(-accent); }
+.train-tab-cardio { background: rgba(74, 222, 128, 0.2); color: var(-ok); }
+.train-tab-crossfit { background: rgba(255, 167, 38, 0.2); color: var(-warn); }
+.train-cat-badge { display: inline-block; padding: 4px 10px; border-radius: var(-radius-sm); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; width: fit-content; }
+.train-cat-musculation { background: rgba(74,222,128,0.12); color: var(-accent); }
+.train-cat-cardio { background: rgba(74, 222, 128, 0.12); color: var(-ok); }
+.train-cat-crossfit { background: rgba(255, 167, 38, 0.12); color: var(-warn); }
 .train-cat-dot-sm { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-left: 6px; vertical-align: middle; }
-.train-cat-dot-sm.train-cat-musculation { background: var(–accent); }
-.train-cat-dot-sm.train-cat-cardio { background: var(–ok); }
-.train-cat-dot-sm.train-cat-crossfit { background: var(–warn); }
+.train-cat-dot-sm.train-cat-musculation { background: var(-accent); }
+.train-cat-dot-sm.train-cat-cardio { background: var(-ok); }
+.train-cat-dot-sm.train-cat-crossfit { background: var(-warn); }
 .train-group-section { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
-.train-group-label { font-size: 11px; font-weight: 600; color: var(–text-secondary); padding: 8px 4px 2px; text-transform: uppercase; letter-spacing: 0.5px; }
-.train-ex-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 16px; background: rgba(255,255,255,0.03); border: none; border-radius: var(–radius-sm); }
+.train-group-label { font-size: 11px; font-weight: 600; color: var(-text-secondary); padding: 8px 4px 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+.train-ex-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 16px; background: rgba(255,255,255,0.03); border: none; border-radius: var(-radius-sm); }
 .train-ex-row-on { background: rgba(74, 222, 128, 0.06); }
 .train-ex-row-dis { opacity: 0.4; }
 .train-ex-row-info { display: flex; flex-direction: column; min-width: 0; flex: 1; gap: 2px; }
-.train-ex-name { font-size: 15px; color: var(–text-primary); }
-.train-ex-equip { font-size: 12px; color: var(–text-muted); }
-.train-ex-add-btn { flex-shrink: 0; padding: 8px 16px; background: var(–accent-dim); color: var(–accent); border: none; border-radius: var(–radius-sm); font-family: var(–font); font-size: 12px; font-weight: 600; cursor: pointer; min-height: 44px; }
+.train-ex-name { font-size: 15px; color: var(-text-primary); }
+.train-ex-equip { font-size: 12px; color: var(-text-muted); }
+.train-ex-add-btn { flex-shrink: 0; padding: 8px 16px; background: var(-accent-dim); color: var(-accent); border: none; border-radius: var(-radius-sm); font-family: var(-font); font-size: 12px; font-weight: 600; cursor: pointer; min-height: 44px; }
 .train-ex-add-btn:active { transform: scale(0.95); }
 .train-ex-add-btn:disabled { opacity: 0.3; }
-.train-ex-added { font-size: 12px; color: var(–ok); font-weight: 500; }
-.train-ex-custom-badge { display: inline-block; margin-left: 6px; padding: 2px 6px; background: rgba(255, 167, 38, 0.12); color: var(–warn); border-radius: var(–radius-xs); font-size: 10px; font-weight: 600; text-transform: uppercase; vertical-align: middle; }
+.train-ex-added { font-size: 12px; color: var(-ok); font-weight: 500; }
+.train-ex-custom-badge { display: inline-block; margin-left: 6px; padding: 2px 6px; background: rgba(255, 167, 38, 0.12); color: var(-warn); border-radius: var(-radius-xs); font-size: 10px; font-weight: 600; text-transform: uppercase; vertical-align: middle; }
 .train-search-wrap { position: relative; display: flex; align-items: center; }
-.train-search-icon { position: absolute; left: 14px; color: var(–text-muted); pointer-events: none; }
-.train-search-input { width: 100%; padding: 13px 38px 13px 40px; background: rgba(255,255,255,0.04); border: 1px solid transparent; border-radius: var(–radius); color: var(–text-primary); font-family: var(–font); font-size: 16px; outline: none; transition: all 0.2s; }
-.train-search-input::placeholder { color: var(–text-muted); }
-.train-search-input:focus { border-color: var(–accent); background: rgba(74,222,128,0.04); }
-.train-search-clear { position: absolute; right: 10px; background: none; border: none; color: var(–text-muted); font-size: 14px; cursor: pointer; padding: 4px 6px; }
-.train-search-count { font-size: 12px; color: var(–text-muted); padding: 2px 0; }
-.train-text-link { background: none; border: none; color: var(–text-muted); font-family: var(–font); font-size: 13px; font-weight: 500; cursor: pointer; padding: 6px 0; text-align: center; }
-.train-text-link:active { color: var(–accent); }
+.train-search-icon { position: absolute; left: 14px; color: var(-text-muted); pointer-events: none; }
+.train-search-input { width: 100%; padding: 13px 38px 13px 40px; background: rgba(255,255,255,0.04); border: 1px solid transparent; border-radius: var(-radius); color: var(-text-primary); font-family: var(-font); font-size: 16px; outline: none; transition: all 0.2s; }
+.train-search-input::placeholder { color: var(-text-muted); }
+.train-search-input:focus { border-color: var(-accent); background: rgba(74,222,128,0.04); }
+.train-search-clear { position: absolute; right: 10px; background: none; border: none; color: var(-text-muted); font-size: 14px; cursor: pointer; padding: 4px 6px; }
+.train-search-count { font-size: 12px; color: var(-text-muted); padding: 2px 0; }
+.train-text-link { background: none; border: none; color: var(-text-muted); font-family: var(-font); font-size: 13px; font-weight: 500; cursor: pointer; padding: 6px 0; text-align: center; }
+.train-text-link:active { color: var(-accent); }
 .train-actions { display: flex; flex-direction: column; gap: 8px; }
 .train-prog-sel-list { display: flex; flex-direction: column; gap: 10px; }
-.train-prog-sel-item { padding: 14px 16px; background: rgba(255,255,255,0.03); border: none; border-radius: var(–radius-sm); }
+.train-prog-sel-item { padding: 14px 16px; background: rgba(255,255,255,0.03); border: none; border-radius: var(-radius-sm); }
 .train-prog-sel-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.train-prog-sel-name { font-size: 14px; font-weight: 500; color: var(–text-primary); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.train-prog-sel-name { font-size: 14px; font-weight: 500; color: var(-text-primary); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .train-prog-sel-config { display: flex; align-items: flex-end; gap: 8px; margin-top: 8px; }
 .train-prog-sel-field { flex: 1; display: flex; flex-direction: column; gap: 3px; }
-.train-prog-sel-field label { font-size: 11px; color: var(–text-muted); font-weight: 500; }
+.train-prog-sel-field label { font-size: 11px; color: var(-text-muted); font-weight: 500; }
 .train-prog-sel-input { text-align: center; padding: 8px 6px !important; }
-.train-prog-sel-x { font-size: 16px; color: var(–text-muted); padding-bottom: 8px; }
-.train-prog-sel-note { font-size: 12px; color: var(–text-muted); margin-top: 6px; font-style: italic; }
+.train-prog-sel-x { font-size: 16px; color: var(-text-muted); padding-bottom: 8px; }
+.train-prog-sel-note { font-size: 12px; color: var(-text-muted); margin-top: 6px; font-style: italic; }
 
 /* Detail */
 .train-detail-edit-card { display: flex; flex-direction: column; gap: 12px; }
 .train-detail-edit-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .train-detail-edit-info { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
-.train-detail-num { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: var(–accent-dim); color: var(–accent); border-radius: 50%; font-size: 13px; font-weight: 700; font-family: var(–mono); flex-shrink: 0; }
-.train-detail-name { font-size: 15px; font-weight: 600; color: var(–text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.train-detail-num { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: var(-accent-dim); color: var(-accent); border-radius: 50%; font-size: 13px; font-weight: 700; font-family: var(-mono); flex-shrink: 0; }
+.train-detail-name { font-size: 15px; font-weight: 600; color: var(-text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .train-detail-edit-controls { display: flex; align-items: flex-end; gap: 8px; padding: 0 4px; flex-wrap: wrap; }
 .train-detail-edit-field { flex: 1; min-width: 80px; display: flex; flex-direction: column; gap: 3px; align-items: center; }
-.train-detail-edit-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; color: var(–text-muted); }
-.train-detail-edit-x { font-size: 16px; color: var(–text-muted); padding-bottom: 8px; }
-.train-detail-edit-cardio-note { font-size: 12px; color: var(–text-muted); font-style: italic; padding-left: 32px; }
-.train-detail-stepper { display: flex; align-items: center; border: none; border-radius: var(–radius-sm); overflow: hidden; background: rgba(255,255,255,0.03); }
-.train-stepper-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; color: var(–text-primary); font-size: 18px; font-weight: 600; cursor: pointer; }
+.train-detail-edit-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; color: var(-text-muted); }
+.train-detail-edit-x { font-size: 16px; color: var(-text-muted); padding-bottom: 8px; }
+.train-detail-edit-cardio-note { font-size: 12px; color: var(-text-muted); font-style: italic; padding-left: 32px; }
+.train-detail-stepper { display: flex; align-items: center; border: none; border-radius: var(-radius-sm); overflow: hidden; background: rgba(255,255,255,0.03); }
+.train-stepper-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; color: var(-text-primary); font-size: 18px; font-weight: 600; cursor: pointer; }
 .train-stepper-btn:active { background: rgba(255,255,255,0.06); }
-.train-stepper-val { width: 40px; text-align: center; background: transparent; border: none; border-left: 1px solid var(–border); border-right: 1px solid var(–border); color: var(–text-primary); font-family: var(–mono); font-size: 15px; font-weight: 600; padding: 6px 0; outline: none; }
+.train-stepper-val { width: 40px; text-align: center; background: transparent; border: none; border-left: 1px solid var(-border); border-right: 1px solid var(-border); color: var(-text-primary); font-family: var(-mono); font-size: 15px; font-weight: 600; padding: 6px 0; outline: none; }
 .train-detail-actions { display: flex; gap: 10px; }
 
-/* Session – surface layer header */
-.train-session-header { text-align: center; padding: 28px 16px 20px; background: var(–bg-surface); }
-.train-session-time { font-size: 48px; font-weight: 700; font-family: var(–mono); letter-spacing: -2px; line-height: 1; color: #fff; }
+/* Session - surface layer header */
+.train-session-header { text-align: center; padding: 28px 16px 20px; background: var(-bg-surface); }
+.train-session-time { font-size: 48px; font-weight: 700; font-family: var(-mono); letter-spacing: -2px; line-height: 1; color: #fff; }
 .train-session-progress { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; }
-.train-session-ring { width: 36px; height: 36px; color: var(–accent); }
+.train-session-ring { width: 36px; height: 36px; color: var(-accent); }
 .train-session-ring circle { transition: stroke-dasharray 0.5s ease; }
-.train-session-sets-label { font-size: 13px; font-family: var(–mono); color: var(–accent); font-weight: 600; letter-spacing: -0.5px; }
-.train-session-stats { font-size: 12px; color: var(–text-caption); margin-top: 8px; }
-.train-rest-toggle { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; padding: 8px 16px; background: rgba(255,255,255,0.04); border: none; border-radius: var(–radius); cursor: pointer; font-family: var(–font); }
+.train-session-sets-label { font-size: 13px; font-family: var(-mono); color: var(-accent); font-weight: 600; letter-spacing: -0.5px; }
+.train-session-stats { font-size: 12px; color: var(-text-caption); margin-top: 8px; }
+.train-rest-toggle { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; padding: 8px 16px; background: rgba(255,255,255,0.04); border: none; border-radius: var(-radius); cursor: pointer; font-family: var(-font); }
 .train-rest-toggle:active { transform: scale(0.95); }
-.train-rest-toggle-dot { width: 10px; height: 10px; border-radius: 50%; background: var(–text-muted); transition: all 0.2s; }
-.train-rest-toggle-on { background: var(–accent); box-shadow: 0 0 8px var(–accent-glow); }
-.train-rest-toggle-label { font-size: 12px; font-weight: 500; color: var(–text-secondary); }
-.train-rest-bar { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: rgba(74,222,128,0.06); border: none; border-radius: var(–radius-sm); cursor: pointer; font-family: var(–font); width: 100%; }
+.train-rest-toggle-dot { width: 10px; height: 10px; border-radius: 50%; background: var(-text-muted); transition: all 0.2s; }
+.train-rest-toggle-on { background: var(-accent); box-shadow: 0 0 8px var(-accent-glow); }
+.train-rest-toggle-label { font-size: 12px; font-weight: 500; color: var(-text-secondary); }
+.train-rest-bar { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: rgba(74,222,128,0.06); border: none; border-radius: var(-radius-sm); cursor: pointer; font-family: var(-font); width: 100%; }
 .train-rest-fill { position: absolute; left: 0; top: 0; bottom: 0; background: rgba(74,222,128,0.1); transition: width 1s linear; }
-.train-rest-txt { position: relative; font-size: 14px; font-weight: 600; color: var(–accent); font-family: var(–mono); }
-.train-rest-dismiss { position: relative; font-size: 14px; color: var(–text-muted); }
+.train-rest-txt { position: relative; font-size: 14px; font-weight: 600; color: var(-accent); font-family: var(-mono); }
+.train-rest-dismiss { position: relative; font-size: 14px; color: var(-text-muted); }
 
 /* Per-exercise completion */
 .train-ex-progress { display: flex; align-items: center; gap: 8px; }
 .train-ex-progress-bar { flex: 1; height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
-.train-ex-progress-fill { height: 100%; background: var(–accent); border-radius: 2px; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-.train-ex-progress-complete { background: var(–accent); box-shadow: 0 0 8px rgba(74, 222, 128, 0.4); }
-.train-ex-progress-label { font-size: 11px; font-family: var(–mono); color: var(–text-muted); font-weight: 600; min-width: 32px; text-align: right; transition: color 0.2s ease; }
-.train-ex-progress-done { color: var(–accent); font-weight: 700; animation: donePulse 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.train-ex-progress-fill { height: 100%; background: var(-accent); border-radius: 2px; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.train-ex-progress-complete { background: var(-accent); box-shadow: 0 0 8px rgba(74, 222, 128, 0.4); }
+.train-ex-progress-label { font-size: 11px; font-family: var(-mono); color: var(-text-muted); font-weight: 600; min-width: 32px; text-align: right; transition: color 0.2s ease; }
+.train-ex-progress-done { color: var(-accent); font-weight: 700; animation: donePulse 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
 @keyframes donePulse { 0% { transform: scale(0.8); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
 
 .train-sess-ex { display: flex; flex-direction: column; gap: 12px; }
@@ -2798,80 +2798,80 @@ color: var(–text-caption);
 .train-sess-ex-head > div { display: flex; align-items: center; }
 .train-sess-ex-name { font-size: 17px; font-weight: 600; color: #fff; }
 .train-sets-head { display: grid; grid-template-columns: 36px 1fr 1fr 48px; gap: 8px; padding: 0 2px; margin-bottom: 4px; }
-.train-sets-col-num, .train-sets-col, .train-sets-col-chk { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(–text-muted); }
+.train-sets-col-num, .train-sets-col, .train-sets-col-chk { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(-text-muted); }
 .train-sets-col { text-align: center; }
 .train-sets-col-chk { text-align: center; }
-.train-set-row { display: grid; grid-template-columns: 36px 1fr 1fr 48px; gap: 8px; align-items: center; padding: 6px 2px; border-radius: var(–radius-sm); transition: background 0.2s ease; }
+.train-set-row { display: grid; grid-template-columns: 36px 1fr 1fr 48px; gap: 8px; align-items: center; padding: 6px 2px; border-radius: var(-radius-sm); transition: background 0.2s ease; }
 .train-set-done { background: rgba(74, 222, 128, 0.04); }
-.train-set-num { font-size: 14px; font-weight: 600; color: var(–text-muted); text-align: center; font-family: var(–mono); width: 32px; transition: color 0.2s ease; }
-.train-set-done .train-set-num { color: var(–accent); }
+.train-set-num { font-size: 14px; font-weight: 600; color: var(-text-muted); text-align: center; font-family: var(-mono); width: 32px; transition: color 0.2s ease; }
+.train-set-done .train-set-num { color: var(-accent); }
 .train-set-input-wrap { position: relative; }
-.train-set-input { width: 100%; padding: 12px 10px; background: rgba(255,255,255,0.04); border: 1px solid transparent; border-radius: var(–radius-sm); color: var(–text-primary); font-family: var(–mono); font-size: 16px; text-align: center; outline: none; transition: all 0.2s ease; }
-.train-set-input:focus { border-color: var(–accent); background: rgba(74,222,128,0.04); }
-.train-set-input::placeholder { color: var(–text-muted); }
+.train-set-input { width: 100%; padding: 12px 10px; background: rgba(255,255,255,0.04); border: 1px solid transparent; border-radius: var(-radius-sm); color: var(-text-primary); font-family: var(-mono); font-size: 16px; text-align: center; outline: none; transition: all 0.2s ease; }
+.train-set-input:focus { border-color: var(-accent); background: rgba(74,222,128,0.04); }
+.train-set-input::placeholder { color: var(-text-muted); }
 .train-set-done .train-set-input { opacity: 0.5; }
-.train-set-hint { position: absolute; bottom: -14px; left: 0; right: 0; text-align: center; font-size: 10px; color: var(–text-muted); font-family: var(–mono); }
-.train-set-chk { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: var(–radius-sm); border: none; background: rgba(255,255,255,0.04); color: var(–text-muted); font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+.train-set-hint { position: absolute; bottom: -14px; left: 0; right: 0; text-align: center; font-size: 10px; color: var(-text-muted); font-family: var(-mono); }
+.train-set-chk { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: var(-radius-sm); border: none; background: rgba(255,255,255,0.04); color: var(-text-muted); font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
 .train-set-chk:active { transform: scale(0.9); }
-.train-set-chk-on { background: rgba(74, 222, 128, 0.12); color: var(–accent); transform: scale(1); animation: checkBounce 0.3s ease; }
+.train-set-chk-on { background: rgba(74, 222, 128, 0.12); color: var(-accent); transform: scale(1); animation: checkBounce 0.3s ease; }
 @keyframes checkBounce { 0% { transform: scale(1); } 40% { transform: scale(1.18); } 70% { transform: scale(0.96); } 100% { transform: scale(1); } }
 .train-set-btns { display: flex; gap: 8px; margin-top: 8px; }
-.train-set-btn { flex: 1; padding: 7px 8px; background: rgba(255,255,255,0.03); border: none; border-radius: var(–radius-sm); color: var(–text-muted); font-family: var(–font); font-size: 12px; font-weight: 500; cursor: pointer; min-height: 48px; display: flex; align-items: center; justify-content: center; transition: background 0.2s ease; }
+.train-set-btn { flex: 1; padding: 7px 8px; background: rgba(255,255,255,0.03); border: none; border-radius: var(-radius-sm); color: var(-text-muted); font-family: var(-font); font-size: 12px; font-weight: 500; cursor: pointer; min-height: 48px; display: flex; align-items: center; justify-content: center; transition: background 0.2s ease; }
 .train-set-btn:active { background: rgba(255,255,255,0.06); }
 
 /* Cardio */
 .train-cardio-section { display: flex; flex-direction: column; gap: 10px; }
 .train-cardio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .train-cardio-field { display: flex; flex-direction: column; gap: 3px; }
-.train-cardio-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; color: var(–text-muted); }
-.train-cardio-auto { border-color: rgba(74,222,128,0.2) !important; color: var(–accent) !important; }
+.train-cardio-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; color: var(-text-muted); }
+.train-cardio-auto { border-color: rgba(74,222,128,0.2) !important; color: var(-accent) !important; }
 .train-cardio-auto::placeholder { color: rgba(74,222,128,0.35) !important; font-style: italic; }
 .train-hms-row { display: flex; align-items: center; gap: 4px; }
-.train-hms-input { flex: 1; text-align: center; padding: 9px 4px !important; font-family: var(–mono); font-size: 16px; min-width: 0; }
-.train-hms-sep { font-size: 16px; font-weight: 600; color: var(–text-muted); }
+.train-hms-input { flex: 1; text-align: center; padding: 9px 4px !important; font-family: var(-mono); font-size: 16px; min-width: 0; }
+.train-hms-sep { font-size: 16px; font-weight: 600; color: var(-text-muted); }
 
 /* Popup */
 .train-popup-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(0, 0, 0, 0.7); display: flex; align-items: flex-end; justify-content: center; padding: 20px; animation: overlayIn 0.2s ease; backdrop-filter: blur(4px); }
-.train-popup { width: 100%; max-width: 400px; background: var(–bg-card); border: 1px solid var(–border-light); border-radius: var(–radius); padding: 24px 20px; animation: popupSlide 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
-.train-popup-title { font-size: 18px; font-weight: 600; color: var(–text-primary); text-align: center; margin-bottom: 16px; }
-.train-popup-cal { text-align: center; padding: 20px; background: rgba(74, 222, 128, 0.04); border: none; border-radius: var(–radius-sm); margin-bottom: 12px; }
-.train-popup-cal-big { font-size: 40px; font-weight: 700; font-family: var(–mono); color: #4ADE80; line-height: 1.1; letter-spacing: -2px; }
-.train-popup-cal-unit { font-size: 13px; color: var(–text-muted); margin-top: 2px; }
-.train-popup-cal-detail { font-size: 12px; color: var(–text-secondary); margin-top: 8px; }
-.train-popup-changes { padding: 14px; background: rgba(255, 167, 38, 0.06); border: 1px solid rgba(255, 167, 38, 0.15); border-radius: var(–radius-sm); display: flex; flex-direction: column; gap: 10px; }
-.train-popup-changes-title { font-size: 14px; font-weight: 600; color: var(–warn); }
+.train-popup { width: 100%; max-width: 400px; background: var(-bg-card); border: 1px solid var(-border-light); border-radius: var(-radius); padding: 24px 20px; animation: popupSlide 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.train-popup-title { font-size: 18px; font-weight: 600; color: var(-text-primary); text-align: center; margin-bottom: 16px; }
+.train-popup-cal { text-align: center; padding: 20px; background: rgba(74, 222, 128, 0.04); border: none; border-radius: var(-radius-sm); margin-bottom: 12px; }
+.train-popup-cal-big { font-size: 40px; font-weight: 700; font-family: var(-mono); color: #4ADE80; line-height: 1.1; letter-spacing: -2px; }
+.train-popup-cal-unit { font-size: 13px; color: var(-text-muted); margin-top: 2px; }
+.train-popup-cal-detail { font-size: 12px; color: var(-text-secondary); margin-top: 8px; }
+.train-popup-changes { padding: 14px; background: rgba(255, 167, 38, 0.06); border: 1px solid rgba(255, 167, 38, 0.15); border-radius: var(-radius-sm); display: flex; flex-direction: column; gap: 10px; }
+.train-popup-changes-title { font-size: 14px; font-weight: 600; color: var(-warn); }
 .train-popup-changes-list { display: flex; flex-direction: column; gap: 4px; }
-.train-popup-change-item { font-size: 13px; color: var(–text-secondary); padding: 4px 0; border-bottom: 1px solid var(–border); }
+.train-popup-change-item { font-size: 13px; color: var(-text-secondary); padding: 4px 0; border-bottom: 1px solid var(-border); }
 .train-popup-change-item:last-child { border-bottom: none; }
 .train-popup-change-btns { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
 .custom-ex-modal { max-height: 85vh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 .custom-ex-fields { display: flex; flex-direction: column; gap: 10px; }
 .custom-ex-group-row { display: flex; gap: 6px; }
-.custom-ex-group-btn { flex: 1; padding: 10px 8px; background: var(–bg-root); border: 1px solid var(–border); border-radius: var(–radius-sm); color: var(–text-secondary); font-family: var(–font); font-size: 13px; font-weight: 500; cursor: pointer; text-align: center; min-height: 44px; }
+.custom-ex-group-btn { flex: 1; padding: 10px 8px; background: var(-bg-root); border: 1px solid var(-border); border-radius: var(-radius-sm); color: var(-text-secondary); font-family: var(-font); font-size: 13px; font-weight: 500; cursor: pointer; text-align: center; min-height: 44px; }
 .custom-ex-group-on { border-width: 2px; }
-.custom-ex-group-musculation { background: rgba(74,222,128,0.08); border-color: var(–accent); color: var(–accent); }
-.custom-ex-group-cardio { background: rgba(74, 222, 128, 0.08); border-color: var(–ok); color: var(–ok); }
-.custom-ex-group-crossfit { background: rgba(255, 167, 38, 0.08); border-color: var(–warn); color: var(–warn); }
+.custom-ex-group-musculation { background: rgba(74,222,128,0.08); border-color: var(-accent); color: var(-accent); }
+.custom-ex-group-cardio { background: rgba(74, 222, 128, 0.08); border-color: var(-ok); color: var(-ok); }
+.custom-ex-group-crossfit { background: rgba(255, 167, 38, 0.08); border-color: var(-warn); color: var(-warn); }
 .train-exlist-modal { max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
 .train-exlist-header { display: flex; align-items: center; justify-content: space-between; }
-.train-exlist-close { background: none; border: none; color: var(–text-muted); font-size: 18px; cursor: pointer; padding: 4px 8px; }
+.train-exlist-close { background: none; border: none; color: var(-text-muted); font-size: 18px; cursor: pointer; padding: 4px 8px; }
 
 /* History */
 .train-hist-list { display: flex; flex-direction: column; gap: 6px; }
-.train-hist-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 16px; background: rgba(255,255,255,0.03); border: none; border-radius: var(–radius-sm); cursor: pointer; font-family: var(–font); text-align: left; width: 100%; min-height: 44px; }
+.train-hist-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 16px; background: rgba(255,255,255,0.03); border: none; border-radius: var(-radius-sm); cursor: pointer; font-family: var(-font); text-align: left; width: 100%; min-height: 44px; }
 .train-hist-row:active { background: rgba(255,255,255,0.06); }
 .train-hist-row-info { flex: 1; min-width: 0; }
-.train-hist-row-name { font-size: 14px; font-weight: 500; color: var(–text-primary); display: block; }
-.train-hist-row-meta { font-size: 12px; color: var(–text-muted); margin-top: 1px; display: block; }
+.train-hist-row-name { font-size: 14px; font-weight: 500; color: var(-text-primary); display: block; }
+.train-hist-row-meta { font-size: 12px; color: var(-text-muted); margin-top: 1px; display: block; }
 
-/* Review – surface header */
-.train-review-header { display: flex; align-items: center; justify-content: center; gap: 0; padding: 20px; background: var(–bg-surface); }
+/* Review - surface header */
+.train-review-header { display: flex; align-items: center; justify-content: center; gap: 0; padding: 20px; background: var(-bg-surface); }
 .train-review-stat { flex: 1; display: flex; flex-direction: column; align-items: center; }
-.train-review-stat-val { font-size: 26px; font-weight: 700; font-family: var(–mono); color: #fff; line-height: 1.2; letter-spacing: -0.5px; }
-.train-review-stat-label { font-size: 10px; color: var(–text-caption); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; font-family: var(–mono); font-weight: 500; }
-.train-review-divider { width: 1px; height: 32px; background: var(–border); flex-shrink: 0; }
+.train-review-stat-val { font-size: 26px; font-weight: 700; font-family: var(-mono); color: #fff; line-height: 1.2; letter-spacing: -0.5px; }
+.train-review-stat-label { font-size: 10px; color: var(-text-caption); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; font-family: var(-mono); font-weight: 500; }
+.train-review-divider { width: 1px; height: 32px; background: var(-border); flex-shrink: 0; }
 .train-review-cardio { display: flex; flex-direction: column; gap: 4px; }
-.train-review-cardio-row { font-size: 14px; color: var(–text-secondary); }
+.train-review-cardio-row { font-size: 14px; color: var(-text-secondary); }
 
 /* PR overlay */
 .pr-overlay { position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; background: rgba(255, 183, 0, 0.08); pointer-events: none; animation: prFade 3s ease forwards; }
@@ -2880,61 +2880,61 @@ color: var(–text-caption);
 @keyframes prBounce { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 .pr-trophy { font-size: 64px; margin-bottom: 8px; }
 .pr-text { font-size: 22px; font-weight: 700; color: #FFD700; letter-spacing: 2px; text-shadow: 0 0 20px rgba(255,215,0,0.5); }
-.pr-detail { font-size: 14px; color: var(–text-secondary); margin-top: 4px; }
+.pr-detail { font-size: 14px; color: var(-text-secondary); margin-top: 4px; }
 
-/* Tracking – consistent metric pattern */
+/* Tracking - consistent metric pattern */
 .track-week-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.track-stat-mini { display: flex; flex-direction: column; align-items: center; padding: 20px 14px; background: var(–bg-surface); border: none; border-radius: var(–radius); position: relative; overflow: hidden; }
-.track-stat-mini::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 32px; height: 2px; background: var(–accent); border-radius: 0 0 2px 2px; opacity: 0.5; }
-.track-stat-val { font-size: 26px; font-weight: 700; font-family: var(–mono); color: #fff; letter-spacing: -1px; }
-.track-stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(–text-caption); margin-top: 4px; font-family: var(–mono); font-weight: 500; }
+.track-stat-mini { display: flex; flex-direction: column; align-items: center; padding: 20px 14px; background: var(-bg-surface); border: none; border-radius: var(-radius); position: relative; overflow: hidden; }
+.track-stat-mini::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 32px; height: 2px; background: var(-accent); border-radius: 0 0 2px 2px; opacity: 0.5; }
+.track-stat-val { font-size: 26px; font-weight: 700; font-family: var(-mono); color: #fff; letter-spacing: -1px; }
+.track-stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(-text-caption); margin-top: 4px; font-family: var(-mono); font-weight: 500; }
 .track-stat-change { font-size: 11px; font-weight: 600; margin-top: 3px; }
-.track-trend { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; font-weight: 600; margin-top: 6px; padding: 2px 8px; border-radius: var(–radius-xs); }
-.track-trend-up { color: var(–accent); background: rgba(74, 222, 128, 0.1); }
-.track-trend-down { color: var(–danger); background: rgba(255, 82, 82, 0.1); }
+.track-trend { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; font-weight: 600; margin-top: 6px; padding: 2px 8px; border-radius: var(-radius-xs); }
+.track-trend-up { color: var(-accent); background: rgba(74, 222, 128, 0.1); }
+.track-trend-down { color: var(-danger); background: rgba(255, 82, 82, 0.1); }
 .track-stat-bar { width: 100%; height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-top: 8px; }
-.track-stat-fill { height: 100%; background: var(–accent); border-radius: 2px; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-.track-up { color: var(–accent); }
-.track-down { color: var(–danger); }
+.track-stat-fill { height: 100%; background: var(-accent); border-radius: 2px; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.track-up { color: var(-accent); }
+.track-down { color: var(-danger); }
 .track-chart-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -18px; padding: 0 18px; }
 .track-chart-scroll::-webkit-scrollbar { display: none; }
 .track-chart { display: flex; align-items: flex-end; gap: 4px; height: 180px; min-width: max-content; position: relative; padding-bottom: 22px; }
-.track-chart-target { position: absolute; left: 0; right: 0; border-top: 1px dashed var(–accent); z-index: 1; opacity: 0.4; }
-.track-chart-target-label { position: absolute; right: 0; top: -14px; font-size: 9px; color: var(–accent); font-family: var(–mono); }
+.track-chart-target { position: absolute; left: 0; right: 0; border-top: 1px dashed var(-accent); z-index: 1; opacity: 0.4; }
+.track-chart-target-label { position: absolute; right: 0; top: -14px; font-size: 9px; color: var(-accent); font-family: var(-mono); }
 .track-bar-col { display: flex; flex-direction: column; align-items: center; width: 24px; flex-shrink: 0; }
 .track-bar-wrap { flex: 1; display: flex; align-items: flex-end; width: 100%; height: 158px; }
 .track-bar { width: 100%; border-radius: 4px; transition: height 0.3s ease; min-height: 2px; }
 .track-bar-ok { background: #4ADE80; }
-.track-bar-over { background: var(–danger); }
+.track-bar-over { background: var(-danger); }
 .track-bar-empty { background: rgba(255,255,255,0.04); border-radius: 4px; }
-.track-bar-label { font-size: 8px; color: var(–text-caption); margin-top: 4px; white-space: nowrap; }
+.track-bar-label { font-size: 8px; color: var(-text-caption); margin-top: 4px; white-space: nowrap; }
 .track-ex-history { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
-.track-ex-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: rgba(255,255,255,0.03); border: none; border-radius: var(–radius-sm); transition: background 0.15s; }
+.track-ex-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: rgba(255,255,255,0.03); border: none; border-radius: var(-radius-sm); transition: background 0.15s; }
 .track-ex-row-pr { background: rgba(74, 222, 128, 0.06); }
-.track-ex-date { font-size: 13px; color: var(–text-secondary); }
-.track-ex-perf { font-size: 13px; font-family: var(–mono); color: var(–text-primary); display: flex; align-items: center; gap: 4px; }
-.track-ex-trend-up { color: var(–accent); font-weight: 700; font-size: 14px; }
+.track-ex-date { font-size: 13px; color: var(-text-secondary); }
+.track-ex-perf { font-size: 13px; font-family: var(-mono); color: var(-text-primary); display: flex; align-items: center; gap: 4px; }
+.track-ex-trend-up { color: var(-accent); font-weight: 700; font-size: 14px; }
 .track-pr-badge { font-size: 14px; }
 .track-weight-form { display: flex; gap: 10px; margin-bottom: 12px; }
 .track-weight-list { display: flex; flex-direction: column; gap: 6px; }
-.track-weight-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: rgba(255,255,255,0.03); border: none; border-radius: var(–radius-sm); }
-.track-weight-date { font-size: 13px; color: var(–text-secondary); }
-.track-weight-val { font-size: 14px; font-family: var(–mono); font-weight: 600; color: var(–text-primary); }
-.track-weight-diff { font-size: 12px; font-weight: 600; font-family: var(–mono); }
+.track-weight-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: rgba(255,255,255,0.03); border: none; border-radius: var(-radius-sm); }
+.track-weight-date { font-size: 13px; color: var(-text-secondary); }
+.track-weight-val { font-size: 14px; font-family: var(-mono); font-weight: 600; color: var(-text-primary); }
+.track-weight-diff { font-size: 12px; font-weight: 600; font-family: var(-mono); }
 
 /* ══════════════════════════════════════
-TRACK PAGE – segment control
+TRACK PAGE - segment control
 ══════════════════════════════════════ */
 .track-page-wrap { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
 .segment-bar {
 flex-shrink: 0;
 padding: 16px 16px 0;
-background: var(–bg-root);
+background: var(-bg-root);
 }
 .segment-control {
 position: relative;
 display: flex;
-background: var(–bg-surface);
+background: var(-bg-surface);
 border-radius: 14px;
 padding: 3px;
 gap: 0;
@@ -2944,7 +2944,7 @@ position: absolute;
 top: 3px; left: 3px;
 width: calc(50% - 3px);
 height: calc(100% - 6px);
-background: var(–bg-card);
+background: var(-bg-card);
 border-radius: 11px;
 transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 box-shadow: 0 2px 8px rgba(0,0,0,0.3);
@@ -2962,7 +2962,7 @@ min-height: 48px;
 background: none;
 border: none;
 color: #A1A1AA;
-font-family: var(–font);
+font-family: var(-font);
 font-size: 14px;
 font-weight: 500;
 cursor: pointer;
@@ -2976,48 +2976,48 @@ border-radius: 11px;
 /* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(–border-light); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: var(-border-light); border-radius: 4px; }
 
 /* ══════════════════════════════════════
-HYTRX SIGNATURE – visual language
+HYTRX SIGNATURE - visual language
 ══════════════════════════════════════ */
 
-/* Accent line – signature top indicator on elevated elements */
+/* Accent line - signature top indicator on elevated elements */
 .card::before { content: none; }
 .card-accent::before {
 content: '';
 position: absolute;
 top: 0; left: 24px;
 width: 32px; height: 2px;
-background: var(–accent);
+background: var(-accent);
 border-radius: 0 0 2px 2px;
 opacity: 0.4;
 }
 .card-accent { position: relative; }
 
-/* Data readout – mono numbers everywhere */
-.data-val { font-family: var(–mono); font-weight: 600; letter-spacing: -0.5px; color: #fff; }
-.data-accent { color: var(–accent); }
-.data-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(–text-caption); font-family: var(–mono); }
+/* Data readout - mono numbers everywhere */
+.data-val { font-family: var(-mono); font-weight: 600; letter-spacing: -0.5px; color: #fff; }
+.data-accent { color: var(-accent); }
+.data-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(-text-caption); font-family: var(-mono); }
 
-/* Section divider – subtle accent line */
-.section-divider { height: 1px; background: linear-gradient(to right, var(–accent), transparent); opacity: 0.1; margin: 4px 0; }
+/* Section divider - subtle accent line */
+.section-divider { height: 1px; background: linear-gradient(to right, var(-accent), transparent); opacity: 0.1; margin: 4px 0; }
 
-/* Card label – HYTRX style: mono, uppercase, tracked */
-.card-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(–text-caption); margin-bottom: 12px; font-family: var(–mono); }
+/* Card label - HYTRX style: mono, uppercase, tracked */
+.card-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(-text-caption); margin-bottom: 12px; font-family: var(-mono); }
 
-/* Section labels – same pattern */
-.dash-section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(–text-caption); padding: 4px 4px 0; font-family: var(–mono); }
-.train-section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(–text-caption); padding: 8px 4px 2px; font-family: var(–mono); }
-.collapse-title { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(–text-caption); display: flex; align-items: center; gap: 8px; font-family: var(–mono); }
-.train-group-label { font-size: 10px; font-weight: 600; color: var(–text-muted); padding: 10px 4px 4px; text-transform: uppercase; letter-spacing: 1px; font-family: var(–mono); }
+/* Section labels - same pattern */
+.dash-section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(-text-caption); padding: 4px 4px 0; font-family: var(-mono); }
+.train-section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(-text-caption); padding: 8px 4px 2px; font-family: var(-mono); }
+.collapse-title { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(-text-caption); display: flex; align-items: center; gap: 8px; font-family: var(-mono); }
+.train-group-label { font-size: 10px; font-weight: 600; color: var(-text-muted); padding: 10px 4px 4px; text-transform: uppercase; letter-spacing: 1px; font-family: var(-mono); }
 
 /* ══════════════════════════════════════
-STICKY CTA BAR – dominant, unmissable
+STICKY CTA BAR - dominant, unmissable
 ══════════════════════════════════════ */
 .sticky-cta {
 position: fixed;
-bottom: calc(var(–nav-height) + var(–safe-bottom));
+bottom: calc(var(-nav-height) + var(-safe-bottom));
 left: 0; right: 0;
 z-index: 90;
 padding: 16px 16px;
@@ -3033,11 +3033,11 @@ pointer-events: none;
 width: 100%;
 padding: 18px 24px;
 min-height: 56px;
-background: var(–accent);
+background: var(-accent);
 color: #0B0B0C;
 border: none;
 border-radius: 16px;
-font-family: var(–font);
+font-family: var(-font);
 font-size: 16px;
 font-weight: 700;
 letter-spacing: 0.3px;
@@ -3053,13 +3053,13 @@ padding: 10px 20px;
 min-height: 44px;
 background: none;
 border: none;
-color: var(–text-caption);
-font-family: var(–font);
+color: var(-text-caption);
+font-family: var(-font);
 font-size: 13px;
 cursor: pointer;
 text-align: center;
 }
-.sticky-cta-tertiary:active { color: var(–text-secondary); }
+.sticky-cta-tertiary:active { color: var(-text-secondary); }
 
 /* Links row for secondary actions */
 .train-links-row {
@@ -3105,7 +3105,7 @@ from { opacity: 1; transform: translateY(0); }
 to { opacity: 0; transform: translateY(-4px); }
 }
 
-/* Page shell entrance – every screen fades in */
+/* Page shell entrance - every screen fades in */
 .page-shell { animation: shellEnter 0.2s ease both; }
 @keyframes shellEnter {
 from { opacity: 0; }
@@ -3135,7 +3135,7 @@ to { opacity: 1; }
 .train-set-input { transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.15s ease; }
 .train-set-input:focus { box-shadow: 0 0 0 3px rgba(74,222,128,0.06); }
 
-/* Set done – satisfaction pulse */
+/* Set done - satisfaction pulse */
 .train-set-done { animation: setDonePulse 0.3s ease; }
 @keyframes setDonePulse {
 0% { background: transparent; }
@@ -3151,17 +3151,17 @@ to { opacity: 1; }
 100% { transform: scale(1); }
 }
 
-/* Nav indicator – animate position with layout */
+/* Nav indicator - animate position with layout */
 .nav-indicator { transition: width 0.2s ease; animation: indicatorIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
 @keyframes indicatorIn {
 from { transform: translateX(-50%) scaleX(0); opacity: 0; }
 to { transform: translateX(-50%) scaleX(1); opacity: 1; }
 }
 
-/* Nav button – spring on press */
+/* Nav button - spring on press */
 .nav-btn { transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
 
-/* Toast – spring entrance from bottom */
+/* Toast - spring entrance from bottom */
 .save-toast { animation: toastSpring 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
 @keyframes toastSpring {
 0% { opacity: 0; transform: translateY(12px) scale(0.95); }
@@ -3186,21 +3186,21 @@ to { opacity: 1; transform: translateY(0); }
 /* History row tap */
 .train-hist-row { transition: background 0.15s ease; }
 
-/* Popup overlay – fade backdrop */
+/* Popup overlay - fade backdrop */
 .train-popup-overlay { animation: overlayIn 0.2s ease; }
 @keyframes overlayIn {
 from { opacity: 0; }
 to { opacity: 1; }
 }
 
-/* Popup slide – spring from bottom */
+/* Popup slide - spring from bottom */
 @keyframes popupSlide {
 0% { opacity: 0; transform: translateY(40px) scale(0.97); }
 60% { opacity: 1; transform: translateY(-4px) scale(1.005); }
 100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* PR overlay – enhanced */
+/* PR overlay - enhanced */
 @keyframes prFade {
 0% { opacity: 0; backdrop-filter: blur(0); }
 8% { opacity: 1; backdrop-filter: blur(4px); }
@@ -3228,7 +3228,7 @@ to { opacity: 1; transform: translateY(0); }
 .sticky-cta-main:active { box-shadow: 0 2px 10px rgba(74, 222, 128, 0.15); }
 .sticky-cta-secondary { transition: transform 0.15s ease, background 0.15s; will-change: transform; }
 
-/* Hero card – entrance animations */
+/* Hero card - entrance animations */
 .dash-hero-number { transition: color 0.3s ease; animation: heroNumberIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both; }
 @keyframes heroNumberIn {
 from { opacity: 0; transform: scale(0.85); }
@@ -3256,6 +3256,6 @@ from { stroke-dasharray: 0 339.3; }
 .ob-sex-btn { transition: transform 0.15s ease, border-color 0.2s, background 0.2s, color 0.2s; will-change: transform; }
 .ob-sex-btn:active { transform: scale(0.97); }
 
-/* Progress bar fill – smooth on change */
+/* Progress bar fill - smooth on change */
 .dash-hero-fill { transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
 .dash-progress-fill { transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
